@@ -14,6 +14,9 @@ int main()
     int cont = 0;
 
     /************************************************ 
+    // El siguiente codigo se puede desmarcar y crea un array que depende de MaxLoop
+    //Comentar array algo[] de arriba 
+
     for (int i = 0; i < MaxLoop+1; i++){
         algo[i]=i;
         printf("%d \n", algo[i]);
