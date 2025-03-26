@@ -15,6 +15,7 @@ int main(int argc, char const *argv[])
     while (prueba > 0){
         inverso = (inverso * 10) + prueba % 10;
         prueba = prueba / 10;
+        // prueba /= 10; Otra forma de escribir lo de arriba
     }
 
     if (inverso == numero){
