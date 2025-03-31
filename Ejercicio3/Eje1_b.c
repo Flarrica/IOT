@@ -25,6 +25,7 @@ void Contador(char *puntero,int *vocal,int *consonante){
     {
         
         if ((*puntero > 64 && *puntero < 91) || (*puntero > 96 && *puntero < 123))
+        //if ((*puntero >= 'A' && *puntero <= 'Z') || (*puntero >= 'a' && *puntero <= 'z'))
         {
             switch (*puntero)
             {
