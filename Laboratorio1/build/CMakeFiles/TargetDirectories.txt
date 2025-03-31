@@ -1,0 +1,9 @@
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/CMakeFiles/mi_programa.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/CMakeFiles/edit_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/CMakeFiles/rebuild_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1/CMakeFiles/my_lib_1.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1/CMakeFiles/edit_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1/CMakeFiles/rebuild_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_2/CMakeFiles/my_lib_2.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_2/CMakeFiles/edit_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_2/CMakeFiles/rebuild_cache.dir
