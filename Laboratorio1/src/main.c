@@ -21,10 +21,11 @@ build.cmd run
 
 */
 // VERIFICAR SI ESTA BIEN DECLARADA EN EL MAIN O DEBE IR EN LA LIBRERIA
-Estudiante_t *listFirst; // Apunta al primer elemento de la lista. Una vez que se crea el primer elemento, no se va a mover de alli.
-
+Estudiante_t *listStudent; // Apunta al primer elemento de la lista. Una vez que se crea el primer elemento, no se va a mover de alli.
+Estudiante_t *listResult; // Se crea lista vacia para almacenar lso resultados de busquedas.
 int main() {
-    listFirst = inicializarEstudiante(); // INICIALIZAR LISTA
+    listStudent = inicializarEstudiante(listStudent); // INICIALIZAR LISTA DE ESTUDIANTES
+    listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA
     accesoMenu(); // Entramos al MENU
 
 

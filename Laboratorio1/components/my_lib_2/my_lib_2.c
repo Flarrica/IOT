@@ -11,8 +11,9 @@ Estudiante_t *newStudent; // La usamos para crear nuevo elemento en la lista de 
 //Estudiante_t *listFirst; Esta declarada en el main. Confirmar en donde debe declararse.
 Estudiante_t *listBuffer; // Puntero auxiliar para iterar en la lista.
 
+/*-------------------------------------------------------AGREGAR NUEVO ESTUDIANTE-------------------------------------------------------------*/
 // INICIALIZAR VARIABLES
-Estudiante_t *inicializarEstudiante() { 
+Estudiante_t *inicializarEstudiante(Estudiante_t *newStudentPtr) { 
     Estudiante_t* auxPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
     // Inicializar campos con strcpy (para cadenas)
     strcpy(auxPtr->nombre, ""); // Inicializamos vacio
@@ -23,10 +24,12 @@ Estudiante_t *inicializarEstudiante() {
     auxPtr->promCalif = 0; // Inicializamos 0
     // Inicializar puntero siguiente a NULL. Cerrar la lista
     auxPtr->siguiente = NULL;
-    return auxPtr;
+    newStudentPtr = auxPtr;
+    free(auxPtr);
+    return newStudentPtr;
 }
 // CARGAR DATOS NUEVO ESTUDIANTE
-Estudiante_t *cargarDatos(Estudiante_t studentPtr) { // Ver tipo de variable
+Estudiante_t *cargarDatos(Estudiante_t *studentPtr) { // Ver tipo de variable
     Estudiante_t auxPTr = studentPtr;
     printf("Ingrese el nombre del estudiante: ");
     scanf("%s", auxPTr.nombre);
@@ -61,7 +64,9 @@ Estudiante_t *buscaUltimoLista(Estudiante_t *listPtr) {// Se le da como entrada 
     }
     return auxPtr; //Devolvemos el puntero para que lo tome otra funcion
 }
-// COMPARAR STRINGS
+/*-------------------------------------------------------DISPLAY LISTA------------------------------------------------------------------------*/
+/*-------------------PERMUTAR 2 ELEMENTOS CONTIGUOS DE LA LISTA SEGUN CAMPO ---------------------------------*/
+// COMPARAR NOMBRE PARA REORDENAR ELEMENTOS DE LISTA
 Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
     Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
     int ordenName = strcmp(actualPtr->nombre,nextPtr->nombre); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
@@ -84,11 +89,54 @@ Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea a
         }
     }
     Sort_t sortResult = {actualPtr, sortCounter};
+    free(nextPtr);
     return sortResult;
 }
+// COMPARAR APELLIDO PARA REORDENAR ELEMENTO DE LISTA
+Sort_t sortStudentsLastNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+    Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
+    int ordenLastName = strcmp(actualPtr->apellido,nextPtr->apellido); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
+    if (ordenLastName > 0) { // Permutar lugares
+        actualPtr->siguiente = nextPtr->siguiente;
+        nextPtr->siguiente = actualPtr;
+        actualPtr = nextPtr;// Pasar a siguiente estudiante
+        sortCounter++;
+    } else if (ordenLastName < 0) { 
+        actualPtr = nextPtr;// No hacer nada. Pasar a siguiente estudiante
+    } else { // Sortear por cedula ascendente
+        int ordenCI = strcmp(actualPtr->CI,nextPtr->CI); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
+        if (ordenCI > 0) { // Permutar lugares
+            actualPtr->siguiente = nextPtr->siguiente;
+            nextPtr->siguiente = actualPtr;
+            actualPtr = nextPtr;// Pasar a siguiente estudiante
+            sortCounter++;
+        } else {
+            actualPtr = nextPtr; // No hacer nada. Pasar a siguiente estudiante
+        }
+    }
+    Sort_t sortResult = {actualPtr, sortCounter};
+    free(nextPtr);
+    return sortResult;
+}
+// COMPARAR CI PARA REORDENAR ELEMENTO DE LA LISTA
+Sort_t sortStudentsCI(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+    Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
+    int ordenLastName = strcmp(actualPtr->CI,nextPtr->CI); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
+    if (ordenLastName > 0) { // Permutar lugares
+        actualPtr->siguiente = nextPtr->siguiente;
+        nextPtr->siguiente = actualPtr;
+        actualPtr = nextPtr;// Pasar a siguiente estudiante
+        sortCounter++;
+    } else { 
+        actualPtr = nextPtr;// No hacer nada. Pasar a siguiente estudiante
+    } 
+    Sort_t sortResult = {actualPtr, sortCounter};
+    free(nextPtr);
+    return sortResult;
+}
+/*----------------------------------REORDENAR LISRA SEGUN CAMPO ELEGIDO--------------------------------------*/
 // SORTEAR LISTA POR NOMBRE
 void sortListByNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
-    
     Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
     Estudiante_t *nextPtr = actualPtr->siguiente;
     int sortCounter = 0;
@@ -99,16 +147,220 @@ void sortListByNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuel
         while (nextPtr != NULL) {
             sortResult = sortStudentsNames(sortResult.actualPtr, sortResult.sortCounter);
         }
-    } while (sortResult.sortCounter != 0);
-    
+    } while (sortResult.sortCounter != 0);// Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
+    free(nextPtr);
+    free(actualPtr);
     return 0;
-}// Estoy por aca <---------------------------------------------------------------------------------------------------------------------------
-// INICIO FUNCIONES DE MENU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void accesoMenu(Estudiante_t *listPtr) {
+}
+// SORTEAR LISTA POR APELLIDO
+void sortListByLastNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+    Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
+    Estudiante_t *nextPtr = actualPtr->siguiente;
+    int sortCounter = 0;
+    Sort_t sortResult = {actualPtr, sortCounter};
+    do
+    {
+        sortResult.sortCounter = 0;
+        while (nextPtr != NULL) {
+            sortResult = sortStudentsLastNames(sortResult.actualPtr, sortResult.sortCounter);
+        }
+    } while (sortResult.sortCounter != 0); // Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
+    free(nextPtr);
+    free(actualPtr);
+    return 0;
+}
+// SORTEAR LISTA POR CI
+void sortListByCI(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+    Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
+    Estudiante_t *nextPtr = actualPtr->siguiente;
+    int sortCounter = 0;
+    Sort_t sortResult = {actualPtr, sortCounter};
+    do
+    {
+        sortResult.sortCounter = 0;
+        while (nextPtr != NULL) {
+            sortResult = sortStudentsCI(sortResult.actualPtr, sortResult.sortCounter);
+        }
+    } while (sortResult.sortCounter != 0); // Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
+    free(nextPtr);
+    free(actualPtr);
+    return 0;
+}
+/*--------------------------------APUNTAR AL COMIENZO DE LA LISTA--------------------------------------------*/
+// HACER LISTA ORDENADA CIRCULAR
+void makeListCircular(Estudiante_t *listPtr) {
+    Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
+    while (actualPtr->siguiente != NULL) {
+        actualPtr = actualPtr->siguiente;
+    }
+    actualPtr->siguiente = listPtr;
+    free(actualPtr);
+    return 0;
+}
+// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor NOMBRE y "CORTAR" LA COLA
+Estudiante_t  *pointFirstName(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
+    Estudiante_t *actualPtr =  listPtr;
+    while (strcmp(actualPtr->nombre,actualPtr->siguiente->nombre) < 0)
+    {
+        actualPtr = actualPtr->siguiente; // Voy al siguiente
+    }
+    listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
+    actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
+
+    free(actualPtr);
+    return listPtr;
+}
+// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor APELLIDO y "CORTAR" LA COLA
+Estudiante_t  *pointFirstLastName(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
+    Estudiante_t *actualPtr =  listPtr;
+    while (strcmp(actualPtr->apellido,actualPtr->siguiente->apellido) < 0)
+    {
+        actualPtr = actualPtr->siguiente; // Voy al siguiente
+    }
+    listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
+    actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
+
+    free(actualPtr);
+    return listPtr;
+}
+// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor CI y "CORTAR" LA COLA
+Estudiante_t  *pointFirstCI(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
+    Estudiante_t *actualPtr =  listPtr;
+    while (strcmp(actualPtr->CI,actualPtr->siguiente->CI) < 0)
+    {
+        actualPtr = actualPtr->siguiente; // Voy al siguiente
+    }
+    listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
+    actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
+
+    free(actualPtr);
+    return listPtr;
+}
+/*--------------------------------DISPLAY LISTA--------------------------------------------------------------*/
+// Encabezado de la lista
+void printListHeader() {
+    printf("    APELLIDO   |    NOMBRE     |   CI   | GRADO |CALIFICACION\n");
+    printf("-------------------------------------------------------------\n");
+    return 0;
+}
+// Fila de la lista
+void printStudentRow(Estudiante_t *actualPtr) {
+    printf("%*s|%*s|%*s|%*s|%*s\n",FORMAT_NAME, actualPtr->apellido, FORMAT_NAME, actualPtr->nombre, FORMAT_CI, actualPtr->CI, 1, actualPtr->grado, 3, actualPtr->promCalif );
+    return 0;
+}
+// Imprimir lista entera
+void displayList(Estudiante_t *listPtr) {
+    Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
+    // Contemplar lista vacia y de un solo elemento.
+    if (actualPtr == NULL) {
+        printf("La lista esta vacia. Desea agregar un nuevo estudiante?\n");
+    }else if (actualPtr->siguiente = NULL) {
+        printListHeader();
+        printStudentRow(actualPtr);
+    }else{
+        printListHeader();
+        do
+        {
+            printStudentRow(actualPtr);
+            actualPtr = actualPtr->siguiente; // Iteramos en la lista.
+        } 
+        while (actualPtr->siguiente != NULL);
+    }
+    free(actualPtr);
+    return 0;
+}
+
+/*------------------------------------------------------BORRAR-----------------------------------------------------------------------------*/
+
+// Borra estudiante seleccionado
+void deleteStudent(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
+    if (actualPtr == listPtr) { //Caso 1: El elemento se encuentra justo al inicio de la lista.
+        listPtr = listPtr->siguiente; // Si listPtr->siguiente = NULL, queda la lista nula.
+        free(actualPtr);
+    }else{
+        Estudiante_t *auxPtr = listPtr; // Apunto al principio de la lista para iterar
+        makeListCircular(listPtr); // Hago la lista circular para poder recorrerla y llegar al elemento anterior de actualPtr
+        while (auxPtr->siguiente != actualPtr) { //Busco pararme en el elemento anterior al senialado por actualPtr
+            auxPtr = auxPtr->siguiente;
+        }
+        auxPtr->siguiente = actualPtr->siguiente; // "Bypass" en la lista. Ahora solo debo eliminar actualPtr
+        free(actualPtr);
+        free(auxPtr);
+    }
+    return 0;
+}
+
+// Da opciones para borrar estudiante encontrado
+void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
+    char confirm;
+    printf("Desea eliminar estudiante? Y/N: \n");
+            do
+            {
+                scanf("%s", &confirm);
+                switch (confirm)
+                {
+                case 'Y':
+                    deleteStudent(actualPtr, listPtr);
+                    printf("Estudiante borrado correctamente.\n");
+                    confirm = 'N';
+                    break;
+                case 'N':
+                    printf("Saliendo...\n");
+                    break;
+                default:
+                    printf("Parametro desconocido. Ingrese nuevamente.\n");
+                    printf("Desea eliminar estudiante? Y/N: \n");
+                    break;
+                }
+            }
+            while (confirm != 'N'); //Solo sale en caso de detectar N o en caso de entrar a Y y ejecutar codigo.
+}
+// Las busquedas se realizan iterando toda la lista enlazada hasta llegar a NULL
+Estudiante_t *deleteStudentByCI(Estudiante_t *listPtr) {
+    int matchCounter = 0;
+    Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
+    printf("Ingrese la CI del estudiante a eliminar: ");
+    
+    scanf("%*s",FORMAT_CI, &bufferCI);
+    if (actualPtr == NULL) {
+        printf("No se han obtenido resultados.\n");
+    }else if (actualPtr->siguiente = NULL) {
+        if (actualPtr->CI == bufferCI) {
+            printf("Resultado de busqueda:\n");
+            printListHeader();
+            printStudentRow(actualPtr);
+            deleteStudentOptions(actualPtr, listPtr);
+        }else {
+            printf("No se han obtenido resultados.\n");
+        }
+    }else{
+            do
+            {
+                if (actualPtr->CI == bufferCI) {
+                    printf("Resultado de busqueda:\n");
+                    printListHeader();
+                    printStudentRow(actualPtr);
+                    deleteStudentOptions(actualPtr, listPtr);
+                }
+                actualPtr = actualPtr->siguiente; // Iteramos en la lista.
+            }
+            while (actualPtr->siguiente != NULL); // Evalua primero si hay match y luego si llego al final
+            printf("No se han obtenido resultados.\n");
+        }
+        free(actualPtr);
+    return 0;
+}
+
+
+
+
+
+/*---------------------------------------------------FUNCIONES DE MENU------------------------------------------------------------------------*/
+void accesoMenu(Estudiante_t *listPtr, Estudiante_t *resultPtr) {
     int flagMenu = 0;
     do {
         //Muestra las opciones del Menu
-        printf("\n---------Sistema de gestion de alumnos de IoT---------\n");
+        printf("\n---------Sistema de gestion de estudiantes de IoT---------\n");
         printf("1. Ingresar nuevo alumno/a\n");
         printf("2. Consultar listado de alumnos/a\n");
         printf("3. Buscar alumno/a\n");
@@ -150,6 +402,8 @@ void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero 
                 newStudent = cargarDatos(*newStudent);// Cargamos los datos del estudiante.
                 Estudiante_t* ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
                 ultimoList->siguiente = newStudent;// "Enganchamos" nuevo elemento a la lista. newStudent->siguiente ya es NULL por inicializacion
+                free(ultimoList);
+                free(newStudent);
                 break;
             case '2':
                 printf("Saliendo...");
@@ -161,7 +415,7 @@ void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero 
     return 0;
 }
 
-void displayListMenu() { // Toma como entrada el puntero al primer elemento de la lista.
+void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
     do
     {   
         printf("Con que orden desea visualizar la lista?");
@@ -172,31 +426,40 @@ void displayListMenu() { // Toma como entrada el puntero al primer elemento de l
         scanf("%d", &opcionElegida);
         switch (opcionElegida) {
             case '1':
-                /* codigo */
+            sortListByNames(listPtr); // Ordena por nombres
+            makeListCircular(listPtr); // Crea lista circular
+            listPtr = pointFirstName(listPtr); // El comienzo de la lista es el valor mas chico
+            displayList(listPtr);
                 break;
             case '2':
-                /* codigo */
+            sortListByLastNames(listPtr); // Ordena por apellido
+            makeListCircular(listPtr); // Crea lista circular
+            listPtr = pointFirstLastName(listPtr); // El comienzo de la lista es el valor mas chico
+            displayList(listPtr);
                 break;
             case '3':
-                /* codigo */
+            sortListByCI(listPtr); // Ordena por CI
+            makeListCircular(listPtr); // Crea lista circular
+            listPtr = pointFirstCI(listPtr); // El comienzo de la lista es el valor mas chico
+            displayList(listPtr);
                 break;
             case '4':
-                /* codigo */
+                printd("Saliendo...\n");
                 break;
             default:
                 printd("Opcion invalida. Ingrese nuevamente.\n");
         }
-    } while (opcionElegida != 2);
+    } while (opcionElegida != 4);
     return 0;
 }
 
-void findStudentMenu() {
+void deleteStudentMenu() {
     do {
         //Muestra las opciones del Menu
-        printf("\n---------Sistema de gestion de alumnos IoT---------\n");
-        printf("1. Ingresar nuevo alumno/a\n");
-        printf("2. Consultar listado de alumnos/a\n");
-        printf("3. Buscar alumno/a\n");
+        printf("\n---------Sistema de búsqueda de estudiantes de IoT---------\n");
+        printf("1. Buscar estudiante po CI\n");
+        printf("2. Buscar estudiante por nombre\n");
+        printf("3. Buscar estudiante por apellido\n");
         printf("4. Salir\n");
         printf("-----------------------------------------------------\n");
         printf("Indique un numero con la opcion que desee ejecutar: ");
@@ -226,4 +489,10 @@ void findStudentMenu() {
 // FIN FUNCIONES  DE MENU///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void my_lib_2_function() {
     printf("Funcion de my_lib_2 ejecutada.\n");
+    return 0;
 }
+
+
+
+
+// ESTOY TRABAJANDO EN EL MENU DE ELIMINACION DE ESTUDIANTE
