@@ -75,6 +75,7 @@ Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea a
         nextPtr->siguiente = actualPtr;
         actualPtr = nextPtr;// Pasar a siguiente estudiante
         sortCounter++;
+        
     } else if (ordenName < 0) { 
         actualPtr = nextPtr;// No hacer nada. Pasar a siguiente estudiante
     } else { // Sortear por cedula ascendente
