@@ -6,7 +6,7 @@ int Contador(char *puntero);
 int main()
 {
     // variables
-    char texto[]="Hola mundo";
+    char texto[]=" Hola mundo ";
     int vocales = 0;
     int consonantes = 0;
 
