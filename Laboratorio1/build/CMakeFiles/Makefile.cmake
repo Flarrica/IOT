@@ -102,7 +102,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/4.0.0/CMakeCCompiler.cmake"
   "CMakeFiles/4.0.0/CMakeRCCompiler.cmake"
   "CMakeFiles/4.0.0/CMakeSystem.cmake"
-  "C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_1/CMakeLists.txt"
+  "C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/Global/CMakeLists.txt"
+  "C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_1_1/CMakeLists.txt"
+  "C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_1_2/CMakeLists.txt"
   "C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_2/CMakeLists.txt"
   )
 
@@ -120,13 +122,17 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/4.0.0/CMakeCCompiler.cmake"
   "CMakeFiles/4.0.0/CMakeCCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "components/my_lib_1/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "components/Global/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "components/my_lib_1_1/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "components/my_lib_1_2/CMakeFiles/CMakeDirectoryInformation.cmake"
   "components/my_lib_2/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/mi_programa.dir/DependInfo.cmake"
-  "components/my_lib_1/CMakeFiles/my_lib_1.dir/DependInfo.cmake"
+  "components/Global/CMakeFiles/Global.dir/DependInfo.cmake"
+  "components/my_lib_1_1/CMakeFiles/my_lib_1_1.dir/DependInfo.cmake"
+  "components/my_lib_1_2/CMakeFiles/my_lib_1_2.dir/DependInfo.cmake"
   "components/my_lib_2/CMakeFiles/my_lib_2.dir/DependInfo.cmake"
   )

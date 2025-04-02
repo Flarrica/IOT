@@ -95,7 +95,9 @@ mi_programa_EXTERNAL_OBJECTS =
 
 mi_programa.exe: CMakeFiles/mi_programa.dir/src/main.c.obj
 mi_programa.exe: CMakeFiles/mi_programa.dir/build.make
-mi_programa.exe: components/my_lib_1/libmy_lib_1.a
+mi_programa.exe: components/Global/libGlobal.a
+mi_programa.exe: components/my_lib_1_1/libmy_lib_1_1.a
+mi_programa.exe: components/my_lib_1_2/libmy_lib_1_2.a
 mi_programa.exe: components/my_lib_2/libmy_lib_2.a
 mi_programa.exe: CMakeFiles/mi_programa.dir/linkLibs.rsp
 mi_programa.exe: CMakeFiles/mi_programa.dir/objects1.rsp

@@ -39,7 +39,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1/cmake_install.cmake")
+  include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/Global/cmake_install.cmake")
+  include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1_1/cmake_install.cmake")
+  include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1_2/cmake_install.cmake")
   include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_2/cmake_install.cmake")
 
 endif()

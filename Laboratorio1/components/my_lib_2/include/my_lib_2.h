@@ -1,5 +1,11 @@
 #ifndef MY_LIB_2_H_
 #define MY_LIB_2_H_
+
+void my_lib_2_function();
+
+#endif
+
+/*
 #define FORMAT_CI 8
 #define FORMAT_NAME 15
 
@@ -23,6 +29,8 @@ void addNewStudentMenu();
 void displayListMenu();
 void findStudentMenu();
 
+//Agregar nuevo estudiante
+
 // Funciones de lista
 Estudiante_t *inicializarLista(); // Agrega el primer elemento de la lista apuntando a NULL y con los campos vacios.
 Estudiante_t *inicializarEstudiante(); // Agrega nuevo elemento a la lista apuntando a NULL.
@@ -33,3 +41,7 @@ Estudiante_t *enganchaLista(); // Coloca el nuevo estudiante al final de la list
 void my_lib_2_function();
 
 #endif
+*/
+
+
+

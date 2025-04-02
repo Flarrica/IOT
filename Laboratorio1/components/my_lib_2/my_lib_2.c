@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include "my_lib_2.h"
 
+// Pongo funcion de ejemplo para probar funcionamiento de libreria
+
+void my_lib_2_function() {
+    printf("Funcion de la libreria _2 ejecutada con exito. Aprobado por Diegote...\n");
+}
+
+// Fin del ejemplo. Principio del codigo
+
+/*
 int opcionElegida;
 char bufferName[FORMAT_NAME];
 char bufferLastName[FORMAT_NAME];
@@ -11,7 +20,7 @@ Estudiante_t *newStudent; // La usamos para crear nuevo elemento en la lista de 
 //Estudiante_t *listFirst; Esta declarada en el main. Confirmar en donde debe declararse.
 Estudiante_t *listBuffer; // Puntero auxiliar para iterar en la lista.
 
-/*-------------------------------------------------------AGREGAR NUEVO ESTUDIANTE-------------------------------------------------------------*/
+//AGREGAR NUEVO ESTUDIANTE
 // INICIALIZAR VARIABLES
 Estudiante_t *inicializarEstudiante(Estudiante_t *newStudentPtr) { 
     Estudiante_t* auxPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
@@ -64,8 +73,8 @@ Estudiante_t *buscaUltimoLista(Estudiante_t *listPtr) {// Se le da como entrada 
     }
     return auxPtr; //Devolvemos el puntero para que lo tome otra funcion
 }
-/*-------------------------------------------------------DISPLAY LISTA------------------------------------------------------------------------*/
-/*-------------------PERMUTAR 2 ELEMENTOS CONTIGUOS DE LA LISTA SEGUN CAMPO ---------------------------------*/
+//DISPLAY LISTA/
+//PERMUTAR 2 ELEMENTOS CONTIGUOS DE LA LISTA SEGUN CAMPO
 // COMPARAR NOMBRE PARA REORDENAR ELEMENTOS DE LISTA
 Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
     Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
@@ -135,7 +144,7 @@ Sort_t sortStudentsCI(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfa
     free(nextPtr);
     return sortResult;
 }
-/*----------------------------------REORDENAR LISRA SEGUN CAMPO ELEGIDO--------------------------------------*/
+//REORDENAR LISRA SEGUN CAMPO ELEGIDO
 // SORTEAR LISTA POR NOMBRE
 void sortListByNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
     Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
@@ -187,7 +196,7 @@ void sortListByCI(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve 
     free(actualPtr);
     return 0;
 }
-/*--------------------------------APUNTAR AL COMIENZO DE LA LISTA--------------------------------------------*/
+//APUNTAR AL COMIENZO DE LA LISTA
 // HACER LISTA ORDENADA CIRCULAR
 void makeListCircular(Estudiante_t *listPtr) {
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
@@ -237,7 +246,7 @@ Estudiante_t  *pointFirstCI(Estudiante_t *listPtr) {// Asumimos que la lista ya 
     free(actualPtr);
     return listPtr;
 }
-/*--------------------------------DISPLAY LISTA--------------------------------------------------------------*/
+//DISPLAY LISTA
 // Encabezado de la lista
 void printListHeader() {
     printf("    APELLIDO   |    NOMBRE     |   CI   | GRADO |CALIFICACION\n");
@@ -271,7 +280,7 @@ void displayList(Estudiante_t *listPtr) {
     return 0;
 }
 
-/*------------------------------------------------------BORRAR-----------------------------------------------------------------------------*/
+//BORRAR
 
 // Borra estudiante seleccionado
 void deleteStudent(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
@@ -356,7 +365,7 @@ Estudiante_t *deleteStudentByCI(Estudiante_t *listPtr) {
 
 
 
-/*---------------------------------------------------FUNCIONES DE MENU------------------------------------------------------------------------*/
+//FUNCIONES DE MENU
 void accesoMenu(Estudiante_t *listPtr, Estudiante_t *resultPtr) {
     int flagMenu = 0;
     do {
@@ -494,6 +503,6 @@ void my_lib_2_function() {
 }
 
 
-
+*/
 
 // ESTOY TRABAJANDO EN EL MENU DE ELIMINACION DE ESTUDIANTE

@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "my_lib_1.h"
-#include "my_lib_2.h"
+#include "Global.h"
 
 
 /* 
@@ -21,15 +20,15 @@ build.cmd run
 
 */
 // VERIFICAR SI ESTA BIEN DECLARADA EN EL MAIN O DEBE IR EN LA LIBRERIA
-Estudiante_t *listStudent; // Apunta al primer elemento de la lista. Una vez que se crea el primer elemento, no se va a mover de alli.
-Estudiante_t *listResult; // Se crea lista vacia para almacenar lso resultados de busquedas.
+// *listStudent; // Apunta al primer elemento de la lista. Una vez que se crea el primer elemento, no se va a mover de alli.
+//Estudiante_t *listResult; // Se crea lista vacia para almacenar lso resultados de busquedas.
 int main() {
-    listStudent = inicializarEstudiante(listStudent); // INICIALIZAR LISTA DE ESTUDIANTES
-    listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA
-    accesoMenu(); // Entramos al MENU
+    //listStudent = inicializarEstudiante(listStudent); // INICIALIZAR LISTA DE ESTUDIANTES
+    //listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA
+    //accesoMenu(listStudent, listResult); // Entramos al MENU
 
-
-    my_lib_1_function();
+    my_lib_1_1_function();
+    my_lib_1_2_function();
     my_lib_2_function();
     return 0;
 }

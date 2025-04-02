@@ -129,17 +129,43 @@ mi_programa/fast:
 .PHONY : mi_programa/fast
 
 #=============================================================================
-# Target rules for targets named my_lib_1
+# Target rules for targets named Global
 
 # Build rule for target.
-my_lib_1: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 my_lib_1
-.PHONY : my_lib_1
+Global: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Global
+.PHONY : Global
 
 # fast build rule for target.
-my_lib_1/fast:
-	$(MAKE) $(MAKESILENT) -f components\my_lib_1\CMakeFiles\my_lib_1.dir\build.make components/my_lib_1/CMakeFiles/my_lib_1.dir/build
-.PHONY : my_lib_1/fast
+Global/fast:
+	$(MAKE) $(MAKESILENT) -f components\Global\CMakeFiles\Global.dir\build.make components/Global/CMakeFiles/Global.dir/build
+.PHONY : Global/fast
+
+#=============================================================================
+# Target rules for targets named my_lib_1_1
+
+# Build rule for target.
+my_lib_1_1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 my_lib_1_1
+.PHONY : my_lib_1_1
+
+# fast build rule for target.
+my_lib_1_1/fast:
+	$(MAKE) $(MAKESILENT) -f components\my_lib_1_1\CMakeFiles\my_lib_1_1.dir\build.make components/my_lib_1_1/CMakeFiles/my_lib_1_1.dir/build
+.PHONY : my_lib_1_1/fast
+
+#=============================================================================
+# Target rules for targets named my_lib_1_2
+
+# Build rule for target.
+my_lib_1_2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 my_lib_1_2
+.PHONY : my_lib_1_2
+
+# fast build rule for target.
+my_lib_1_2/fast:
+	$(MAKE) $(MAKESILENT) -f components\my_lib_1_2\CMakeFiles\my_lib_1_2.dir\build.make components/my_lib_1_2/CMakeFiles/my_lib_1_2.dir/build
+.PHONY : my_lib_1_2/fast
 
 #=============================================================================
 # Target rules for targets named my_lib_2
@@ -186,8 +212,10 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... Global
 	@echo ... mi_programa
-	@echo ... my_lib_1
+	@echo ... my_lib_1_1
+	@echo ... my_lib_1_2
 	@echo ... my_lib_2
 	@echo ... src/main.obj
 	@echo ... src/main.i
