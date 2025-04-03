@@ -172,8 +172,8 @@ components/my_lib_2/clean: components/my_lib_2/CMakeFiles/my_lib_2.dir/clean
 # Target rules for target CMakeFiles/mi_programa.dir
 
 # All Build rule for target.
-CMakeFiles/mi_programa.dir/all: components/my_lib_1_1/CMakeFiles/my_lib_1_1.dir/all
 CMakeFiles/mi_programa.dir/all: components/Global/CMakeFiles/Global.dir/all
+CMakeFiles/mi_programa.dir/all: components/my_lib_1_1/CMakeFiles/my_lib_1_1.dir/all
 CMakeFiles/mi_programa.dir/all: components/my_lib_1_2/CMakeFiles/my_lib_1_2.dir/all
 CMakeFiles/mi_programa.dir/all: components/my_lib_2/CMakeFiles/my_lib_2.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mi_programa.dir\build.make CMakeFiles/mi_programa.dir/depend

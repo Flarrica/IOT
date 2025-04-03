@@ -9,7 +9,7 @@ void my_lib_2_function() {
 
 // Fin del ejemplo. Principio del codigo
 
-/*
+
 int opcionElegida;
 char bufferName[FORMAT_NAME];
 char bufferLastName[FORMAT_NAME];
@@ -38,7 +38,7 @@ Estudiante_t *inicializarEstudiante(Estudiante_t *newStudentPtr) {
     return newStudentPtr;
 }
 // CARGAR DATOS NUEVO ESTUDIANTE
-Estudiante_t *cargarDatos(Estudiante_t *studentPtr) { // Ver tipo de variable
+Estudiante_t *cargarDatosMenu(Estudiante_t *studentPtr) { // Ver tipo de variable
     Estudiante_t auxPTr = studentPtr;
     printf("Ingrese el nombre del estudiante: ");
     scanf("%s", auxPTr.nombre);
@@ -73,6 +73,8 @@ Estudiante_t *buscaUltimoLista(Estudiante_t *listPtr) {// Se le da como entrada 
     }
     return auxPtr; //Devolvemos el puntero para que lo tome otra funcion
 }
+
+
 //DISPLAY LISTA/
 //PERMUTAR 2 ELEMENTOS CONTIGUOS DE LA LISTA SEGUN CAMPO
 // COMPARAR NOMBRE PARA REORDENAR ELEMENTOS DE LISTA
@@ -254,10 +256,12 @@ void printListHeader() {
     return 0;
 }
 // Fila de la lista
+
 void printStudentRow(Estudiante_t *actualPtr) {
     printf("%*s|%*s|%*s|%*s|%*s\n",FORMAT_NAME, actualPtr->apellido, FORMAT_NAME, actualPtr->nombre, FORMAT_CI, actualPtr->CI, 1, actualPtr->grado, 3, actualPtr->promCalif );
     return 0;
 }
+
 // Imprimir lista entera
 void displayList(Estudiante_t *listPtr) {
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
@@ -299,7 +303,6 @@ void deleteStudent(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
     }
     return 0;
 }
-
 // Da opciones para borrar estudiante encontrado
 void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
     char confirm;
@@ -326,7 +329,7 @@ void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
             while (confirm != 'N'); //Solo sale en caso de detectar N o en caso de entrar a Y y ejecutar codigo.
 }
 // Las busquedas se realizan iterando toda la lista enlazada hasta llegar a NULL
-Estudiante_t *deleteStudentByCI(Estudiante_t *listPtr) {
+void deleteStudentMenu(Estudiante_t *listPtr) {
     int matchCounter = 0;
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
     printf("Ingrese la CI del estudiante a eliminar: ");
@@ -363,8 +366,6 @@ Estudiante_t *deleteStudentByCI(Estudiante_t *listPtr) {
 
 
 
-
-
 //FUNCIONES DE MENU
 void accesoMenu(Estudiante_t *listPtr, Estudiante_t *resultPtr) {
     int flagMenu = 0;
@@ -386,7 +387,7 @@ void accesoMenu(Estudiante_t *listPtr, Estudiante_t *resultPtr) {
                 displayListMenu();
                 break;
             case '3':
-                findStudentMenu();
+                deleteStudentMenu();
                 break;
             case '4':
                 printf("Saliendo...");
@@ -463,39 +464,6 @@ void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al
     return 0;
 }
 
-void deleteStudentMenu() {
-    do {
-        //Muestra las opciones del Menu
-        printf("\n---------Sistema de búsqueda de estudiantes de IoT---------\n");
-        printf("1. Buscar estudiante po CI\n");
-        printf("2. Buscar estudiante por nombre\n");
-        printf("3. Buscar estudiante por apellido\n");
-        printf("4. Salir\n");
-        printf("-----------------------------------------------------\n");
-        printf("Indique un numero con la opcion que desee ejecutar: ");
-        scanf("%d", &opcionElegida);
-        // Hasta aca entra y toma una opcion del menu
-        
-        switch (opcionElegida) {
-            case '1':
-                addNewStudent();
-                break;
-            case '2':
-                displayList();
-                break;
-            case '3':
-                findStudent();
-                break;
-            case '4':
-                printf("Saliendo...");
-                break;
-            default:
-                printd("Opcion invalida. Ingrese nuevamente.\n");
-        }
-    }
-    while (opcionElegida != 4);
-    return 0;
-}
 // FIN FUNCIONES  DE MENU///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void my_lib_2_function() {
     printf("Funcion de my_lib_2 ejecutada.\n");
@@ -503,6 +471,6 @@ void my_lib_2_function() {
 }
 
 
-*/
+
 
 // ESTOY TRABAJANDO EN EL MENU DE ELIMINACION DE ESTUDIANTE
