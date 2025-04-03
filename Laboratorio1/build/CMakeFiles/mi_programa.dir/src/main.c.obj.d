@@ -9,4 +9,6 @@ CMakeFiles/mi_programa.dir/src/main.c.obj: \
  C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/Global/include/Global.h \
  C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_1_1/include/my_lib_1_1.h \
  C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_1_2/include/my_lib_1_2.h \
- C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_2/include/my_lib_2.h
+ C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_2/include/my_lib_2.h \
+ c:\mingw\include\stdlib.h c:\mingw\include\string.h \
+ c:\mingw\include\strings.h c:\mingw\include\wchar.h

@@ -1,6 +1,9 @@
 #ifndef MY_LIB_2_H_
 #define MY_LIB_2_H_
 
+#include <stdlib.h>
+#include <string.h>
+
 void my_lib_2_function();
 
 #define FORMAT_CI 8
@@ -12,7 +15,7 @@ typedef struct Estudiante_s {
     char CI[FORMAT_CI];
     int grado;
     int promCalif;
-    Estudiante_t siguiente; // VER SI DEEB SER PUNTERO O NO
+    struct Estudiante_s *siguiente; // VER SI DEEB SER PUNTERO O NO
 }Estudiante_t;
 
 typedef struct Sort_s {

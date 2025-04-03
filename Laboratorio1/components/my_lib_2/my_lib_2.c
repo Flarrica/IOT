@@ -22,48 +22,46 @@ Estudiante_t *listBuffer; // Puntero auxiliar para iterar en la lista.
 
 //AGREGAR NUEVO ESTUDIANTE
 // INICIALIZAR VARIABLES
-Estudiante_t *inicializarEstudiante(Estudiante_t *newStudentPtr) { 
-    Estudiante_t* auxPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
+Estudiante_t* inicializarEstudiante() { 
+    Estudiante_t *newStudentPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
     // Inicializar campos con strcpy (para cadenas)
-    strcpy(auxPtr->nombre, ""); // Inicializamos vacio
-    strcpy(auxPtr->apellido, ""); // Inicializamos vacio
-    strcpy(auxPtr->CI, ""); // Inicializamos vacio
+    strcpy(newStudentPtr->nombre, ""); // Inicializamos vacio
+    strcpy(newStudentPtr->apellido, ""); // Inicializamos vacio
+    strcpy(newStudentPtr->CI, ""); // Inicializamos vacio
     // Inicializar campos enteros directamente
-    auxPtr->grado = 0; // Inicializamos 0
-    auxPtr->promCalif = 0; // Inicializamos 0
+    newStudentPtr->grado = 0; // Inicializamos 0
+    newStudentPtr->promCalif = 0; // Inicializamos 0
     // Inicializar puntero siguiente a NULL. Cerrar la lista
-    auxPtr->siguiente = NULL;
-    newStudentPtr = auxPtr;
-    free(auxPtr);
+    newStudentPtr->siguiente = NULL;
     return newStudentPtr;
 }
 // CARGAR DATOS NUEVO ESTUDIANTE
-Estudiante_t *cargarDatosMenu(Estudiante_t *studentPtr) { // Ver tipo de variable
-    Estudiante_t auxPTr = studentPtr;
+Estudiante_t *cargarDatosMenu(Estudiante_t *auxPtr) { // Ver tipo de variable
     printf("Ingrese el nombre del estudiante: ");
-    scanf("%s", auxPTr.nombre);
+    scanf("%s", &auxPtr->nombre);
 
     printf("Ingrese el apellido del estudiante: ");
-    scanf("%s", auxPTr.apellido);
+    scanf("%s", &auxPtr->apellido);
 
     printf("Ingrese el CI del estudiante: ");
-    scanf("%s", auxPTr.CI);
+    scanf("%s", &auxPtr->CI);
 
     printf("Ingrese el grado del estudiante: ");
-    scanf("%d", &auxPTr.grado);
+    scanf("%d", &auxPtr->grado);
 
     printf("Ingrese el promedio de calificaciones del estudiante: ");
-    scanf("%d", &auxPTr.promCalif);
+    scanf("%d", &auxPtr->promCalif);
 
     // Imprimir los datos del estudiante (opcional)
     printf("\n----------------------------------------\n");
     printf("Datos del estudiante:\n");
-    printf("Nombre: %s\n", auxPTr.nombre);
-    printf("Apellido: %s\n", auxPTr.apellido);
-    printf("CI: %s\n", auxPTr.CI);
-    printf("Grado: %d\n", auxPTr.grado);
-    printf("Promedio: %d\n", auxPTr.promCalif);
+    printf("Nombre: %s\n", auxPtr->nombre);
+    printf("Apellido: %s\n", auxPtr->apellido);
+    printf("CI: %s\n", auxPtr->CI);
+    printf("Grado: %d\n", auxPtr->grado);
+    printf("Promedio: %d\n", auxPtr->promCalif);
     printf("----------------------------------------\n");
+    return auxPtr;
 }
 // BUSCAR ULTIMO EN LISTA
 Estudiante_t *buscaUltimoLista(Estudiante_t *listPtr) {// Se le da como entrada el puntero al inicio de la lista
@@ -162,7 +160,7 @@ void sortListByNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuel
     } while (sortResult.sortCounter != 0);// Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
     free(nextPtr);
     free(actualPtr);
-    return 0;
+    return;
 }
 // SORTEAR LISTA POR APELLIDO
 void sortListByLastNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
@@ -179,7 +177,7 @@ void sortListByLastNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y de
     } while (sortResult.sortCounter != 0); // Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
     free(nextPtr);
     free(actualPtr);
-    return 0;
+    return;
 }
 // SORTEAR LISTA POR CI
 void sortListByCI(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
@@ -196,7 +194,7 @@ void sortListByCI(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve 
     } while (sortResult.sortCounter != 0); // Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
     free(nextPtr);
     free(actualPtr);
-    return 0;
+    return;
 }
 //APUNTAR AL COMIENZO DE LA LISTA
 // HACER LISTA ORDENADA CIRCULAR
@@ -207,7 +205,7 @@ void makeListCircular(Estudiante_t *listPtr) {
     }
     actualPtr->siguiente = listPtr;
     free(actualPtr);
-    return 0;
+    return;
 }
 // APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor NOMBRE y "CORTAR" LA COLA
 Estudiante_t  *pointFirstName(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
@@ -253,13 +251,13 @@ Estudiante_t  *pointFirstCI(Estudiante_t *listPtr) {// Asumimos que la lista ya 
 void printListHeader() {
     printf("    APELLIDO   |    NOMBRE     |   CI   | GRADO |CALIFICACION\n");
     printf("-------------------------------------------------------------\n");
-    return 0;
+    return;
 }
 // Fila de la lista
 
 void printStudentRow(Estudiante_t *actualPtr) {
     printf("%*s|%*s|%*s|%*s|%*s\n",FORMAT_NAME, actualPtr->apellido, FORMAT_NAME, actualPtr->nombre, FORMAT_CI, actualPtr->CI, 1, actualPtr->grado, 3, actualPtr->promCalif );
-    return 0;
+    return;
 }
 
 // Imprimir lista entera
@@ -281,7 +279,7 @@ void displayList(Estudiante_t *listPtr) {
         while (actualPtr->siguiente != NULL);
     }
     free(actualPtr);
-    return 0;
+    return;
 }
 
 //BORRAR
@@ -301,7 +299,7 @@ void deleteStudent(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
         free(actualPtr);
         free(auxPtr);
     }
-    return 0;
+    return;
 }
 // Da opciones para borrar estudiante encontrado
 void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
@@ -361,7 +359,7 @@ void deleteStudentMenu(Estudiante_t *listPtr) {
             printf("No se han obtenido resultados.\n");
         }
         free(actualPtr);
-    return 0;
+    return;
 }
 
 
@@ -384,20 +382,20 @@ void accesoMenu(Estudiante_t *listPtr, Estudiante_t *resultPtr) {
                 addNewStudentMenu(listPtr);
                 break;
             case '2':
-                displayListMenu();
+                displayListMenu(listPtr);
                 break;
             case '3':
-                deleteStudentMenu();
+                deleteStudentMenu(listPtr);
                 break;
             case '4':
                 printf("Saliendo...");
                 break;
             default:
-                printd("Opcion invalida. Ingrese nuevamente.\n");
+                printf("Opcion invalida. Ingrese nuevamente.\n");
         }
     }
     while (opcionElegida != 4);
-    return 0;
+    return;
 }
 
 void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
@@ -408,22 +406,24 @@ void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero 
         printf("2. No. -> Volver a menu principal");
         scanf("%d", &opcionElegida);
         switch (opcionElegida) {
-            case '1':
-                Estudiante_t* newStudent = inicializarEstudiante();// Inicializamos el nuevo elemento.
-                newStudent = cargarDatos(*newStudent);// Cargamos los datos del estudiante.
-                Estudiante_t* ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
+            case '1':{
+                Estudiante_t *newStudent = inicializarEstudiante();// Inicializamos el nuevo elemento.
+
+                newStudent = cargarDatos(newStudent);// Cargamos los datos del estudiante.
+                Estudiante_t *ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
                 ultimoList->siguiente = newStudent;// "Enganchamos" nuevo elemento a la lista. newStudent->siguiente ya es NULL por inicializacion
                 free(ultimoList);
                 free(newStudent);
+                }
                 break;
             case '2':
                 printf("Saliendo...");
                 break;
             default:
-                printd("Opcion invalida. Ingrese nuevamente.\n");
+                printf("Opcion invalida. Ingrese nuevamente.\n");
         }
     } while (opcionElegida != 2);
-    return 0;
+    return;
 }
 
 void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
@@ -455,22 +455,12 @@ void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al
             displayList(listPtr);
                 break;
             case '4':
-                printd("Saliendo...\n");
+                printf("Saliendo...\n");
                 break;
             default:
-                printd("Opcion invalida. Ingrese nuevamente.\n");
+                printf("Opcion invalida. Ingrese nuevamente.\n");
         }
     } while (opcionElegida != 4);
-    return 0;
+    return;
 }
-
-// FIN FUNCIONES  DE MENU///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void my_lib_2_function() {
-    printf("Funcion de my_lib_2 ejecutada.\n");
-    return 0;
-}
-
-
-
-
 // ESTOY TRABAJANDO EN EL MENU DE ELIMINACION DE ESTUDIANTE
