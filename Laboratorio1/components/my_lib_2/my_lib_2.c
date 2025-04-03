@@ -17,10 +17,12 @@ char bufferCI[FORMAT_CI];
 
 // Declaramos variables
 Estudiante_t *newStudent; // La usamos para crear nuevo elemento en la lista de estidiantes. Puntero "Siguiente" apunta a NULL.
+
 //Estudiante_t *listFirst; Esta declarada en el main. Confirmar en donde debe declararse.
 Estudiante_t *listBuffer; // Puntero auxiliar para iterar en la lista.
 
 //AGREGAR NUEVO ESTUDIANTE
+
 // INICIALIZAR VARIABLES
 Estudiante_t* inicializarEstudiante() { 
     Estudiante_t *newStudentPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
@@ -409,7 +411,7 @@ void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero 
             case '1':{
                 Estudiante_t *newStudent = inicializarEstudiante();// Inicializamos el nuevo elemento.
 
-                newStudent = cargarDatos(newStudent);// Cargamos los datos del estudiante.
+                newStudent = cargarDatosMenu(newStudent);// Cargamos los datos del estudiante.
                 Estudiante_t *ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
                 ultimoList->siguiente = newStudent;// "Enganchamos" nuevo elemento a la lista. newStudent->siguiente ya es NULL por inicializacion
                 free(ultimoList);
