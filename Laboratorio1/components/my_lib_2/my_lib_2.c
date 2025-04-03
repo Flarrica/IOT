@@ -39,20 +39,20 @@ Estudiante_t* inicializarEstudiante() {
 }
 // CARGAR DATOS NUEVO ESTUDIANTE
 Estudiante_t *cargarDatosMenu(Estudiante_t *auxPtr) { // Ver tipo de variable
-    printf("Ingrese el nombre del estudiante: ");
-    scanf("%s", &auxPtr->nombre);
+    printf("Ingrese el nombre del estudiante: \n");
+    scanf("%*s", FORMAT_NAME, &auxPtr->nombre);
 
-    printf("Ingrese el apellido del estudiante: ");
-    scanf("%s", &auxPtr->apellido);
+    printf("Ingrese el apellido del estudiante: \n");
+    scanf("%*s", FORMAT_NAME, &auxPtr->apellido);
 
-    printf("Ingrese el CI del estudiante: ");
-    scanf("%s", &auxPtr->CI);
+    printf("Ingrese el CI del estudiante: \n");
+    scanf("%*s", FORMAT_CI, &auxPtr->CI);
 
-    printf("Ingrese el grado del estudiante: ");
-    scanf("%d", &auxPtr->grado);
+    printf("Ingrese el grado del estudiante: \n");
+    scanf("%1d", &auxPtr->grado);
 
-    printf("Ingrese el promedio de calificaciones del estudiante: ");
-    scanf("%d", &auxPtr->promCalif);
+    printf("Ingrese el promedio de calificaciones del estudiante: \n");
+    scanf("%3d", &auxPtr->promCalif);
 
     // Imprimir los datos del estudiante (opcional)
     printf("\n----------------------------------------\n");
@@ -328,11 +328,113 @@ void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
             }
             while (confirm != 'N'); //Solo sale en caso de detectar N o en caso de entrar a Y y ejecutar codigo.
 }
-// Las busquedas se realizan iterando toda la lista enlazada hasta llegar a NULL
+
+
+
+
+
+//FUNCIONES DE MENU
+void accesoMenu(Estudiante_t *listPtr) {
+    int flagMenu = 0;
+    do {
+        //Muestra las opciones del Menu
+        printf("\n---------Sistema de gestion de estudiantes de IoT---------\n");
+        printf("1. Ingresar nuevo alumno/a\n");
+        printf("2. Consultar listado de alumnos/a\n");
+        printf("3. Buscar alumno/a\n");
+        printf("4. Salir\n");
+        scanf("%s", &opcionElegida);
+        // Hasta aca entra y toma una opcion del menu
+        
+        switch (opcionElegida) {
+            case '1':
+                addNewStudentMenu(listPtr);
+                break;
+            case '2':
+                displayListMenu(listPtr);
+                break;
+            case '3':
+                deleteStudentMenu(listPtr);
+                break;
+            case '4':
+                printf("Saliendo...");
+                break;
+            default:
+                printf("Opcion invalida. Ingrese nuevamente.\n");
+        }
+    }
+    while (opcionElegida != 4);
+    return;
+}
+
+void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
+    do
+    {   
+        printf("Desea agregar un nuevo estudiante? Y/N\n");
+        scanf("%s", &opcionElegida);
+        switch (opcionElegida) {
+            case 'Y':{
+                Estudiante_t *newStudent = inicializarEstudiante();// Inicializamos el nuevo elemento.
+
+                newStudent = cargarDatosMenu(newStudent);// Cargamos los datos del estudiante.
+                Estudiante_t *ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
+                newStudent = ultimoList->siguiente;// "Enganchamos" nuevo elemento a la lista. newStudent->siguiente ya es NULL por inicializacion
+                free(ultimoList);
+                free(newStudent);
+                }
+                break;
+            case 'N':
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opcion invalida. Ingrese nuevamente.\n");
+        }
+    } while (opcionElegida != 'N');
+    return;
+}
+
+void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
+    do
+    {   
+        printf("Con que orden desea visualizar la lista?\n");
+        printf("1. Por nombre. Ascendente\n");
+        printf("2. Por apellido. Ascendente\n");
+        printf("3. CI. Ascendente\n");
+        printf("4. Salir\n");
+        scanf("%s", &opcionElegida);
+        switch (opcionElegida) {
+            case '1':
+            sortListByNames(listPtr); // Ordena por nombres
+            makeListCircular(listPtr); // Crea lista circular
+            listPtr = pointFirstName(listPtr); // El comienzo de la lista es el valor mas chico
+            displayList(listPtr);
+                break;
+            case '2':
+            sortListByLastNames(listPtr); // Ordena por apellido
+            makeListCircular(listPtr); // Crea lista circular
+            listPtr = pointFirstLastName(listPtr); // El comienzo de la lista es el valor mas chico
+            displayList(listPtr);
+                break;
+            case '3':
+            sortListByCI(listPtr); // Ordena por CI
+            makeListCircular(listPtr); // Crea lista circular
+            listPtr = pointFirstCI(listPtr); // El comienzo de la lista es el valor mas chico
+            displayList(listPtr);
+                break;
+            case '4':
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opcion invalida. Ingrese nuevamente.\n");
+        }
+    } while (opcionElegida != 4);
+    return;
+}
+
 void deleteStudentMenu(Estudiante_t *listPtr) {
     int matchCounter = 0;
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
-    printf("Ingrese la CI del estudiante a eliminar: ");
+    printf("Ingrese la CI del estudiante a eliminar: \n");
     
     scanf("%*s",FORMAT_CI, &bufferCI);
     if (actualPtr == NULL) {
@@ -363,106 +465,3 @@ void deleteStudentMenu(Estudiante_t *listPtr) {
         free(actualPtr);
     return;
 }
-
-
-
-//FUNCIONES DE MENU
-void accesoMenu(Estudiante_t *listPtr, Estudiante_t *resultPtr) {
-    int flagMenu = 0;
-    do {
-        //Muestra las opciones del Menu
-        printf("\n---------Sistema de gestion de estudiantes de IoT---------\n");
-        printf("1. Ingresar nuevo alumno/a\n");
-        printf("2. Consultar listado de alumnos/a\n");
-        printf("3. Buscar alumno/a\n");
-        printf("4. Salir\n");
-        scanf("%d", &opcionElegida);
-        // Hasta aca entra y toma una opcion del menu
-        
-        switch (opcionElegida) {
-            case '1':
-                addNewStudentMenu(listPtr);
-                break;
-            case '2':
-                displayListMenu(listPtr);
-                break;
-            case '3':
-                deleteStudentMenu(listPtr);
-                break;
-            case '4':
-                printf("Saliendo...");
-                break;
-            default:
-                printf("Opcion invalida. Ingrese nuevamente.\n");
-        }
-    }
-    while (opcionElegida != 4);
-    return;
-}
-
-void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
-    do
-    {   
-        printf("Desea agregar un nuevo estudiante?");
-        printf("1. Si. -> Agregar datos");
-        printf("2. No. -> Volver a menu principal");
-        scanf("%d", &opcionElegida);
-        switch (opcionElegida) {
-            case '1':{
-                Estudiante_t *newStudent = inicializarEstudiante();// Inicializamos el nuevo elemento.
-
-                newStudent = cargarDatosMenu(newStudent);// Cargamos los datos del estudiante.
-                Estudiante_t *ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
-                ultimoList->siguiente = newStudent;// "Enganchamos" nuevo elemento a la lista. newStudent->siguiente ya es NULL por inicializacion
-                free(ultimoList);
-                free(newStudent);
-                }
-                break;
-            case '2':
-                printf("Saliendo...");
-                break;
-            default:
-                printf("Opcion invalida. Ingrese nuevamente.\n");
-        }
-    } while (opcionElegida != 2);
-    return;
-}
-
-void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
-    do
-    {   
-        printf("Con que orden desea visualizar la lista?");
-        printf("1. Por nombre. Ascendente");
-        printf("2. Por apellido. Ascendente");
-        printf("3. CI. Ascendente");
-        printf("4. Salir");
-        scanf("%d", &opcionElegida);
-        switch (opcionElegida) {
-            case '1':
-            sortListByNames(listPtr); // Ordena por nombres
-            makeListCircular(listPtr); // Crea lista circular
-            listPtr = pointFirstName(listPtr); // El comienzo de la lista es el valor mas chico
-            displayList(listPtr);
-                break;
-            case '2':
-            sortListByLastNames(listPtr); // Ordena por apellido
-            makeListCircular(listPtr); // Crea lista circular
-            listPtr = pointFirstLastName(listPtr); // El comienzo de la lista es el valor mas chico
-            displayList(listPtr);
-                break;
-            case '3':
-            sortListByCI(listPtr); // Ordena por CI
-            makeListCircular(listPtr); // Crea lista circular
-            listPtr = pointFirstCI(listPtr); // El comienzo de la lista es el valor mas chico
-            displayList(listPtr);
-                break;
-            case '4':
-                printf("Saliendo...\n");
-                break;
-            default:
-                printf("Opcion invalida. Ingrese nuevamente.\n");
-        }
-    } while (opcionElegida != 4);
-    return;
-}
-// ESTOY TRABAJANDO EN EL MENU DE ELIMINACION DE ESTUDIANTE

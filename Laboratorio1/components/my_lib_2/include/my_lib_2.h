@@ -24,10 +24,10 @@ typedef struct Sort_s {
 }Sort_t;
 
 // Funciones de menu
-void accesoMenu(); //OK
-void addNewStudentMenu(); // OK
-void displayListMenu(); //OK
-void deleteStudentMenu(); //OK
+void accesoMenu(Estudiante_t *listPtr); //OK
+void addNewStudentMenu(Estudiante_t *listPtr); // OK
+void displayListMenu(Estudiante_t *listPtr); //OK
+void deleteStudentMenu(Estudiante_t *listPtr); //OK
 
 //Agregar nuevo estudiante
 
