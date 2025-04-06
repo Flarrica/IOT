@@ -8,6 +8,9 @@ Para compilar, ingresar los siguientes comandos en "cmd"
 (Ir al directorio)
 cd Desktop\IoT\IOT\Laboratorio1
 
+Fernando 
+cd Desktop\IOT\Laboratorio1
+
 (Borrar build anterior)
 rmdir /s /q build
 del CMakeCache.txt
