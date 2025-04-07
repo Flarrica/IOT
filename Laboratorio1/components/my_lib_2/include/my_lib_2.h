@@ -4,18 +4,47 @@
 #include <stdlib.h>
 #include <string.h>
 
-void my_lib_2_function();
 
-#define FORMAT_CI 8
+
 #define FORMAT_NAME 15
+#define FORMAT_LASTNAME 15
+#define FORMAT_CI 9
+#define FORMAT_GRADE 1
+#define FORMAT_PROMCALIF 3
+
+// Códigos de error
+typedef enum {
+    NO_ERROR,
+    ERROR_NOMBRE_LARGO,
+    ERROR_APELLIDO_LARGO,
+    ERROR_CI_LARGO,
+    ERROR_GRADO_RANGO,
+    ERROR_CALIFICACIONES_RANGO
+} CodigoError_t;
+
+typedef enum {
+    PRIMERO = 1,
+    SEGUNDO,
+    TERCERO,
+    CUARTO,
+    QUINTO,
+    SEXTO
+} Grado_t;
+
+typedef enum {
+    SIN_FILTRO,
+    NOMBRE,
+    APELLIDO,
+    CI
+} SortBy_t;
 
 typedef struct Estudiante_s {
     char nombre[FORMAT_NAME];
-    char apellido[FORMAT_NAME];
+    char apellido[FORMAT_LASTNAME];
     char CI[FORMAT_CI];
-    int grado;
-    int promCalif;
-    struct Estudiante_s *siguiente; // VER SI DEEB SER PUNTERO O NO
+    Grado_t grado;
+    int  promCalif;
+    struct Estudiante_s *siguiente;
 }Estudiante_t;
 
 typedef struct Sort_s {
@@ -23,40 +52,32 @@ typedef struct Sort_s {
     int sortCounter;
 }Sort_t;
 
-// Funciones de menu
-void accesoMenu(Estudiante_t *listPtr); //OK
-void addNewStudentMenu(Estudiante_t *listPtr); // OK
-void displayListMenu(Estudiante_t *listPtr); //OK
-void deleteStudentMenu(Estudiante_t *listPtr); //OK
+// Funcion de validacion de datos
+CodigoError_t validacionNuevoEstudiante (char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif);
+void printErrorNuevoEstudiante(CodigoError_t error);
+CodigoError_t validacionFiltroLista (char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif);
+void printErrorFiltroLista(CodigoError_t error);
 
-//Agregar nuevo estudiante
+// Funciones principales
+Estudiante_t *agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
+void displayList(Estudiante_t *listPtr, SortBy_t filtro); //OK
+void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
 
-// Funciones agregar estudiante
-Estudiante_t *inicializarEstudiante(); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
-Estudiante_t *cargarDatosMenu(Estudiante_t *studentPtr); // Carga datos de estudiante en Estudiante inicializado. //OK
-Estudiante_t *buscaUltimoLista(); // Busca el ultimo estudiante de la lista iterando hasta encontrar NULL.
 
-// Funciones display de lista
-Estudiante_t *inicializarLista(); // Agrega el primer elemento de la lista apuntando a NULL y con los campos vacios.
-Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter);
-Sort_t sortStudentsLastNames(Estudiante_t *actualPtr, int sortCounter);
-Sort_t sortStudentsCI(Estudiante_t *actualPtr, int sortCounter);
-void sortListByNames(Estudiante_t *listPtr);
-void sortListByLastNames(Estudiante_t *listPtr);
-void sortListByCI(Estudiante_t *listPtr);
+//FUNCIONES AUXILIARES -  Agregar estudiante
+
+Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr); // Busca el ultimo estudiante de la lista iterando hasta encontrar NULL.
+
+//FUNCIONES AUXILIARES -  Display de lista
+Sort_t sortElementsList(Estudiante_t *actualPtr, int sortCounter, SortBy_t filtro);
+void sortList(Estudiante_t *listPtr, SortBy_t filtro);
 void makeListCircular(Estudiante_t *listPtr);
-Estudiante_t  *pointFirstName(Estudiante_t *listPtr);
-Estudiante_t  *pointFirstLastName(Estudiante_t *listPtr);
-Estudiante_t  *pointFirstCI(Estudiante_t *listPtr);
+Estudiante_t *pointFirstElementBySort(Estudiante_t *listPtr, SortBy_t filtro);
+void printListHeader();
+void printStudentRow(Estudiante_t *actualPtr);
+void printfList(Estudiante_t *listPtr);
 
-// Print List
-void printListHeader(); // Auxiliar
-void printStudentRow(Estudiante_t *actualPtr); // Auxiliar
-void displayList(Estudiante_t *listPtr); // Funcion prinicpal
-
-//Borrar elemento de lista
-void deleteStudent(Estudiante_t *actualPtr, Estudiante_t *listPtr);
+//FUNCIONES AUXILIARES - Borrar elemento de la lista
+void deleteStudentElement(Estudiante_t *actualPtr, Estudiante_t *listPtr);
 void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr);
-void deleteStudentMenu(Estudiante_t *listPtr);
-
 #endif

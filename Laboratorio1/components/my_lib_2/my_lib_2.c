@@ -1,95 +1,143 @@
 #include <stdio.h>
 #include "my_lib_2.h"
 
-// Pongo funcion de ejemplo para probar funcionamiento de libreria
+//---------------------------------------------------VALIDACION de datos y ERRORES----------------------------------------------------------//
+// Validacion de nuevo estudiante
+CodigoError_t validacionNuevoEstudiante (char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int promCalif) {
+    CodigoError_t error;
+    if (strlen(nombre) >= FORMAT_NAME) {// Verifica largo del Nombre
+        error = ERROR_NOMBRE_LARGO;
+    }
+    if (strlen(apellido) >= FORMAT_LASTNAME) {// Verifica largo del Apellido
+        error = ERROR_APELLIDO_LARGO;
+    }
+    if (strlen(CI) >= FORMAT_CI) {// Verifica largo del CI
+        error = ERROR_CI_LARGO;
+    }
 
-void my_lib_2_function() {
-    printf("Funcion de la libreria _2 ejecutada con exito. Aprobado por Diegote...\n");
+    if (grado < 1 || grado > 6) {// Verifica rango del grado. Asumimos liceo, entonces es de primero a sexto.
+        return ERROR_GRADO_RANGO;
+    }
+    if (promCalif  < 0 || promCalif > 100) {// Verifica rango de la calificacion. del 0 al 100;
+        return ERROR_CALIFICACIONES_RANGO;
+    }
+    error = NO_ERROR;
+    return error;
+}
+void printErrorNuevoEstudiante(CodigoError_t error) {
+    if (error != NO_ERROR) { // Realizamos print para cada error
+        switch (error) {
+            case ERROR_NOMBRE_LARGO:
+                printf("Error: Nombre demasiado largo.\n");
+                break;
+            case ERROR_APELLIDO_LARGO:
+                printf("Error: Apellido demasiado largo.\n");
+                break;
+            case ERROR_CI_LARGO:
+                printf("Error: CI demasiado largo.\n");
+                break;
+            case ERROR_GRADO_RANGO:
+                printf("Error: Grado fuera de rango.\n");
+                break;
+                // Agrega más casos para otros errores...
+            default:
+                printf("Error desconocido.\n");
+        }
+    }
+    return;
 }
 
-// Fin del ejemplo. Principio del codigo
+//Validacion filtro de lista
+CodigoError_t validacionFiltroLista (char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int promCalif) {
+    CodigoError_t error;
+    if (strlen(nombre) >= FORMAT_NAME) {// Verifica largo del Nombre
+        error = ERROR_NOMBRE_LARGO;
+    }
+    if (strlen(apellido) >= FORMAT_LASTNAME) {// Verifica largo del Apellido
+        error = ERROR_APELLIDO_LARGO;
+    }
+    if (strlen(CI) >= FORMAT_CI) {// Verifica largo del CI
+        error = ERROR_CI_LARGO;
+    }
 
-
-int opcionElegida;
-char bufferName[FORMAT_NAME];
-char bufferLastName[FORMAT_NAME];
-char bufferCI[FORMAT_CI];
-
-// Declaramos variables
-Estudiante_t *newStudent; // La usamos para crear nuevo elemento en la lista de estidiantes. Puntero "Siguiente" apunta a NULL.
-
-//Estudiante_t *listFirst; Esta declarada en el main. Confirmar en donde debe declararse.
-Estudiante_t *listBuffer; // Puntero auxiliar para iterar en la lista.
-
-//AGREGAR NUEVO ESTUDIANTE
-
-// INICIALIZAR VARIABLES
-Estudiante_t* inicializarEstudiante() { 
-    Estudiante_t *newStudentPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
-    // Inicializar campos con strcpy (para cadenas)
-    strcpy(newStudentPtr->nombre, ""); // Inicializamos vacio
-    strcpy(newStudentPtr->apellido, ""); // Inicializamos vacio
-    strcpy(newStudentPtr->CI, ""); // Inicializamos vacio
-    // Inicializar campos enteros directamente
-    newStudentPtr->grado = 0; // Inicializamos 0
-    newStudentPtr->promCalif = 0; // Inicializamos 0
-    // Inicializar puntero siguiente a NULL. Cerrar la lista
-    newStudentPtr->siguiente = NULL;
-    return newStudentPtr;
+    if (grado < 1 || grado > 6) {// Verifica rango del grado. Asumimos liceo, entonces es de primero a sexto.
+        return ERROR_GRADO_RANGO;
+    }
+    if (grado < 0 || grado > 100) {// Verifica rango de la calificacion. del 0 al 100;
+        return ERROR_CALIFICACIONES_RANGO;
+    }
+    error = NO_ERROR;
+    return error;
 }
-// CARGAR DATOS NUEVO ESTUDIANTE
-Estudiante_t *cargarDatosMenu(Estudiante_t *auxPtr) { // Ver tipo de variable
-    printf("Ingrese el nombre del estudiante: \n");
-    scanf("%*s", FORMAT_NAME, &auxPtr->nombre);
-
-    printf("Ingrese el apellido del estudiante: \n");
-    scanf("%*s", FORMAT_NAME, &auxPtr->apellido);
-
-    printf("Ingrese el CI del estudiante: \n");
-    scanf("%*s", FORMAT_CI, &auxPtr->CI);
-
-    printf("Ingrese el grado del estudiante: \n");
-    scanf("%1d", &auxPtr->grado);
-
-    printf("Ingrese el promedio de calificaciones del estudiante: \n");
-    scanf("%3d", &auxPtr->promCalif);
-
-    // Imprimir los datos del estudiante (opcional)
-    printf("\n----------------------------------------\n");
-    printf("Datos del estudiante:\n");
-    printf("Nombre: %s\n", auxPtr->nombre);
-    printf("Apellido: %s\n", auxPtr->apellido);
-    printf("CI: %s\n", auxPtr->CI);
-    printf("Grado: %d\n", auxPtr->grado);
-    printf("Promedio: %d\n", auxPtr->promCalif);
-    printf("----------------------------------------\n");
-    return auxPtr;
+void printErrorFiltroLista(CodigoError_t error) {
+    if (error != NO_ERROR) { // Realizamos print para cada error
+        switch (error) {
+            case ERROR_NOMBRE_LARGO:
+                printf("Error: Nombre demasiado largo.\n");
+                break;
+            case ERROR_APELLIDO_LARGO:
+                printf("Error: Apellido demasiado largo.\n");
+                break;
+            case ERROR_CI_LARGO:
+                printf("Error: CI demasiado largo.\n");
+                break;
+            case ERROR_GRADO_RANGO:
+                printf("Error: Grado fuera de rango.\n");
+                break;
+                // Agrega más casos para otros errores...
+            default:
+                printf("Error desconocido.\n");
+        }
+    }
+    return;
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------//
+
+//-------------------------------------------AUXILIARES de funcion prinicpal: AGREGAR NUEVO ESTUDIANTE------------------------------------//
 // BUSCAR ULTIMO EN LISTA
-Estudiante_t *buscaUltimoLista(Estudiante_t *listPtr) {// Se le da como entrada el puntero al inicio de la lista
-    Estudiante_t *auxPtr = listPtr; //Declaro e inicializo un puntero auxiliar que apunta al inicio de la lista.
-    while (auxPtr->siguiente != NULL) { // Esta condicion se da cuando se llega al elemento final de la lista.
-        auxPtr = auxPtr->siguiente; // Se itera apuntando el puntero auxiliar a la siguiente posicion
+Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr) {// Se le da como entrada el puntero al inicio de la lista
+    printf("Entra funcion auxiliar - BUSCAR_ULTIMO_LISTA\n");
+    Estudiante_t *actualPtr = listPtr; //Declaro e inicializo un puntero auxiliar que apunta al inicio de la lista.
+    while (actualPtr->siguiente != NULL) { // Esta condicion se da cuando se llega al elemento final de la lista.
+        actualPtr = actualPtr->siguiente; // Se itera apuntando el puntero auxiliar a la siguiente posicion
     }
-    return auxPtr; //Devolvemos el puntero para que lo tome otra funcion
+    printf("Sale funcion auxiliar - BUSCAR_ULTIMO_LISTA\n");
+    return actualPtr; //Devolvemos el puntero para que lo tome otra funcion
 }
+//-----------------------------------------------------------------------------------------------------------------------------------------//
 
+//-------------------------------------------AUXILIARES de funcion prinicpal: DISPLAY LISTA------------------------------------------------//
 
-//DISPLAY LISTA/
-//PERMUTAR 2 ELEMENTOS CONTIGUOS DE LA LISTA SEGUN CAMPO
-// COMPARAR NOMBRE PARA REORDENAR ELEMENTOS DE LISTA
-Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+// COMPARAR ELEMENTOS CONTIGUOS Y PERMUTAR EN CASO DE SER NECESARIO SEGUN FILTRO
+Sort_t sortElementsList(Estudiante_t *actualPtr, int sortCounter, SortBy_t filtro) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+    printf("->DISPLAY->sortList->sortElementList: Entra\n");
     Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
-    int ordenName = strcmp(actualPtr->nombre,nextPtr->nombre); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
-    if (ordenName > 0) { // Permutar lugares
+    int orden = 0; // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
+    if (filtro != SIN_FILTRO)
+    {
+        switch (filtro) { // Da como resultado el orden comparativo entre los dos elementos dependiendo de como estan sorteados
+            case NOMBRE:
+            orden = strcmp(actualPtr->nombre,nextPtr->nombre);
+                break;
+            case APELLIDO:
+            orden = strcmp(actualPtr->apellido,nextPtr->apellido);
+                break;
+            case CI:
+            orden = strcmp(actualPtr->CI,nextPtr->CI);
+                break;
+            default:
+            break;
+        }
+    }
+    if (orden > 0) { // Permutar lugares dependiendo del orden, que depende del sortby (nombre, apellido, CI)
         actualPtr->siguiente = nextPtr->siguiente;
         nextPtr->siguiente = actualPtr;
         actualPtr = nextPtr;// Pasar a siguiente estudiante
         sortCounter++;
-        
-    } else if (ordenName < 0) { 
+    } else if (orden < 0) { 
         actualPtr = nextPtr;// No hacer nada. Pasar a siguiente estudiante
-    } else { // Sortear por cedula ascendente
+    } else if (filtro != CI)// Sortear por cedula ascendente en caso de empate en nombre o apellido
+    {
         int ordenCI = strcmp(actualPtr->CI,nextPtr->CI); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
         if (ordenCI > 0) { // Permutar lugares
             actualPtr->siguiente = nextPtr->siguiente;
@@ -102,168 +150,100 @@ Sort_t sortStudentsNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea a
     }
     Sort_t sortResult = {actualPtr, sortCounter};
     free(nextPtr);
+    printf("->DISPLAY->sortList->sortElementList: Sale\n");
     return sortResult;
 }
-// COMPARAR APELLIDO PARA REORDENAR ELEMENTO DE LISTA
-Sort_t sortStudentsLastNames(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
-    Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
-    int ordenLastName = strcmp(actualPtr->apellido,nextPtr->apellido); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
-    if (ordenLastName > 0) { // Permutar lugares
-        actualPtr->siguiente = nextPtr->siguiente;
-        nextPtr->siguiente = actualPtr;
-        actualPtr = nextPtr;// Pasar a siguiente estudiante
-        sortCounter++;
-    } else if (ordenLastName < 0) { 
-        actualPtr = nextPtr;// No hacer nada. Pasar a siguiente estudiante
-    } else { // Sortear por cedula ascendente
-        int ordenCI = strcmp(actualPtr->CI,nextPtr->CI); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
-        if (ordenCI > 0) { // Permutar lugares
-            actualPtr->siguiente = nextPtr->siguiente;
-            nextPtr->siguiente = actualPtr;
-            actualPtr = nextPtr;// Pasar a siguiente estudiante
-            sortCounter++;
-        } else {
-            actualPtr = nextPtr; // No hacer nada. Pasar a siguiente estudiante
-        }
-    }
-    Sort_t sortResult = {actualPtr, sortCounter};
-    free(nextPtr);
-    return sortResult;
-}
-// COMPARAR CI PARA REORDENAR ELEMENTO DE LA LISTA
-Sort_t sortStudentsCI(Estudiante_t *actualPtr, int sortCounter) { // Odrnea alfabeticamente y devuelve el siguiente elemento
-    Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
-    int ordenLastName = strcmp(actualPtr->CI,nextPtr->CI); // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
-    if (ordenLastName > 0) { // Permutar lugares
-        actualPtr->siguiente = nextPtr->siguiente;
-        nextPtr->siguiente = actualPtr;
-        actualPtr = nextPtr;// Pasar a siguiente estudiante
-        sortCounter++;
-    } else { 
-        actualPtr = nextPtr;// No hacer nada. Pasar a siguiente estudiante
-    } 
-    Sort_t sortResult = {actualPtr, sortCounter};
-    free(nextPtr);
-    return sortResult;
-}
-//REORDENAR LISRA SEGUN CAMPO ELEGIDO
-// SORTEAR LISTA POR NOMBRE
-void sortListByNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
+// ORDENA TODA LA LISTA SEGUN EL FILTRO INDICADO
+void sortList(Estudiante_t *listPtr, SortBy_t filtro) {
+    printf("->DISPLAY->sortList: Entra\n");
     Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
-    Estudiante_t *nextPtr = actualPtr->siguiente;
     int sortCounter = 0;
+    printf("->DISPLAY->sortList: Flag 1\n");
     Sort_t sortResult = {actualPtr, sortCounter};
+    printf("->DISPLAY->sortList: Flag 2\n");
     do
     {
+        printf("->DISPLAY->sortList: Flag 3\n");
         sortResult.sortCounter = 0;
-        while (nextPtr != NULL) {
-            sortResult = sortStudentsNames(sortResult.actualPtr, sortResult.sortCounter);
+        printf("->DISPLAY->sortList: Flag 4\n");
+        printf("Iterando nombre: %s\n", listPtr->nombre);
+
+        printf("Valor de puntero siguiente al actual: %s\n", actualPtr->nombre);
+        while (actualPtr->siguiente != NULL) {
+            printf("->DISPLAY->sortList: Flag 5\n");
+            printf("Entra while. Iteracion: %d\n", sortResult.sortCounter);
+            sortResult = sortElementsList(sortResult.actualPtr, sortResult.sortCounter, filtro);
         }
     } while (sortResult.sortCounter != 0);// Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
-    free(nextPtr);
+    printf("->DISPLAY->sortList: Flag 5\n");
     free(actualPtr);
+    printf("->DISPLAY->sortList: Sale\n");
     return;
 }
-// SORTEAR LISTA POR APELLIDO
-void sortListByLastNames(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
-    Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
-    Estudiante_t *nextPtr = actualPtr->siguiente;
-    int sortCounter = 0;
-    Sort_t sortResult = {actualPtr, sortCounter};
-    do
-    {
-        sortResult.sortCounter = 0;
-        while (nextPtr != NULL) {
-            sortResult = sortStudentsLastNames(sortResult.actualPtr, sortResult.sortCounter);
-        }
-    } while (sortResult.sortCounter != 0); // Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
-    free(nextPtr);
-    free(actualPtr);
-    return;
-}
-// SORTEAR LISTA POR CI
-void sortListByCI(Estudiante_t *listPtr) { // Odrnea alfabeticamente y devuelve el siguiente elemento
-    Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
-    Estudiante_t *nextPtr = actualPtr->siguiente;
-    int sortCounter = 0;
-    Sort_t sortResult = {actualPtr, sortCounter};
-    do
-    {
-        sortResult.sortCounter = 0;
-        while (nextPtr != NULL) {
-            sortResult = sortStudentsCI(sortResult.actualPtr, sortResult.sortCounter);
-        }
-    } while (sortResult.sortCounter != 0); // Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
-    free(nextPtr);
-    free(actualPtr);
-    return;
-}
-//APUNTAR AL COMIENZO DE LA LISTA
 // HACER LISTA ORDENADA CIRCULAR
 void makeListCircular(Estudiante_t *listPtr) {
+    printf("->DISPLAY->makeCircular: Entra\n");
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
     while (actualPtr->siguiente != NULL) {
         actualPtr = actualPtr->siguiente;
     }
     actualPtr->siguiente = listPtr;
     free(actualPtr);
+    printf("->DISPLAY->makeCircular: Sale\n");
     return;
 }
-// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor NOMBRE y "CORTAR" LA COLA
-Estudiante_t  *pointFirstName(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
+// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA / Segun filtro elegido
+Estudiante_t *pointFirstElementBySort(Estudiante_t *listPtr, SortBy_t filtro) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
+    printf("->DISPLAY->pointFirstElementBySort: Entra\n");
     Estudiante_t *actualPtr =  listPtr;
-    while (strcmp(actualPtr->nombre,actualPtr->siguiente->nombre) < 0)
+    if (filtro != SIN_FILTRO)
     {
-        actualPtr = actualPtr->siguiente; // Voy al siguiente
+        makeListCircular(listPtr);
+        switch (filtro) {
+            case NOMBRE:
+            while (strcmp(actualPtr->nombre,actualPtr->siguiente->nombre) < 0)
+            {
+                actualPtr = actualPtr->siguiente; // Voy al siguiente
+            }
+                break;
+            case APELLIDO:
+            while (strcmp(actualPtr->apellido,actualPtr->siguiente->apellido) < 0)
+            {
+                actualPtr = actualPtr->siguiente; // Voy al siguiente
+            }
+                break;
+            case CI:
+            while (strcmp(actualPtr->CI,actualPtr->siguiente->CI) < 0)
+            {
+                actualPtr = actualPtr->siguiente; // Voy al siguiente
+            }
+                break;
+            default:
+            break;
+        }
+        listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
+        actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
     }
-    listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
-    actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
-
     free(actualPtr);
+    printf("->DISPLAY->pointFirstElementBySort: Sale\n");
     return listPtr;
 }
-// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor APELLIDO y "CORTAR" LA COLA
-Estudiante_t  *pointFirstLastName(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
-    Estudiante_t *actualPtr =  listPtr;
-    while (strcmp(actualPtr->apellido,actualPtr->siguiente->apellido) < 0)
-    {
-        actualPtr = actualPtr->siguiente; // Voy al siguiente
-    }
-    listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
-    actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
-
-    free(actualPtr);
-    return listPtr;
-}
-// APUNTAR A PRIMER ELEMENTO DE LISTA CIRCULAR ORDENADA  Buscando el menor CI y "CORTAR" LA COLA
-Estudiante_t  *pointFirstCI(Estudiante_t *listPtr) {// Asumimos que la lista ya es circular. Busca el primer elemento (mas chico) y lo apunta
-    Estudiante_t *actualPtr =  listPtr;
-    while (strcmp(actualPtr->CI,actualPtr->siguiente->CI) < 0)
-    {
-        actualPtr = actualPtr->siguiente; // Voy al siguiente
-    }
-    listPtr = actualPtr->siguiente; // La lista apunta al elemento mas chico. Osea, al primero alfabeticamente.
-    actualPtr->siguiente = NULL;// El final de la lista se abre y apunta a NULL
-
-    free(actualPtr);
-    return listPtr;
-}
-//DISPLAY LISTA
-// Encabezado de la lista
+// PRINTF - Encabezado de la lista
 void printListHeader() {
     printf("    APELLIDO   |    NOMBRE     |   CI   | GRADO |CALIFICACION\n");
     printf("-------------------------------------------------------------\n");
     return;
 }
-// Fila de la lista
-
+// PRINTF - Fila de la lista
 void printStudentRow(Estudiante_t *actualPtr) {
-    printf("%*s|%*s|%*s|%*s|%*s\n",FORMAT_NAME, actualPtr->apellido, FORMAT_NAME, actualPtr->nombre, FORMAT_CI, actualPtr->CI, 1, actualPtr->grado, 3, actualPtr->promCalif );
+    printf("->DISPLAY->printfList->printStudentRow: Entra\n");
+    printf("%s|%s|%s|%d|%u\n", actualPtr->apellido,  actualPtr->nombre, actualPtr->CI, actualPtr->grado, actualPtr->promCalif );
+    printf("->DISPLAY->printfList->printStudentRow: Sale\n");
     return;
 }
-
-// Imprimir lista entera
-void displayList(Estudiante_t *listPtr) {
+// PRINTF - Imprimir lista entera
+void printfList(Estudiante_t *listPtr) {
+    printf("->DISPLAY->printfList: Entra\n");
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
     // Contemplar lista vacia y de un solo elemento.
     if (actualPtr == NULL) {
@@ -281,13 +261,14 @@ void displayList(Estudiante_t *listPtr) {
         while (actualPtr->siguiente != NULL);
     }
     free(actualPtr);
+    printf("->DISPLAY->printfList: Sale\n");
     return;
 }
-
-//BORRAR
+//--------------------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------AUXILIARES de funcion prinicpal: BORRAR ELEMENTO-------------------------------------------------//
 
 // Borra estudiante seleccionado
-void deleteStudent(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
+void deleteStudentElement(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
     if (actualPtr == listPtr) { //Caso 1: El elemento se encuentra justo al inicio de la lista.
         listPtr = listPtr->siguiente; // Si listPtr->siguiente = NULL, queda la lista nula.
         free(actualPtr);
@@ -313,7 +294,7 @@ void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
                 switch (confirm)
                 {
                 case 'Y':
-                    deleteStudent(actualPtr, listPtr);
+                    deleteStudentElement(actualPtr, listPtr);
                     printf("Estudiante borrado correctamente.\n");
                     confirm = 'N';
                     break;
@@ -330,118 +311,67 @@ void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr) {
 }
 
 
-
-
-
-//FUNCIONES DE MENU
-void accesoMenu(Estudiante_t *listPtr) {
-    int flagMenu = 0;
-    do {
-        //Muestra las opciones del Menu
-        printf("\n---------Sistema de gestion de estudiantes de IoT---------\n");
-        printf("1. Ingresar nuevo alumno/a\n");
-        printf("2. Consultar listado de alumnos/a\n");
-        printf("3. Buscar alumno/a\n");
-        printf("4. Salir\n");
-        scanf("%s", &opcionElegida);
-        // Hasta aca entra y toma una opcion del menu
-        
-        switch (opcionElegida) {
-            case '1':
-                addNewStudentMenu(listPtr);
-                break;
-            case '2':
-                displayListMenu(listPtr);
-                break;
-            case '3':
-                deleteStudentMenu(listPtr);
-                break;
-            case '4':
-                printf("Saliendo...");
-                break;
-            default:
-                printf("Opcion invalida. Ingrese nuevamente.\n");
-        }
+//FUNCIONES PRINCIPALES
+// Esta funcion toma como entradas los datos de un estudiante y lo agrega a la lista
+Estudiante_t *agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int promCalif) { 
+    //VALIDACION DE ERRORES
+    printf("Entra funcion principal - AGREGAR\n");
+    CodigoError_t error = validacionNuevoEstudiante (nombre, apellido, CI, grado, promCalif);
+    if (error != NO_ERROR) // SI HAY ERROR, IMPRIME EN PANTALLA CUAL ES Y ABORTA LA FUNCION. SI NO HAY ERROR< SIGUE.
+    {
+        printErrorNuevoEstudiante(error);
+        return listPtr;
     }
-    while (opcionElegida != 4);
+    // CUERPO DE LA FUNCION
+    Estudiante_t *newStudentPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
+    if (listPtr == NULL)
+    {
+        printf("Entra cuando la lista es nula\n");
+        listPtr = newStudentPtr;
+    }else
+    {
+        printf("Entra cuando la lista no es nula\n");
+        Estudiante_t *ulitmoElemPtr = ultimoElementoLista(listPtr);
+
+        newStudentPtr = ulitmoElemPtr->siguiente; // Enlazamos al final de la lista.
+        free(ulitmoElemPtr);
+        
+    }
+    // Cargar datos por campo.
+    strcpy(newStudentPtr->nombre, nombre);
+    strcpy(newStudentPtr->apellido, apellido);
+    strcpy(newStudentPtr->CI, CI);
+    newStudentPtr->grado = grado;
+    newStudentPtr->promCalif = promCalif;
+    newStudentPtr->siguiente = NULL;
+    printf("Print Student:\n");
+    printStudentRow(newStudentPtr);
+    free(newStudentPtr);
+    printf("Sale funcion principal - AGREGAR\n");
+    return listPtr;
+}
+
+void displayList(Estudiante_t *listPtr, SortBy_t filtro) { // Toma como entrada el puntero al primer elemento de la lista.
+    printf("Entra funcion principal - DISPLAY\n");
+    sortList(listPtr, filtro); // Ordena la lista segun el filtro seleccionado
+    if (filtro != SIN_FILTRO)
+    {
+        makeListCircular(listPtr); // Cierra la lista haciendola circular
+        listPtr = pointFirstElementBySort(listPtr, filtro); //Mueve el puntero de lista al primer lugar y corta la lista nuevamente
+    }
+    printfList(listPtr);
+    printf("Sale funcion principal - DISPLAY\n");
     return;
 }
 
-void addNewStudentMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
-    do
-    {   
-        printf("Desea agregar un nuevo estudiante? Y/N\n");
-        scanf("%s", &opcionElegida);
-        switch (opcionElegida) {
-            case 'Y':{
-                Estudiante_t *newStudent = inicializarEstudiante();// Inicializamos el nuevo elemento.
-
-                newStudent = cargarDatosMenu(newStudent);// Cargamos los datos del estudiante.
-                Estudiante_t *ultimoList = buscaUltimoLista(listPtr);// Apuntamos al ultimo lugar de la lista.
-                newStudent = ultimoList->siguiente;// "Enganchamos" nuevo elemento a la lista. newStudent->siguiente ya es NULL por inicializacion
-                free(ultimoList);
-                free(newStudent);
-                }
-                break;
-            case 'N':
-                printf("Saliendo...\n");
-                break;
-            default:
-                printf("Opcion invalida. Ingrese nuevamente.\n");
-        }
-    } while (opcionElegida != 'N');
-    return;
-}
-
-void displayListMenu(Estudiante_t *listPtr) { // Toma como entrada el puntero al primer elemento de la lista.
-    do
-    {   
-        printf("Con que orden desea visualizar la lista?\n");
-        printf("1. Por nombre. Ascendente\n");
-        printf("2. Por apellido. Ascendente\n");
-        printf("3. CI. Ascendente\n");
-        printf("4. Salir\n");
-        scanf("%s", &opcionElegida);
-        switch (opcionElegida) {
-            case '1':
-            sortListByNames(listPtr); // Ordena por nombres
-            makeListCircular(listPtr); // Crea lista circular
-            listPtr = pointFirstName(listPtr); // El comienzo de la lista es el valor mas chico
-            displayList(listPtr);
-                break;
-            case '2':
-            sortListByLastNames(listPtr); // Ordena por apellido
-            makeListCircular(listPtr); // Crea lista circular
-            listPtr = pointFirstLastName(listPtr); // El comienzo de la lista es el valor mas chico
-            displayList(listPtr);
-                break;
-            case '3':
-            sortListByCI(listPtr); // Ordena por CI
-            makeListCircular(listPtr); // Crea lista circular
-            listPtr = pointFirstCI(listPtr); // El comienzo de la lista es el valor mas chico
-            displayList(listPtr);
-                break;
-            case '4':
-                printf("Saliendo...\n");
-                break;
-            default:
-                printf("Opcion invalida. Ingrese nuevamente.\n");
-        }
-    } while (opcionElegida != 4);
-    return;
-}
-
-void deleteStudentMenu(Estudiante_t *listPtr) {
+void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]) {
+    printf("Entra funcion principal - BORRAR\n");
     int matchCounter = 0;
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
-    printf("Ingrese la CI del estudiante a eliminar: \n");
-    
-    scanf("%*s",FORMAT_CI, &bufferCI);
     if (actualPtr == NULL) {
-        printf("No se han obtenido resultados.\n");
-    }else if (actualPtr->siguiente = NULL) {
-        if (actualPtr->CI == bufferCI) {
-            printf("Resultado de busqueda:\n");
+        printf("La lista esta vacia. Imposible borrar.\n");
+    }else if (actualPtr->siguiente == NULL) {
+        if (strcmp(actualPtr->CI,CI) == 0) {
             printListHeader();
             printStudentRow(actualPtr);
             deleteStudentOptions(actualPtr, listPtr);
@@ -451,8 +381,7 @@ void deleteStudentMenu(Estudiante_t *listPtr) {
     }else{
             do
             {
-                if (actualPtr->CI == bufferCI) {
-                    printf("Resultado de busqueda:\n");
+                if (strcmp(actualPtr->CI,CI) == 0) {
                     printListHeader();
                     printStudentRow(actualPtr);
                     deleteStudentOptions(actualPtr, listPtr);
@@ -460,8 +389,8 @@ void deleteStudentMenu(Estudiante_t *listPtr) {
                 actualPtr = actualPtr->siguiente; // Iteramos en la lista.
             }
             while (actualPtr->siguiente != NULL); // Evalua primero si hay match y luego si llego al final
-            printf("No se han obtenido resultados.\n");
         }
         free(actualPtr);
+        printf("Sale funcion principal - BORRAR\n");
     return;
 }
