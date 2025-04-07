@@ -96,12 +96,12 @@ void printErrorFiltroLista(CodigoError_t error) {
 //-------------------------------------------AUXILIARES de funcion prinicpal: AGREGAR NUEVO ESTUDIANTE------------------------------------//
 // BUSCAR ULTIMO EN LISTA
 Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr) {// Se le da como entrada el puntero al inicio de la lista
-    printf("Entra funcion auxiliar - BUSCAR_ULTIMO_LISTA\n");
+    //printf("Entra funcion auxiliar - BUSCAR_ULTIMO_LISTA\n");
     Estudiante_t *actualPtr = listPtr; //Declaro e inicializo un puntero auxiliar que apunta al inicio de la lista.
     while (actualPtr->siguiente != NULL) { // Esta condicion se da cuando se llega al elemento final de la lista.
         actualPtr = actualPtr->siguiente; // Se itera apuntando el puntero auxiliar a la siguiente posicion
     }
-    printf("Sale funcion auxiliar - BUSCAR_ULTIMO_LISTA\n");
+    //printf("Sale funcion auxiliar - BUSCAR_ULTIMO_LISTA\n");
     return actualPtr; //Devolvemos el puntero para que lo tome otra funcion
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------//
@@ -110,7 +110,7 @@ Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr) {// Se le da como entra
 
 // COMPARAR ELEMENTOS CONTIGUOS Y PERMUTAR EN CASO DE SER NECESARIO SEGUN FILTRO
 Sort_t sortElementsList(Estudiante_t *actualPtr, int sortCounter, SortBy_t filtro) { // Odrnea alfabeticamente y devuelve el siguiente elemento
-    printf("->DISPLAY->sortList->sortElementList: Entra\n");
+    //printf("->DISPLAY->sortList->sortElementList: Entra\n");
     Estudiante_t *nextPtr = actualPtr->siguiente; // Apunto a los dos primero elementos para comparar
     int orden = 0; // str1 > str2 es positivo, str1 = str2 es 0, str1 < str2 es negativo
     if (filtro != SIN_FILTRO)
@@ -150,34 +150,34 @@ Sort_t sortElementsList(Estudiante_t *actualPtr, int sortCounter, SortBy_t filtr
     }
     Sort_t sortResult = {actualPtr, sortCounter};
     free(nextPtr);
-    printf("->DISPLAY->sortList->sortElementList: Sale\n");
+    //printf("->DISPLAY->sortList->sortElementList: Sale\n");
     return sortResult;
 }
 // ORDENA TODA LA LISTA SEGUN EL FILTRO INDICADO
 void sortList(Estudiante_t *listPtr, SortBy_t filtro) {
-    printf("->DISPLAY->sortList: Entra\n");
+    //printf("->DISPLAY->sortList: Entra\n");
     Estudiante_t *actualPtr = listPtr; // Apunto a los dos primeros elementos para comparar
     int sortCounter = 0;
-    printf("->DISPLAY->sortList: Flag 1\n");
+    //printf("->DISPLAY->sortList: Flag 1\n");
     Sort_t sortResult = {actualPtr, sortCounter};
-    printf("->DISPLAY->sortList: Flag 2\n");
+    //printf("->DISPLAY->sortList: Flag 2\n");
     do
     {
-        printf("->DISPLAY->sortList: Flag 3\n");
+        //printf("->DISPLAY->sortList: Flag 3\n");
         sortResult.sortCounter = 0;
-        printf("->DISPLAY->sortList: Flag 4\n");
-        printf("Iterando nombre: %s\n", listPtr->nombre);
+        //printf("->DISPLAY->sortList: Flag 4\n");
+        //printf("Iterando nombre: %s\n", listPtr->nombre);
 
-        printf("Valor de puntero siguiente al actual: %s\n", actualPtr->nombre);
+       // printf("Valor de puntero siguiente al actual: %s\n", actualPtr->nombre);
         while (actualPtr->siguiente != NULL) {
-            printf("->DISPLAY->sortList: Flag 5\n");
-            printf("Entra while. Iteracion: %d\n", sortResult.sortCounter);
+            //printf("->DISPLAY->sortList: Flag 5\n");
+           // printf("Entra while. Iteracion: %d\n", sortResult.sortCounter);
             sortResult = sortElementsList(sortResult.actualPtr, sortResult.sortCounter, filtro);
         }
     } while (sortResult.sortCounter != 0);// Realiza esta iteracion hasta que ya no queden mas permutaciones por realizar
-    printf("->DISPLAY->sortList: Flag 5\n");
+   // printf("->DISPLAY->sortList: Flag 5\n");
     free(actualPtr);
-    printf("->DISPLAY->sortList: Sale\n");
+    //printf("->DISPLAY->sortList: Sale\n");
     return;
 }
 // HACER LISTA ORDENADA CIRCULAR
@@ -324,31 +324,36 @@ Estudiante_t *agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_N
     }
     // CUERPO DE LA FUNCION
     Estudiante_t *newStudentPtr = malloc(sizeof(Estudiante_t)); //Reservamos memoria para un estudiante
-    if (listPtr == NULL)
-    {
-        printf("Entra cuando la lista es nula\n");
-        listPtr = newStudentPtr;
-    }else
-    {
-        printf("Entra cuando la lista no es nula\n");
-        Estudiante_t *ulitmoElemPtr = ultimoElementoLista(listPtr);
-
-        newStudentPtr = ulitmoElemPtr->siguiente; // Enlazamos al final de la lista.
-        free(ulitmoElemPtr);
-        
-    }
+ 
     // Cargar datos por campo.
+    printf("Comienza copia de strings\n");
     strcpy(newStudentPtr->nombre, nombre);
     strcpy(newStudentPtr->apellido, apellido);
     strcpy(newStudentPtr->CI, CI);
+    printf("Pasa la parte de copia de strings\n");
     newStudentPtr->grado = grado;
-    newStudentPtr->promCalif = promCalif;
+    newStudentPtr->promCalif = (unsigned char)promCalif;
     newStudentPtr->siguiente = NULL;
     printf("Print Student:\n");
     printStudentRow(newStudentPtr);
     free(newStudentPtr);
     printf("Sale funcion principal - AGREGAR\n");
-    return listPtr;
+
+    if (listPtr == NULL)
+    {
+        printf("Entra cuando la lista es nula\n");
+        return newStudentPtr;
+    }else
+    {
+        printf("Entra cuando la lista no es nula\n");
+        Estudiante_t *ulitmoElemPtr = ultimoElementoLista(listPtr);
+        ulitmoElemPtr->siguiente = newStudentPtr; // Enlazamos al final de la lista.
+        printf("Pasa asignacion de puntero newStudent\n");
+        free(ulitmoElemPtr);
+        printf("Pasa liberacion de ultimoElemPtr\n");
+        return listPtr;
+    }
+    
 }
 
 void displayList(Estudiante_t *listPtr, SortBy_t filtro) { // Toma como entrada el puntero al primer elemento de la lista.
