@@ -69,6 +69,11 @@ void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
 Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr); // Busca el ultimo estudiante de la lista iterando hasta encontrar NULL.
 
 //FUNCIONES AUXILIARES -  Display de lista
+Estudiante_t * buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro);
+Estudiante_t * armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro);
+
+
+
 Sort_t *sortElementsList(Sort_t* sortResult, SortBy_t filtro);
 void sortList(Estudiante_t *listPtr, SortBy_t filtro);
 void makeListCircular(Estudiante_t *listPtr);
