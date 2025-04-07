@@ -48,7 +48,7 @@ typedef struct Estudiante_s {
 }Estudiante_t;
 
 typedef struct Sort_s {
-    Estudiante_t *actualPtr;
+    struct Estudiante_s *actualPtr;
     int sortCounter;
 }Sort_t;
 
@@ -69,7 +69,7 @@ void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
 Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr); // Busca el ultimo estudiante de la lista iterando hasta encontrar NULL.
 
 //FUNCIONES AUXILIARES -  Display de lista
-Sort_t sortElementsList(Estudiante_t *actualPtr, int sortCounter, SortBy_t filtro);
+Sort_t *sortElementsList(Sort_t* sortResult, SortBy_t filtro);
 void sortList(Estudiante_t *listPtr, SortBy_t filtro);
 void makeListCircular(Estudiante_t *listPtr);
 Estudiante_t *pointFirstElementBySort(Estudiante_t *listPtr, SortBy_t filtro);
