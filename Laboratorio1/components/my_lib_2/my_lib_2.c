@@ -110,24 +110,37 @@ Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr) {// Se le da como entra
 
 
 
-Estudiante_t * buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro) {
+Estudiante_t *buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro) {
     printf("->buscaMenorElemento: Entra\n");
+    
+    if (listPtr == NULL) {
+        printf("Lista vacía.\n");
+        return NULL;
+    }
     Estudiante_t *actualPtr = listPtr;
     Estudiante_t *sortedElemPtr = listPtr;
     char sortedName[FORMAT_NAME];
+    strcpy(sortedName, listPtr->nombre);
+    printf("sortedName es: %s\n", sortedName);
     char sortedLastname[FORMAT_LASTNAME];
+    strcpy(sortedLastname, listPtr->apellido);
+    printf("sortedLastname es: %s\n", sortedLastname);
     char sortedCI[FORMAT_CI];
+    strcpy(sortedCI, listPtr->CI);
+    printf("sortedCI es: %s\n", sortedCI);
+    int orden = 0; // El orden asignado a dos elementos, comparando por el filtro indicado en la funcion
     printf("->buscaMenorElemento:  filtros Entra\n");
     if (filtro != SIN_FILTRO)
     {
         switch (filtro) {
             case NOMBRE:
             strcpy(sortedName, listPtr->nombre); // Apuntamos al primer nombre de la lista
-            printf("El nombre es %s: \n");
+            printf("El nombre en la variable sortedName es %s: \n", sortedName);
+            printf("El nombre en la variable listPtr->nombre es %s: \n", listPtr->nombre);
             printf("->buscaMenorElemento:  pasa el strcpy\n");
             while (actualPtr->siguiente != NULL){
-                printf("->buscaMenorElemento: Entra al while\n");
-                int orden = strcmp(sortedName, actualPtr->siguiente->nombre);// Compara el primer nombre guardado con el segundo
+                //printf("->buscaMenorElemento: Entra al while\n");
+                orden = strcmp(sortedName, actualPtr->siguiente->nombre);// Compara el primer nombre guardado con el segundo
                 if (orden >0) // Caso: Primer nombre Bruno. Segundo nombre Alma. Me quedo con el segundo como el menor.
                 {
                     sortedElemPtr = sortedElemPtr->siguiente; // Ahora apunta al siguiente elemento.
@@ -139,7 +152,7 @@ Estudiante_t * buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro) {
             case APELLIDO:
             strcpy(sortedLastname, listPtr->apellido); // Apuntamos al primer apellido de la lista
             while (actualPtr->siguiente != NULL){
-                int orden = strcmp(sortedLastname, actualPtr->siguiente->apellido);// Compara el primer apellido guardado con el segundo
+                orden = strcmp(sortedLastname, actualPtr->siguiente->apellido);// Compara el primer apellido guardado con el segundo
                 if (orden >0) // Caso: Primer apellido Zuñiga. Segundo apellido Alvarez. Me quedo con el segundo como el menor.
                 {
                     sortedElemPtr = sortedElemPtr->siguiente; // Ahora apunta al siguiente elemento.
@@ -151,7 +164,7 @@ Estudiante_t * buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro) {
             case CI:
             strcpy(sortedCI, listPtr->CI); // Apuntamos al primer CI de la lista
             while (actualPtr->siguiente != NULL){
-                int orden = strcmp(sortedCI, actualPtr->siguiente->CI);// Compara el primer CI guardado con el segundo
+                orden = strcmp(sortedCI, actualPtr->siguiente->CI);// Compara el primer CI guardado con el segundo
                 if (orden >0) // Caso: Primer CI 43748445. Segundo CI 34748445. Me quedo con el segundo como el menor.
                 {
                     sortedElemPtr = sortedElemPtr->siguiente; // Ahora apunta al siguiente elemento.
@@ -179,48 +192,32 @@ Estudiante_t *armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro) {
         printf("La lista ya se encuentra ordenada.\n");
         return listPtr;
     }
-    printf("Flag 01.\n");
     Estudiante_t *actualPtr = listPtr;
-    printf("Flag 02.\n");
     Estudiante_t *previousPtr = listPtr;
-    printf("Flag 03.\n");
     Estudiante_t *sortedElementPtr = NULL; // La lista ordenada arranca con el menor elemento.
-    printf("Flag 04.\n");
     Estudiante_t *ultimoSortedList = NULL;
-    printf("Flag 05.\n");
-    Estudiante_t *sortedListPtr = malloc(sizeof(Estudiante_t));
-    printf("Flag 06.\n");
-    printf("Flag 07.\n");
+    Estudiante_t *sortedListPtr = NULL;
     do
     {
         printf("->armarListaOrdenada: Entra al DO\n");
         sortedElementPtr = buscaMenorElemento(listPtr, filtro);
         actualPtr = sortedElementPtr;
-        while (previousPtr->siguiente != sortedElementPtr)
+        while (previousPtr->siguiente != sortedElementPtr) //Busca pararse en el elemento anterior al actual
         {
-            
             previousPtr = previousPtr->siguiente;
         } // Tengo el puntero actual apuntando al elemento sorteado y el previous al elemento anterior en la lista.
         previousPtr->siguiente = actualPtr->siguiente; // Engancho lista, dejando afuera el elemento actual
-        if (sortedListPtr == NULL)
+        if (sortedListPtr == NULL) // Seria como inicializar la lista sorteada
         {
-            sortedListPtr = actualPtr;
+            sortedListPtr = sortedElementPtr;
             sortedListPtr->siguiente = NULL;
-        }else
-        {
+            sortedElementPtr = NULL;
+        }else{
             ultimoSortedList = ultimoElementoLista(sortedListPtr); // Busco el ultimo elemento de la lista ordenada
-            ultimoSortedList->siguiente = actualPtr; // Armo la lista
+            ultimoSortedList->siguiente = sortedElementPtr; // Armo la lista
             ultimoSortedList->siguiente->siguiente = NULL; // Apunto el final a null
+            sortedElementPtr = NULL;
             actualPtr = NULL; // Libero el puntero
-        }
-        if (sortedElementPtr == listPtr)
-        {
-            listPtr = listPtr->siguiente; // Apunto la lista al segundo elemento.
-            
-            sortedElementPtr->siguiente = NULL; // Arranco la lista ordenada con el primer elemento de la lista.
-        }else
-        {
-            /* code */
         }
     } while (listPtr->siguiente != NULL);
     printf("->armarListaOrdenada: Sale del DO\n");
@@ -482,6 +479,8 @@ Estudiante_t *agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_N
     // Cargar datos por campo.
     //printf("Comienza copia de strings\n");
     strcpy(newStudentPtr->nombre, nombre);
+    //printf("newStudentPtr->nombre es: %s\n", newStudentPtr->nombre);
+    //printf("nombre es: %s\n", nombre);
     strcpy(newStudentPtr->apellido, apellido);
     strcpy(newStudentPtr->CI, CI);
     //printf("Pasa la parte de copia de strings\n");
@@ -490,24 +489,29 @@ Estudiante_t *agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_N
     newStudentPtr->siguiente = NULL;
     //printf("Print Student:\n");
     //printStudentRow(newStudentPtr);
-    free(newStudentPtr);
+    
     //printf("Sale funcion principal - AGREGAR\n");
 
     if (listPtr == NULL)
     {
         //printf("Entra cuando la lista es nula\n");
         return newStudentPtr;
-    }else
+    }else if (listPtr->siguiente == NULL)
     {
+        listPtr->siguiente = newStudentPtr;
+        newStudentPtr->siguiente = NULL;
+        newStudentPtr = NULL;
+        return listPtr;
+    }
         //printf("Entra cuando la lista no es nula\n");
         Estudiante_t *ulitmoElemPtr = ultimoElementoLista(listPtr);
         ulitmoElemPtr->siguiente = newStudentPtr; // Enlazamos al final de la lista.
         //printf("Pasa asignacion de puntero newStudent\n");
-        free(ulitmoElemPtr);
+        newStudentPtr->siguiente = NULL;
+        newStudentPtr = NULL;
+        ulitmoElemPtr = NULL;
         //printf("Pasa liberacion de ultimoElemPtr\n");
         return listPtr;
-    }
-    
 }
 
 void displayList(Estudiante_t *listPtr, SortBy_t filtro) { // Toma como entrada el puntero al primer elemento de la lista.

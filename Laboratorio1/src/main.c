@@ -36,13 +36,10 @@ int main() {
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Santino", "Cáceres", "42345678", PRIMERO, 81);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Benicio", "Campos", "44567890", SEXTO, 87);
     listaEstudiantes = armarListaOrdenada(listaEstudiantes, NOMBRE);
-    displayList(listaEstudiantes, APELLIDO);
     printfList(listaEstudiantes);
-    displayList(listaEstudiantes, NOMBRE);
+    listaEstudiantes = armarListaOrdenada(listaEstudiantes, APELLIDO);
     printfList(listaEstudiantes);
-    displayList(listaEstudiantes, CI);
+    listaEstudiantes = armarListaOrdenada(listaEstudiantes, CI);
     printfList(listaEstudiantes);
-    deleteStudentFromList(listaEstudiantes, "41234567");
-    displayList(listaEstudiantes, APELLIDO);
     return 0;
 }
