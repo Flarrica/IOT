@@ -199,11 +199,12 @@ Estudiante_t *armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro) {
     Estudiante_t *sortedListPtr = NULL;
     do
     {
-        printf("->armarListaOrdenada: Entra al DO\n");
+        //printf("->armarListaOrdenada: Entra al DO\n");
         sortedElementPtr = buscaMenorElemento(listPtr, filtro);
         actualPtr = sortedElementPtr;
         while (previousPtr->siguiente != sortedElementPtr) //Busca pararse en el elemento anterior al actual
         {
+            printf("Entro a while, siguiente nombre es: %s\n", previousPtr->siguiente->nombre);
             previousPtr = previousPtr->siguiente;
         } // Tengo el puntero actual apuntando al elemento sorteado y el previous al elemento anterior en la lista.
         previousPtr->siguiente = actualPtr->siguiente; // Engancho lista, dejando afuera el elemento actual
@@ -219,6 +220,7 @@ Estudiante_t *armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro) {
             sortedElementPtr = NULL;
             actualPtr = NULL; // Libero el puntero
         }
+        previousPtr = listPtr;
     } while (listPtr->siguiente != NULL);
     printf("->armarListaOrdenada: Sale del DO\n");
     // Aca tengo que pasar el ultimo elemento que quedo suelto.
@@ -380,20 +382,21 @@ Estudiante_t *pointFirstElementBySort(Estudiante_t *listPtr, SortBy_t filtro) {/
 }
 // PRINTF - Encabezado de la lista
 void printListHeader() {
-    printf("    APELLIDO   |    NOMBRE     |   CI   | GRADO |CALIFICACION\n");
+    printf("Entra al print.\n");
+    printf("%*s|%*s|%*s|%*s|%*s\n",FORMAT_NAME, "NOMBRE", FORMAT_LASTNAME, "APELLIDO", FORMAT_CI, "CI", FORMAT_GRADE, "GRADO", FORMAT_PROMCALIF, "CALIFICACION");
     printf("-------------------------------------------------------------\n");
     return;
 }
 // PRINTF - Fila de la lista
 void printStudentRow(Estudiante_t *actualPtr) {
-    printf("->DISPLAY->printfList->printStudentRow: Entra\n");
-    printf("%s|%s|%s|%d|%u\n", actualPtr->apellido,  actualPtr->nombre, actualPtr->CI, actualPtr->grado, actualPtr->promCalif );
-    printf("->DISPLAY->printfList->printStudentRow: Sale\n");
+    //printf("->DISPLAY->printfList->printStudentRow: Entra\n");
+    printf("%*s|%*s|%*s|%5d|%12d\n", FORMAT_NAME, actualPtr->nombre, FORMAT_LASTNAME, actualPtr->apellido, FORMAT_CI, actualPtr->CI, actualPtr->grado, actualPtr->promCalif );
+    //printf("->DISPLAY->printfList->printStudentRow: Sale\n");
     return;
 }
 // PRINTF - Imprimir lista entera
 void printfList(Estudiante_t *listPtr) {
-    printf("->DISPLAY->printfList: Entra\n");
+    //printf("->DISPLAY->printfList: Entra\n");
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
     // Contemplar lista vacia y de un solo elemento.
     if (actualPtr == NULL) {
@@ -411,7 +414,7 @@ void printfList(Estudiante_t *listPtr) {
         while (actualPtr->siguiente != NULL);
     }
     actualPtr=NULL;
-    printf("->DISPLAY->printfList: Sale\n");
+    //printf("->DISPLAY->printfList: Sale\n");
     return;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------//
