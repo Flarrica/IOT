@@ -20,9 +20,6 @@ build.cmd run
 Estudiante_t *listaEstudiantes = NULL;
 int main() {
     // Agregamos estudiantes con datos correctos
-
-
-
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Catalina", "Viera", "89012345", CUARTO, 82);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Alan", "Villalba", "90123456", PRIMERO, 79);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Milagros", "Zeballos", "91234567", QUINTO, 94);
@@ -38,12 +35,11 @@ int main() {
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Maite", "Cabrera", "41234567", CUARTO, 83);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Santino", "Caceres", "42345678", PRIMERO, 81);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Benicio", "Campos", "44567890", SEXTO, 87);
-    printfList(listaEstudiantes);
-    listaEstudiantes = armarListaOrdenada(listaEstudiantes, NOMBRE);
-    printfList(listaEstudiantes);
-    listaEstudiantes = armarListaOrdenada(listaEstudiantes, APELLIDO);
-    printfList(listaEstudiantes);
-    listaEstudiantes = armarListaOrdenada(listaEstudiantes, CI);
-    printfList(listaEstudiantes);
+    listaEstudiantes = printfList(listaEstudiantes, SIN_FILTRO);
+    listaEstudiantes = printfList(listaEstudiantes, APELLIDO);
+    // Entre estas dos lineas pasa algo con los punteros que hace que no funcione
+    listaEstudiantes = printfList(listaEstudiantes, NOMBRE);
+    
+    listaEstudiantes = printfList(listaEstudiantes, CI);
     return 0;
 }

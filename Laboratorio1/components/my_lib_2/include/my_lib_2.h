@@ -5,12 +5,12 @@
 #include <string.h>
 
 
-
+// Constantes usadas para display de listas y verificacion de errores
 #define FORMAT_NAME 15
 #define FORMAT_LASTNAME 15
 #define FORMAT_CI 9
-#define FORMAT_GRADE 1
-#define FORMAT_PROMCALIF 3
+#define FORMAT_GRADE 5
+#define FORMAT_PROMCALIF 12
 
 // Códigos de error
 typedef enum {
@@ -59,28 +59,18 @@ CodigoError_t validacionFiltroLista (char nombre[FORMAT_NAME], char apellido[FOR
 void printErrorFiltroLista(CodigoError_t error);
 
 // Funciones principales
-Estudiante_t *agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
-void displayList(Estudiante_t *listPtr, SortBy_t filtro); //OK
+Estudiante_t * agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
+Estudiante_t * printfList(Estudiante_t *listPtr, SortBy_t filtro);
 void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
 
-
 //FUNCIONES AUXILIARES -  Agregar estudiante
-
 Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr); // Busca el ultimo estudiante de la lista iterando hasta encontrar NULL.
 
 //FUNCIONES AUXILIARES -  Display de lista
 Estudiante_t * buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro);
 Estudiante_t * armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro);
-
-
-
-Sort_t *sortElementsList(Sort_t* sortResult, SortBy_t filtro);
-void sortList(Estudiante_t *listPtr, SortBy_t filtro);
-void makeListCircular(Estudiante_t *listPtr);
-Estudiante_t *pointFirstElementBySort(Estudiante_t *listPtr, SortBy_t filtro);
 void printListHeader();
 void printStudentRow(Estudiante_t *actualPtr);
-void printfList(Estudiante_t *listPtr);
 
 //FUNCIONES AUXILIARES - Borrar elemento de la lista
 void deleteStudentElement(Estudiante_t *actualPtr, Estudiante_t *listPtr);
