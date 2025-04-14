@@ -365,7 +365,6 @@ Estudiante_t * printfList(Estudiante_t *listPtr, SortBy_t filtro) {
     return listPtr;
 }
 void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]) {
-    printf("Entra funcion principal - BORRAR\n");
     int matchCounter = 0;
     Estudiante_t *actualPtr = listPtr; // Apunto a elemento actual
     if (actualPtr == NULL) {
@@ -391,6 +390,5 @@ void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]) {
             while (actualPtr->siguiente != NULL); // Evalua primero si hay match y luego si llego al final
         }
         actualPtr=NULL;
-        printf("Sale funcion principal - BORRAR\n");
     return;
 }

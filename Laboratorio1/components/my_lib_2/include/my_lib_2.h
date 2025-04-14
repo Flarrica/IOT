@@ -75,7 +75,7 @@ void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr);
 
 
 // Funciones principales
-void agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
+Estudiante_t * agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
 Estudiante_t * printfList(Estudiante_t *listPtr, SortBy_t filtro);
 void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
 #endif
