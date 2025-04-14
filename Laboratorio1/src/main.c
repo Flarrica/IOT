@@ -23,12 +23,29 @@ build.cmd run
 // *listStudent; // Apunta al primer elemento de la lista. Una vez que se crea el primer elemento, no se va a mover de alli.
 //Estudiante_t *listResult; // Se crea lista vacia para almacenar lso resultados de busquedas.
 int main() {
-    //listStudent = inicializarEstudiante(listStudent); // INICIALIZAR LISTA DE ESTUDIANTES
-    //listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA
-    //accesoMenu(listStudent, listResult); // Entramos al MENU
+    
 
-    my_lib_1_1_function();
-    my_lib_1_2_function();
-    my_lib_2_function();
+    char texto[50];
+    //Funcion cuenta palabras
+    string_words(texto);
+    //Funcion para cambiar de may a min y al reves
+    solicitar_texto();
+
+    // Funcion para copiar un string
+    char source[50];   
+    char destination[50]; 
+    string_copy(source, destination); 
+
+    //Funcion para calcular dias entre dos fechas
+    ejecutarCalculoDeDias();
+    
+    // Funcion para encontrar una dub cadena
+    solicitar_texto();  
+
+    //Multiplica dos nnumeros complejos
+    procesarMultiplicacionCompleja();
+
+    //Funcion suma dos numeros complejos
+    procesarSumaCompleja();
     return 0;
 }
