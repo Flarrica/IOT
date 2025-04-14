@@ -2,5 +2,6 @@
 #define MY_LIB_1_1_H_
 
 void my_lib_1_1_function();
+void string_words();
 
 #endif
