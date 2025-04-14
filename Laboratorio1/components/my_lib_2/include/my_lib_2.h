@@ -68,6 +68,7 @@ Estudiante_t * buscaMenorElemento(Estudiante_t *listPtr, SortBy_t filtro);
 Estudiante_t * armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro);
 void printListHeader();
 void printStudentRow(Estudiante_t *actualPtr);
+char *traduceNota(int promCalif);
 
 //FUNCIONES AUXILIARES - Borrar elemento de la lista
 void deleteStudentElement(Estudiante_t *actualPtr, Estudiante_t *listPtr);

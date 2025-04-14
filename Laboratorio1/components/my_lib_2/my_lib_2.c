@@ -244,8 +244,30 @@ void printListHeader() { // PRINTF - Encabezado de la lista
     return;
 }
 void printStudentRow(Estudiante_t *actualPtr) { // PRINTF - Fila de la lista
-    printf("%*s|%*s|%*s|%5d|%12d\n", FORMAT_NAME, actualPtr->nombre, FORMAT_LASTNAME, actualPtr->apellido, FORMAT_CI, actualPtr->CI, actualPtr->grado, actualPtr->promCalif );
+    char * nota = traduceNota(actualPtr->promCalif);
+    printf("%*s|%*s|%*s|%5d|%12s\n", FORMAT_NAME, actualPtr->nombre, FORMAT_LASTNAME, actualPtr->apellido, FORMAT_CI, actualPtr->CI, actualPtr->grado, nota);
     return;
+}
+char *traduceNota(int promCalif) {
+    char *notaLetras = malloc(3 * sizeof(char)); // Asignamos memoria para la nota (ej: "MB\0")
+
+    if (promCalif >= 95 && promCalif <= 100) {
+        strcpy(notaLetras, "S");
+    } else if (promCalif >= 82 && promCalif <= 94) {
+        strcpy(notaLetras, "MB");
+    } else if (promCalif >= 76 && promCalif <= 81) {
+        strcpy(notaLetras, "BMB");
+    } else if (promCalif >= 61 && promCalif <= 75) {
+        strcpy(notaLetras, "B");
+    } else if (promCalif >= 31 && promCalif <= 60) {
+        strcpy(notaLetras, "R");
+    } else if (promCalif >= 0 && promCalif <= 30) {
+        strcpy(notaLetras, "D");
+    } else {
+        strcpy(notaLetras, "Inv"); // Nota inválida
+    }
+
+    return notaLetras;
 }
 //--------------------------------------------------------------------------------------------------------------------------------------------//
 
