@@ -58,10 +58,7 @@ void printErrorNuevoEstudiante(CodigoError_t error);
 CodigoError_t validacionFiltroLista (char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif);
 void printErrorFiltroLista(CodigoError_t error);
 
-// Funciones principales
-Estudiante_t * agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
-Estudiante_t * printfList(Estudiante_t *listPtr, SortBy_t filtro);
-void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
+
 
 //FUNCIONES AUXILIARES -  Agregar estudiante
 Estudiante_t *ultimoElementoLista(Estudiante_t *listPtr); // Busca el ultimo estudiante de la lista iterando hasta encontrar NULL.
@@ -75,4 +72,10 @@ void printStudentRow(Estudiante_t *actualPtr);
 //FUNCIONES AUXILIARES - Borrar elemento de la lista
 void deleteStudentElement(Estudiante_t *actualPtr, Estudiante_t *listPtr);
 void deleteStudentOptions(Estudiante_t *actualPtr, Estudiante_t *listPtr);
+
+
+// Funciones principales
+void agregarNuevoEstudiante(Estudiante_t *listPtr, char nombre[FORMAT_NAME], char apellido[FORMAT_LASTNAME], char CI[FORMAT_CI], Grado_t grado, int  promCalif); // Agrega nuevo elemento a la lista apuntando a NULL. //OK
+Estudiante_t * printfList(Estudiante_t *listPtr, SortBy_t filtro);
+void deleteStudentFromList(Estudiante_t *listPtr, char CI[FORMAT_CI]); //OK
 #endif

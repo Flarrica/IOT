@@ -215,19 +215,19 @@ Estudiante_t *armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro) {
                 }
             }
 
-        // AHORA COLOCAMOS EL ELEMENTO FILTRADO EN LA NUEVA LISTA
-        if (sortedListPtr == NULL) // INICIALIZAR LA LISTA EN CASO QUE SEA VACIA
+        // AHORA VEMOS QUE HACEMOS CON EL ELEMENTO QUE FILTRAMOS
+        if (sortedListPtr == NULL) // Seria como inicializar la lista sorteada
         {
             sortedListPtr = sortedElementPtr;
             sortedListPtr->siguiente = NULL;
             sortedElementPtr = NULL;
-        }else{ // SINO, BUSCAR EL ULTIMO ELEMENTO PARA ENGANCHAR DESDE AHI
+        }else{
             ultimoSortedList = ultimoElementoLista(sortedListPtr); // Busco el ultimo elemento de la lista ordenada
             ultimoSortedList->siguiente = sortedElementPtr; // Armo la lista
             ultimoSortedList->siguiente->siguiente = NULL; // Apunto el final a null
             sortedElementPtr = NULL;
         }
-        previousPtr = listPtr; //REINICIAMOS LA POSICION DEL PUNTERO PREVIUOUS
+        previousPtr = listPtr;
     } while (listPtr->siguiente != NULL);
     // Aca tengo que pasar el ultimo elemento que quedo suelto.
     ultimoSortedList = ultimoElementoLista(sortedListPtr);
@@ -239,8 +239,6 @@ Estudiante_t *armarListaOrdenada(Estudiante_t *listPtr, SortBy_t filtro) {
     return sortedListPtr;
 }
 void printListHeader() { // PRINTF - Encabezado de la lista
-    printf("\n");
-    printf("\n");
     printf("%*s|%*s|%*s|%*s|%*s\n",FORMAT_NAME, "NOMBRE", FORMAT_LASTNAME, "APELLIDO", FORMAT_CI, "CI", FORMAT_GRADE, "GRADO", FORMAT_PROMCALIF, "CALIFICACION");
     printf("---------------------------------------------------------------\n");
     return;
