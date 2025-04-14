@@ -39,7 +39,9 @@ int main() {
     listaEstudiantes = printfList(listaEstudiantes, APELLIDO);
     // Entre estas dos lineas pasa algo con los punteros que hace que no funcione
     listaEstudiantes = printfList(listaEstudiantes, NOMBRE);
-    
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Diego", "Massaferro", "43748445", QUINTO, 79);
+    listaEstudiantes = printfList(listaEstudiantes, CI);
+    deleteStudentFromList(listaEstudiantes, "43748445");
     listaEstudiantes = printfList(listaEstudiantes, CI);
     return 0;
 }
