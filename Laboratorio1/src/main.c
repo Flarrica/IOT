@@ -25,49 +25,85 @@ build.cmd run
 //Estudiante_t *listResult; // Se crea lista vacia para almacenar lso resultados de busquedas.
 int main() {
 
+    //Prueba de la primera parte Libreria 1_2
+        // 1. init_lab
+        init_lab();
 
+        // 2. eq_solver
+        coeff_t coef = {1, -3, 2};  // x^2 - 3x + 2 = 0
+        eq_solver(&coef);
+    
+        // 3. bin2dec
+        int32_t binario = 1101;
+        bin2dec(binario, false);
+        bin2dec(1010, false);  // 10 en decimal (sin signo)
+        bin2dec(1101, true);   // -3 en decimal (con signo) 
+    
+        // 4. print_reverse_array
+        int arr[] = {1, 2, 3, 4, 5};
+        print_reverse_array(arr, sizeof(int), 5);
+    
+        // 5. max_index y min_index
+        max_index(arr, sizeof(int), 5);
+        min_index(arr, sizeof(int), 5);
+    
+        // 6. crear_matriz + matrix_sub
+        // matriz de 2*2
+        matriz_t A = crear_matriz(2, 2);
+        matriz_t B = crear_matriz(2, 2);
+    
+        A.datos[0][0] = 5; A.datos[0][1] = 6;
+        A.datos[1][0] = 7; A.datos[1][1] = 8;
+    
+        B.datos[0][0] = 1; B.datos[0][1] = 2;
+        B.datos[1][0] = 3; B.datos[1][1] = 4;
 
-
-
-
-    // 1. init_lab
-    init_lab();
-
-    // 2. eq_solver
-    coeff_t coef;
-    coef.a = 1;
-    coef.b = -3;
-    coef.c = 2;
-    eq_solver(&coef); // Debería dar x1 = 2.00 y x2 = 1.00
-
-    // 3. bin2dec
-    printf("\nPrueba de bin2dec:\n");
-    bin2dec(1101, false); // 1101 = 13
-    bin2dec(11111111111111111111111111111111, true); // Prueba con signo
-
-    // 4. print_reverse_array
-    printf("\nPrueba de print_reverse_array:\n");
-
-    int enteros[] = {10, 20, 30, 40, 50};
-    print_reverse_array(enteros, sizeof(int), 5);
-
-    float flotantes[] = {1.5, 2.5, 3.5};
-    print_reverse_array(flotantes, sizeof(float), 3);
-
-    char letras[] = {'A', 'B', 'C', 'D'};
-    print_reverse_array(letras, sizeof(char), 4);
-
-    // 5. max_index y min_index
-    printf("\nPrueba de max_index y min_index:\n");
-
-    max_index(enteros, sizeof(int), 5); // Debería dar índice 4
-    min_index(enteros, sizeof(int), 5); // Debería dar índice 0
-
-    max_index(flotantes, sizeof(float), 3); // Índice 2
-    min_index(flotantes, sizeof(float), 3); // Índice 0
-
-    max_index(letras, sizeof(char), 4); // Índice 3 (D)
-    min_index(letras, sizeof(char), 4); // Índice 0 (A)
+        matriz_t R = matrix_sub(A, B);
+        printf("Resultado de la resta de matrices:\n");
+        for (size_t i = 0; i < R.filas; i++) {
+            for (size_t j = 0; j < R.columnas; j++) {
+                printf("%d ", R.datos[i][j]);
+            }
+            printf("\n");
+        }
+    
+        // Liberar memoria de matrices
+        for (size_t i = 0; i < A.filas; i++) {
+            free(A.datos[i]);
+            free(B.datos[i]);
+            free(R.datos[i]);
+        }
+        free(A.datos);
+        free(B.datos);
+        free(R.datos);
+    
+        // 7. consonantes y vocales
+        char texto[] = "Hola Mundo";
+        consonantes(texto);
+        vocales(texto);
+    
+        // 8. reverse_string
+        char mensaje[] = "Hola Mundo";
+        printf("Antes de invertir: %s\n", mensaje);
+        reverse_string(mensaje);
+        printf("Después de invertir: %s\n", mensaje);
+    
+        // 9. swap
+        int x = 10, y = 20;
+        printf("Antes del swap: x = %d, y = %d\n", x, y);
+        if (swap(&x, &y, sizeof(int)) == 0) {
+            printf("Después del swap: x = %d, y = %d\n", x, y);
+        } else {
+            printf("Error en swap\n");
+        }
+    
+        // 10. string_length
+        char cadena[] = "Lenguaje C";
+        int32_t largo = string_length(cadena);
+        printf("La cadena de caracteres era: %s\n", cadena);
+        printf("Longitud del string: %d\n", largo);
+        
+    // Final de la prueba de libreria 1_2
 
     //listStudent = inicializarEstudiante(listStudent); // INICIALIZAR LISTA DE ESTUDIANTES
     //listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA

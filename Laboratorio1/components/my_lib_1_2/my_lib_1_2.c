@@ -1,7 +1,5 @@
 #include "my_lib_1_2.h"
 
-void  init_lab(void);
-
 
 void  init_lab() {
     char nombre1[] ="Fernando Fabian Larrica Gastan";
@@ -52,39 +50,33 @@ root_t eq_solver(coeff_t *coeficientes){
     return resultado;
 }
 
-int32_t bin2dec(int32_t binary, bool sign){
+int32_t bin2dec(int32_t binary, bool sign) {
     int32_t decimal = 0;
     int contador = 0;
-    int exponente = 0;
     int32_t original = binary;
 
+    // Validación y conversión
     while (binary > 0) {
         int digito = binary % 10;
         if (digito != 0 && digito != 1) {
-            printf("No ha ingresado un numero binario valido. \n");
+            printf("No ha ingresado un numero binario valido.\n");
             return 0;
         }
-        if ((binary & 1) == 1){
+        decimal += digito * pow(2, contador);
+        binary /= 10;
+        contador++;
+    }
 
-            exponente = pow(2,contador);
-            contador++;
-            decimal += exponente;
-            binary = binary >> 1;
-        }
-        else{
-            binary = binary >> 1;
-            contador++;
-        }
+    // Si tiene signo y el bit más significativo es 1
+    if (sign && ((original / (int)pow(10, contador - 1)) % 10 == 1)) {
+        int32_t exponente = pow(2, contador);
+        decimal -= exponente;
+        printf("El numero binario pasado a decimal es: -%d\n", decimal);
+    } else {
+        printf("El numero binario pasado a decimal es: %d\n", decimal);
     }
-    if (sign){
-        if ((original >> (contador - 1)) & 1) {
-            exponente = pow(2,contador);
-            decimal -= exponente;
-            printf("El numero binario pasado a decimal es : - %d \n", decimal);
-        }
-    }
-    printf("El numero binario pasado a decimal es : %d \n", decimal);
-    return ;
+
+    return decimal;
 }
 
 void print_reverse_array(void *array, size_t data_type, size_t array_size){
@@ -210,44 +202,13 @@ int consonantes(char *puntero){
     while (*puntero != '\0')
     {
         
-        if ((*puntero > 64 && *puntero < 91) || (*puntero > 96 && *puntero < 123))
-        //if ((*puntero >= 'A' && *puntero <= 'Z') || (*puntero >= 'a' && *puntero <= 'z'))
-        {
-            switch (*puntero)
-            {
-            case 'A':
-                puntero++;
-                break;
-            case 'a':
-                puntero++;
-                break;
-            case 'E':
-                puntero++;
-                break;
-            case 'e':
-                puntero++;
-                break;
-            case 'I':
-                puntero++;
-                break;
-            case 'i':
-                puntero++;
-                break;
-            case 'O':
-                puntero++;
-                break;
-            case 'o':
-                puntero++;
-                break;
-            case 'U':
-                puntero++;
-                break;
-            case 'u':
-                puntero++;
-                break;   
-            default:
+        if ((*puntero > 64 && *puntero < 91) || (*puntero > 96 && *puntero < 123)){
+            if (*puntero != 'A' && *puntero != 'a' &&
+                *puntero != 'E' && *puntero != 'e' &&
+                *puntero != 'I' && *puntero != 'i' &&
+                *puntero != 'O' && *puntero != 'o' &&
+                *puntero != 'U' && *puntero != 'u') {
                 consonante++;
-                break;
             }
         }
         puntero++;     
@@ -261,45 +222,12 @@ int vocales(char *puntero){
     while (*puntero != '\0')
     {
         
-        if ((*puntero > 64 && *puntero < 91) || (*puntero > 96 && *puntero < 123))
-        //if ((*puntero >= 'A' && *puntero <= 'Z') || (*puntero >= 'a' && *puntero <= 'z'))
-        {
-            switch (*puntero)
-            {
-            case 'A':
-                Vocal++;
-                break;
-            case 'a':
-                Vocal++;
-                break;
-            case 'E':
-                Vocal++;
-                break;
-            case 'e':
-                Vocal++;
-                break;
-            case 'I':
-                Vocal++;
-                break;
-            case 'i':
-                Vocal++;
-                break;
-            case 'O':
-                Vocal++;
-                break;
-            case 'o':
-                Vocal++;
-                break;
-            case 'U':
-                Vocal++;
-                break;
-            case 'u':
-                Vocal++;
-                break;   
-            default:
-                puntero++;
-                break;
-            }
+        if (*puntero == 'A' || *puntero == 'a' ||
+            *puntero == 'E' || *puntero == 'e' ||
+            *puntero == 'I' || *puntero == 'i' ||
+            *puntero == 'O' || *puntero == 'o' ||
+            *puntero == 'U' || *puntero == 'u') {
+            Vocal++;
         }
         puntero++;     
     }
@@ -310,7 +238,6 @@ int vocales(char *puntero){
 
 char reverse_string(char *puntero){
     int largo = strlen(puntero);
-    printf("El largo de la cadena de texto es: %d. \n", largo);
 
     char aux;
     int inicio = 0;
@@ -324,5 +251,36 @@ char reverse_string(char *puntero){
         inicio++;
         final--;
     }
-    return puntero;
+    return 0;
+}
+
+int swap(void *elem_1, void *elem_2, size_t data_type) {
+    if (elem_1 == NULL || elem_2 == NULL || data_type == 0) {
+        return -1;  // Error
+    }
+
+    void *aux = malloc(data_type);
+    if (aux == NULL) {
+        return -1;  // Error
+    }
+
+    memcpy(aux, elem_1, data_type);      
+    memcpy(elem_1, elem_2, data_type);   
+    memcpy(elem_2, aux, data_type);      
+
+    free(aux);
+    return 0;  // Éxito
+}
+
+int32_t string_length(char *string) {
+    if (string == NULL) {
+        return -1;
+    }
+
+    int32_t length = 0;
+    while (string[length] != '\0') {
+        length++;
+    }
+
+    return length;
 }
