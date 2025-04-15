@@ -109,11 +109,6 @@ int main() {
     //listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA
     //accesoMenu(listStudent, listResult); // Entramos al MENU
 
-    //my_lib_1_1_function();
-   //my_lib_1_2_function();
-    //my_lib_2_function();
-
-
 
     return 0;
 }
