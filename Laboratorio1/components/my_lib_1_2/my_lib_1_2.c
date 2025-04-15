@@ -168,3 +168,161 @@ void min_index(void *array, size_t data_type, size_t array_size){
     printf("Mínimo en índice: %zu\n",  min_idx);
 return;
 }
+
+matriz_t matrix_sub(matriz_t A, matriz_t B){
+    matriz_t resultado;
+    
+    // Validar que tengan las mismas dimensiones
+    if (A.filas != B.filas || A.columnas != B.columnas) {
+        printf("Error: Las matrices no tienen las mismas dimensiones\n");
+        resultado.datos = NULL;
+        resultado.filas = 0;
+        resultado.columnas = 0;
+        return resultado;
+    }
+    
+    resultado = crear_matriz(A.filas, A.columnas);
+    
+    for (size_t i = 0; i < A.filas; i++) {
+        for (size_t j = 0; j < A.columnas; j++) {
+            resultado.datos[i][j] = A.datos[i][j] - B.datos[i][j];
+        }
+    }
+    
+return resultado;
+}
+
+matriz_t crear_matriz(size_t filas, size_t columnas) {
+    matriz_t matriz;
+    matriz.filas = filas;
+    matriz.columnas = columnas;
+
+    matriz.datos = (int32_t **)malloc(filas * sizeof(int32_t *));
+    for (size_t i = 0; i < filas; i++) {
+        matriz.datos[i] = (int32_t *)malloc(columnas * sizeof(int32_t));
+    }
+
+    return matriz;
+}
+
+int consonantes(char *puntero){
+    int consonante = 0;
+    while (*puntero != '\0')
+    {
+        
+        if ((*puntero > 64 && *puntero < 91) || (*puntero > 96 && *puntero < 123))
+        //if ((*puntero >= 'A' && *puntero <= 'Z') || (*puntero >= 'a' && *puntero <= 'z'))
+        {
+            switch (*puntero)
+            {
+            case 'A':
+                puntero++;
+                break;
+            case 'a':
+                puntero++;
+                break;
+            case 'E':
+                puntero++;
+                break;
+            case 'e':
+                puntero++;
+                break;
+            case 'I':
+                puntero++;
+                break;
+            case 'i':
+                puntero++;
+                break;
+            case 'O':
+                puntero++;
+                break;
+            case 'o':
+                puntero++;
+                break;
+            case 'U':
+                puntero++;
+                break;
+            case 'u':
+                puntero++;
+                break;   
+            default:
+                consonante++;
+                break;
+            }
+        }
+        puntero++;     
+    }
+    printf("La cantidad de consonantes es de %d. \n",consonante);
+    return consonante;
+
+}
+int vocales(char *puntero){
+    int Vocal = 0;
+    while (*puntero != '\0')
+    {
+        
+        if ((*puntero > 64 && *puntero < 91) || (*puntero > 96 && *puntero < 123))
+        //if ((*puntero >= 'A' && *puntero <= 'Z') || (*puntero >= 'a' && *puntero <= 'z'))
+        {
+            switch (*puntero)
+            {
+            case 'A':
+                Vocal++;
+                break;
+            case 'a':
+                Vocal++;
+                break;
+            case 'E':
+                Vocal++;
+                break;
+            case 'e':
+                Vocal++;
+                break;
+            case 'I':
+                Vocal++;
+                break;
+            case 'i':
+                Vocal++;
+                break;
+            case 'O':
+                Vocal++;
+                break;
+            case 'o':
+                Vocal++;
+                break;
+            case 'U':
+                Vocal++;
+                break;
+            case 'u':
+                Vocal++;
+                break;   
+            default:
+                puntero++;
+                break;
+            }
+        }
+        puntero++;     
+    }
+    
+    printf("La cantidad de vocales es de %d. \n",Vocal);
+    return Vocal;
+}
+
+char reverse_string(char *puntero){
+    int largo = strlen(puntero);
+    printf("El largo de la cadena de texto es: %d. \n", largo);
+
+    char aux;
+    int inicio = 0;
+    int final = largo-1; // agregar -1 xq sino el text comienza con \n y no lo muestra 
+
+    while (inicio < final){
+        aux = puntero[inicio];
+        puntero[inicio] = puntero[final];
+        puntero[final] = aux;
+
+        inicio++;
+        final--;
+    }
+    return puntero;
+}
