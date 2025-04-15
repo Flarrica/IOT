@@ -28,23 +28,27 @@ int main() {
     char texto[50];
     //Funcion cuenta palabras
     string_words(texto);
+    /*-----------------------------------------------*/
+
     //Funcion para cambiar de may a min y al reves
-    solicitar_texto();
+    solicitarTexto();
+    /*-----------------------------------------------*/
 
     // Funcion para copiar un string
     char source[50];   
     char destination[50]; 
     string_copy(source, destination); 
-
+    /*-----------------------------------------------*/
     //Funcion para calcular dias entre dos fechas
     ejecutarCalculoDeDias();
     
+    /*-----------------------------------------------*/
     // Funcion para encontrar una dub cadena
     solicitar_texto();  
-
+    /*-----------------------------------------------*/
     //Multiplica dos nnumeros complejos
     procesarMultiplicacionCompleja();
-
+    /*-----------------------------------------------*/
     //Funcion suma dos numeros complejos
     procesarSumaCompleja();
     return 0;

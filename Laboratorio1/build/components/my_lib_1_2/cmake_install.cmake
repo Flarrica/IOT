@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/components/my_lib_1_2
+# Install script for directory: /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/components/my_lib_1_2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/MiProyecto")
+  set(CMAKE_INSTALL_PREFIX "/usr/local")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,12 +34,12 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/MinGW/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/gasto/Desktop/IoT/IOT/Laboratorio1/build/components/my_lib_1_2/install_local_manifest.txt"
+  file(WRITE "/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/build/components/my_lib_1_2/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

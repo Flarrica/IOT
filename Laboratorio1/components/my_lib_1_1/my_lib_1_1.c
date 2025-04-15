@@ -11,11 +11,10 @@ int contieneNumero(char *texto) {
     }
     return 0;  // Si no encontra números, retornamos 0 (falso)
 }
-
 // Esta función cuenta las palabras en el texto
 void string_words(char *string) {
     char texto[50];
-    char *string = texto; 
+    char *str = texto; 
     
     while (1) {
         printf("\nIngrese un texto que no supere los 50 caracteres: \n\n");
@@ -38,15 +37,15 @@ void string_words(char *string) {
         int inPalabra = 0;
 
         // las palabras se cuentas verificando si hay espacios saltos de line o tabulacion
-        while (*string) 
+        while (*str) 
         {
-            if (*string == ' ' || *string == '\t' || *string == '\n') {
+            if (*str == ' ' || *str == '\t' || *str == '\n') {
                 inPalabra = 0;
             } else if (!inPalabra) {
                 inPalabra = 1;
                 count++;
             }
-            string++;
+            str++;
         }
 
         printf("\n--------------------------------------------------------\n");
@@ -57,31 +56,10 @@ void string_words(char *string) {
         break;  // Si todo está bien, salimos del ciclo
     }
 }
-// Funcion para pasar de min a may
-void string_to_caps(char *string) {
-    // Se Recorrer la cadena hasta encontrar el carácter nulo '\0'
-    while (*string != '\0') {
-        // Si el carácter es una letra minúscula (entre 'a' y 'z')
-        if (*string >= 'a' && *string <= 'z') {
-            *string = *string - 'a' + 'A';  // Convertir a mayúscula
-        }
-        string++;  // Avanzar al siguiente carácter
-    }
-}
-// Funcion para pasar de may a min
-void string_to_min(char *string) 
-{
-    // Recorrer la cadena hasta encontrar el carácter nulo '\0'
-    while (*string != '\0') {
-        // Si el carácter es una letra mayúscula (entre 'A' y 'Z')
-        if (*string >= 'A' && *string <= 'Z') {
-            *string = *string - 'A' + 'a';  // Convertir a minúscula
-        }
-        string++;  // Avanzar al siguiente carácter
-    }
-}
+/*--------------------------------------------------------------*/
+
 //Solicita el texto para ejejutar las funciones anteriores
-void solicitar_texto() {
+void solicitarTexto() {
 
     char input[100];
     int choice;
@@ -110,6 +88,30 @@ void solicitar_texto() {
         printf("Opción no válida.\n");
     }
 }
+// Funcion para pasar de min a may
+void string_to_caps(char *string) {
+    // Se Recorrer la cadena hasta encontrar el carácter nulo '\0'
+    while (*string != '\0') {
+        // Si el carácter es una letra minúscula (entre 'a' y 'z')
+        if (*string >= 'a' && *string <= 'z') {
+            *string = *string - 'a' + 'A';  // Convertir a mayúscula
+        }
+        string++;  // Avanzar al siguiente carácter
+    }
+}
+// Funcion para pasar de may a min
+void string_to_min(char *string) 
+{
+    // Recorrer la cadena hasta encontrar el carácter nulo '\0'
+    while (*string != '\0') {
+        // Si el carácter es una letra mayúscula (entre 'A' y 'Z')
+        if (*string >= 'A' && *string <= 'Z') {
+            *string = *string - 'A' + 'a';  // Convertir a minúscula
+        }
+        string++;  // Avanzar al siguiente carácter
+    }
+}
+/*--------------------------------------------------------------*/
 // Funcion para copiar un string en otro string
 int string_copy(char *source, char *destination) {
     // Se pide texto al usuario por consola
@@ -143,7 +145,7 @@ int string_copy(char *source, char *destination) {
 
     return 0;  
 }
-
+/*--------------------------------------------------------------*/
 // Función que calcula la diferencia en días entre dos fechas
 int days_left(date_t start, date_t finish) {
     struct tm tm_start = {0}, tm_finish = {0}; // Estructuras de tiempo inicializadas en 0
@@ -168,7 +170,6 @@ int days_left(date_t start, date_t finish) {
     // Devolvemos la diferencia como número entero
     return (int)difference;
 }
-
 // Esta función pide al usuario las fechas por consola, calcula la diferencia y la muestra
 void ejecutarCalculoDeDias() {
     date_t fecha1, fecha2;
@@ -180,6 +181,7 @@ void ejecutarCalculoDeDias() {
     // Pedimos la segunda fecha
     printf("Ingrese la segunda fecha (DD MM AAAA): ");
     scanf("%d %d %d", &fecha2.dias, &fecha2.mes, &fecha2.año);
+    
 
     // Calculamos la diferencia en días usando la función days_left
     int dias = days_left(fecha1, fecha2);
@@ -189,41 +191,30 @@ void ejecutarCalculoDeDias() {
     printf("Diferencia en días: %d\n", dias);
     printf("------------------------------------------------\n");
 }
-// Funcion para encontrar una SUb cadena 
-int find_in_string(char *haystack, char *needle) {
-    // Si la subcadena needle es vacía, no hay nada que buscar
-    if (*needle == '\0') {
-        return 0;  // Retorna 0 si la subcadena es vacía
-    }
-    
-    // Iterar sobre la cadena haystack
-    for (int i = 0; haystack[i] != '\0'; i++) {
-        int j = 0;
-        
-        // Comprobar si la subcadena needle empieza en haystack[i]
-        while (haystack[i + j] == needle[j]) {
-            j++;
-            // Si hemos alcanzado el final de needle, entonces lo hemos encontrado
-            if (needle[j] == '\0') {
-                return i;  // Retorna el índice donde comienza la subcadena
-            }
-        }
-    }
-    
-    // Si no se encuentra la subcadena se retorna -1
-    return -1;
-}
 
+/*--------------------------------------------------------------*/
+// Funcion para encontrar una SUb cadena 
+// Luego de usar en scanf en la funcion anterior hay qu elimpiar el buffer por salto de line
+void limpiar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);  // Descarta todo hasta el salto de línea
+}
 void solicitar_texto() {
+    
     char haystack[100];
     char needle[100];
     
+    limpiar_buffer();
+
     //Se piden al usuario las dos cadenas haystack y needle
     printf("\n--------------------------------------------------------\n");
     printf("Ingrese la cadena principal (haystack): \n");
     fgets(haystack, 100, stdin);
+    
+   
     printf("Ingrese la subcadena a buscar (needle): \n");
     fgets(needle, 100, stdin);
+    
     printf("\n--------------------------------------------------------\n");
     // Se eliminan saltos de línea cuando se hace enter, si los hay
     for (int i = 0; haystack[i] != '\0'; i++) {
@@ -253,19 +244,40 @@ void solicitar_texto() {
         printf("\n--------------------------------------------------------\n");
     }
 }
-
-
+int find_in_string(char *haystack, char *needle) {
+    // Si la subcadena needle es vacía, no hay nada que buscar
+    if (*needle == '\0') {
+        return 0;  // Retorna 0 si la subcadena es vacía
+    }
+    
+    // Iterar sobre la cadena haystack
+    for (int i = 0; haystack[i] != '\0'; i++) {
+        int j = 0;
+        
+        // Comprobar si la subcadena needle empieza en haystack[i]
+        while (haystack[i + j] == needle[j]) {
+            j++;
+            // Si hemos alcanzado el final de needle, entonces lo hemos encontrado
+            if (needle[j] == '\0') {
+                return i;  // Retorna el índice donde comienza la subcadena
+            }
+        }
+    }
+    
+    // Si no se encuentra la subcadena se retorna -1
+    return -1;
+}
+/*--------------------------------------------------------------*/
 // Se crea una función que realiza el producto de dos números complejos
-complex_t prod(complex_t a, complex_t b) {
-    complex_t result;
+complexf_t prod(complexf_t a, complexf_t b) {
+    complexf_t result;
     result.real = (a.real * b.real) - (a.imag * b.imag);
     result.imag = (a.real * b.imag) + (a.imag * b.real);
     return result;
 }
-
 // Esta función maneja toda la lógica: Pide el numero por consola, llama a la funcion que hace la operacion, imprime el resultado de la multiplicacion
 void procesarMultiplicacionCompleja() {
-    complex_t num1, num2, resultado;
+    complexf_t num1, num2, resultado;
 
     printf("Ingrese la parte real e imaginaria respectivamente del primer número complejo:\n ");
     scanf("%lf %lf", &num1.real,&num1.imag);
@@ -280,14 +292,13 @@ void procesarMultiplicacionCompleja() {
     printf("El resultado de la multiplicación es: %.2f + %.2fi\n", resultado.real, resultado.imag);
     printf("------------------------------------------------\n");
 }
-
+/*--------------------------------------------------------------*/
 complex_t sum(complex_t a, complex_t b) {
     complex_t result;
     result.real = a.real + b.real;
     result.imag = a.imag + b.imag;
     return result;
 }
-
 // Función que se encarga de todo: Se pide el valor por consola, se sumar y se muestra el resultado
 void procesarSumaCompleja() {
     complex_t num1, num2, resultado;
