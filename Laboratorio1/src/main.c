@@ -140,7 +140,8 @@ int main() {
     //Prueba de la primera parte Parte 2
 
     // Agregamos estudiantes con datos correctos
-
+    
+    Estudiante_t *listaEstudiantes = NULL;
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Catalina", "Viera", "89012345", CUARTO, 82);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Alan", "Villalba", "90123456", PRIMERO, 79);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Milagros", "Zeballos", "91234567", QUINTO, 94);
