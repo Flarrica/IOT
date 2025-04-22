@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Global.dir/Global.c.obj"
-  "CMakeFiles/Global.dir/Global.c.obj.d"
+  "CMakeFiles/Global.dir/Global.c.o"
+  "CMakeFiles/Global.dir/Global.c.o.d"
   "libGlobal.a"
   "libGlobal.pdb"
 )

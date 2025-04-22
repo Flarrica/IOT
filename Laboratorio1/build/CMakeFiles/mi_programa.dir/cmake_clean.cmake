@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/mi_programa.dir/src/main.c.obj"
-  "CMakeFiles/mi_programa.dir/src/main.c.obj.d"
-  "libmi_programa.dll.a"
-  "mi_programa.exe"
-  "mi_programa.exe.manifest"
+  "CMakeFiles/mi_programa.dir/src/main.c.o"
+  "CMakeFiles/mi_programa.dir/src/main.c.o.d"
+  "mi_programa"
   "mi_programa.pdb"
 )
 
