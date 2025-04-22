@@ -153,12 +153,12 @@ int days_left(date_t start, date_t finish) {
     // Cargamos los datos de la primera fecha en la estructura tm
     tm_start.tm_mday = start.dias;            // Día del mes
     tm_start.tm_mon = start.mes - 1;          // Mes (0 a 11, por eso restamos 1)
-    tm_start.tm_year = start.año - 1900;      // Años desde 1900
+    tm_start.tm_year = start.anio - 1900;      // Años desde 1900
 
     // Cargamos los datos de la segunda fecha
     tm_finish.tm_mday = finish.dias;
     tm_finish.tm_mon = finish.mes - 1;
-    tm_finish.tm_year = finish.año - 1900;
+    tm_finish.tm_year = finish.anio - 1900;
 
     // Convertimos las estructuras tm a tiempo en segundos desde 1970 (epoch time)
     time_t time_start = mktime(&tm_start);
@@ -176,11 +176,11 @@ void ejecutarCalculoDeDias() {
 
     // Pedimos la primera fecha al usuario
     printf("Ingrese la primera fecha (DD MM AAAA): ");
-    scanf("%d %d %d", &fecha1.dias, &fecha1.mes, &fecha1.año);
+    scanf("%d %d %d", &fecha1.dias, &fecha1.mes, &fecha1.anio);
 
     // Pedimos la segunda fecha
     printf("Ingrese la segunda fecha (DD MM AAAA): ");
-    scanf("%d %d %d", &fecha2.dias, &fecha2.mes, &fecha2.año);
+    scanf("%d %d %d", &fecha2.dias, &fecha2.mes, &fecha2.anio);
     
 
     // Calculamos la diferencia en días usando la función days_left

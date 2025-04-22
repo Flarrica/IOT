@@ -24,38 +24,8 @@ build.cmd run
 
 int main() {
 
-    //Prueba de la primera parte Libreria 1_1
 
-    char texto[50];
-    //Funcion cuenta palabras
-    string_words(texto);
-    /*-----------------------------------------------*/
-
-    //Funcion para cambiar de may a min y al reves
-    solicitarTexto();
-    /*-----------------------------------------------*/
-
-    // Funcion para copiar un string
-    char source[50];   
-    char destination[50]; 
-    string_copy(source, destination); 
-    /*-----------------------------------------------*/
-    //Funcion para calcular dias entre dos fechas
-    ejecutarCalculoDeDias();
-    
-    /*-----------------------------------------------*/
-    // Funcion para encontrar una dub cadena
-    solicitar_texto();  
-    /*-----------------------------------------------*/
-    //Multiplica dos nnumeros complejos
-    procesarMultiplicacionCompleja();
-    /*-----------------------------------------------*/
-    //Funcion suma dos numeros complejos
-    procesarSumaCompleja();
-
-    // Final de la prueba de libreria 1_1
-
-    //Prueba de la primera parte Libreria 1_2
+        //Prueba de la primera parte Libreria 1_2
 
         // 1. init_lab
         init_lab();
@@ -109,9 +79,9 @@ int main() {
         free(R.datos);
     
         // 7. consonantes y vocales
-        char texto[] = "Hola Mundo";
-        consonantes(texto);
-        vocales(texto);
+        char texto1[] = "Hola Mundo";
+        consonantes(texto1);
+        vocales(texto1);
     
         // 8. reverse_string
         char mensaje[] = "Hola Mundo";
@@ -136,11 +106,42 @@ int main() {
         
     // Final de la prueba de libreria 1_2
 
+    //Prueba de la primera parte Libreria 1_1
+
+    char texto[50];
+    //Funcion cuenta palabras
+    string_words(texto);
+    /*-----------------------------------------------*/
+
+    //Funcion para cambiar de may a min y al reves
+    solicitarTexto();
+    /*-----------------------------------------------*/
+
+    // Funcion para copiar un string
+    char source[50];   
+    char destination[50]; 
+    string_copy(source, destination); 
+    /*-----------------------------------------------*/
+    //Funcion para calcular dias entre dos fechas
+    ejecutarCalculoDeDias();
+    
+    /*-----------------------------------------------*/
+    // Funcion para encontrar una dub cadena
+    solicitar_texto();  
+    /*-----------------------------------------------*/
+    //Multiplica dos nnumeros complejos
+    procesarMultiplicacionCompleja();
+    /*-----------------------------------------------*/
+    //Funcion suma dos numeros complejos
+    procesarSumaCompleja();
+
+    // Final de la prueba de libreria 1_1
+
 
     //Prueba de la primera parte Parte 2
 
     // Agregamos estudiantes con datos correctos
-    
+
     Estudiante_t *listaEstudiantes = NULL;
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Catalina", "Viera", "89012345", CUARTO, 82);
     listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Alan", "Villalba", "90123456", PRIMERO, 79);

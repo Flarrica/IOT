@@ -15,7 +15,7 @@ int string_copy(char *source, char *destination);
 typedef struct {
     int dias;  // se definen dias del mes (1 31)
     int mes;   // se definen mes del año (1 a 12)
-    int año;   // se definen los Años (ej: 2025)
+    int anio;   // se definen los Años (ej: 2025)
 } date_t;
 int days_left(date_t start, date_t finish);
 void ejecutarCalculoDeDias();

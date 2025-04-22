@@ -1,1 +1,0 @@
-/usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/mi_programa.dir/src/main.c.o -o mi_programa  components/Global/libGlobal.a components/my_lib_1_1/libmy_lib_1_1.a components/my_lib_1_2/libmy_lib_1_2.a components/my_lib_2/libmy_lib_2.a
