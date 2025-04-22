@@ -28,28 +28,62 @@ int main() {
         //Prueba de la primera parte Libreria 1_2
 
         // 1. init_lab
+        printf(" Despliegue en pantalla el mensaje “Laboratorio lenguaje C de <nombre completo>”");
         init_lab();
 
         // 2. eq_solver
+        /*
+        La estructura creada es de la siguiente forma:
+
+        typedef struct {
+            double a;
+            double b;
+            double c;
+        } coeff_t;
+        
+        usa una segunda estructura interna para resolver la equación 
+        typedef struct {
+            double R1;
+            double R2;
+        } root_t;
+        es para guardar las raices
+        
+        */
+        
+        printf("Resuelva la ecuación de segundo grado");
         coeff_t coef = {1, -3, 2};  // x^2 - 3x + 2 = 0
         eq_solver(&coef);
     
         // 3. bin2dec
+        printf("Convierta un número binario en uno decimal");
         int32_t binario = 1101;
         bin2dec(binario, false);
         bin2dec(1010, false);  // 10 en decimal (sin signo)
         bin2dec(1101, true);   // -3 en decimal (con signo) 
     
         // 4. print_reverse_array
+        printf("Lea los valores en un array y los muestre en pantalla en orden inverso.");
         int arr[] = {1, 2, 3, 4, 5};
         print_reverse_array(arr, sizeof(int), 5);
     
         // 5. max_index y min_index
+        printf("Encuentre los elementos máximo y mínimo en un array");
         max_index(arr, sizeof(int), 5);
         min_index(arr, sizeof(int), 5);
     
-        // 6. crear_matriz + matrix_sub
+        // 6. Resta de matrices
+        //  crear_matriz + matrix_sub
         // matriz de 2*2
+        /*
+        La estructura creada es de la siguiente forma:
+
+        typedef struct {
+            size_t filas;
+            size_t columnas;
+            int32_t **datos;
+        } matriz_t;
+        
+        */
         matriz_t A = crear_matriz(2, 2);
         matriz_t B = crear_matriz(2, 2);
     
@@ -58,6 +92,8 @@ int main() {
     
         B.datos[0][0] = 1; B.datos[0][1] = 2;
         B.datos[1][0] = 3; B.datos[1][1] = 4;
+
+        printf("Devuelva la resta de dos matrices");
 
         matriz_t R = matrix_sub(A, B);
         printf("Resultado de la resta de matrices:\n");
@@ -69,6 +105,7 @@ int main() {
         }
     
         // Liberar memoria de matrices
+        printf("Intercambie el contenido de dos elementos, deberá retornar si la operacion se realizo con exito (0) o no (-1)");
         for (size_t i = 0; i < A.filas; i++) {
             free(A.datos[i]);
             free(B.datos[i]);
@@ -77,19 +114,9 @@ int main() {
         free(A.datos);
         free(B.datos);
         free(R.datos);
-    
-        // 7. consonantes y vocales
-        char texto1[] = "Hola Mundo";
-        consonantes(texto1);
-        vocales(texto1);
-    
-        // 8. reverse_string
-        char mensaje[] = "Hola Mundo";
-        printf("Antes de invertir: %s\n", mensaje);
-        reverse_string(mensaje);
-        printf("Después de invertir: %s\n", mensaje);
-    
-        // 9. swap
+
+        // 7. swap
+        printf("Intercambie el contenido de dos elementos, deberá retornar si la operacion se realizo con exito (0) o no (-1)");
         int x = 10, y = 20;
         printf("Antes del swap: x = %d, y = %d\n", x, y);
         if (swap(&x, &y, sizeof(int)) == 0) {
@@ -97,8 +124,23 @@ int main() {
         } else {
             printf("Error en swap\n");
         }
+        
+        // 8. consonantes y vocales
+        printf("Cuente el número de vocales y consonantes en un string");
+        char texto1[] = "Hola Mundo";
+        consonantes(texto1);
+        vocales(texto1);
     
+        // 9. reverse_string
+        printf("Imprima y devuelve un string al revés");
+        char mensaje[] = "Hola Mundo";
+        printf("Antes de invertir: %s\n", mensaje);
+        reverse_string(mensaje);
+        printf("Después de invertir: %s\n", mensaje);
+    
+
         // 10. string_length
+        printf("Encuentre la longitud de un string (sin usar funciones de biblioteca) retorna -1 en caso de error");
         char cadena[] = "Lenguaje C";
         int32_t largo = string_length(cadena);
         printf("La cadena de caracteres era: %s\n", cadena);
