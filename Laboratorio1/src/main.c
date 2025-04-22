@@ -28,7 +28,7 @@ int main() {
         //Prueba de la primera parte Libreria 1_2
 
         // 1. init_lab
-        printf(" Despliegue en pantalla el mensaje “Laboratorio lenguaje C de <nombre completo>”");
+        printf(" Despliegue en pantalla el mensaje “Laboratorio lenguaje C de <nombre completo>\n”");
         init_lab();
 
         // 2. eq_solver
@@ -47,27 +47,27 @@ int main() {
             double R2;
         } root_t;
         es para guardar las raices
-        
+
         */
         
-        printf("Resuelva la ecuación de segundo grado");
+        printf("Resuelva la ecuación de segundo grado\n");
         coeff_t coef = {1, -3, 2};  // x^2 - 3x + 2 = 0
         eq_solver(&coef);
     
         // 3. bin2dec
-        printf("Convierta un número binario en uno decimal");
+        printf("Convierta un número binario en uno decimal\n");
         int32_t binario = 1101;
         bin2dec(binario, false);
         bin2dec(1010, false);  // 10 en decimal (sin signo)
         bin2dec(1101, true);   // -3 en decimal (con signo) 
     
         // 4. print_reverse_array
-        printf("Lea los valores en un array y los muestre en pantalla en orden inverso.");
+        printf("Lea los valores en un array y los muestre en pantalla en orden inverso.\n");
         int arr[] = {1, 2, 3, 4, 5};
         print_reverse_array(arr, sizeof(int), 5);
     
         // 5. max_index y min_index
-        printf("Encuentre los elementos máximo y mínimo en un array");
+        printf("Encuentre los elementos máximo y mínimo en un array\n");
         max_index(arr, sizeof(int), 5);
         min_index(arr, sizeof(int), 5);
     
@@ -93,7 +93,7 @@ int main() {
         B.datos[0][0] = 1; B.datos[0][1] = 2;
         B.datos[1][0] = 3; B.datos[1][1] = 4;
 
-        printf("Devuelva la resta de dos matrices");
+        printf("Devuelva la resta de dos matrices\n");
 
         matriz_t R = matrix_sub(A, B);
         printf("Resultado de la resta de matrices:\n");
@@ -105,7 +105,7 @@ int main() {
         }
     
         // Liberar memoria de matrices
-        printf("Intercambie el contenido de dos elementos, deberá retornar si la operacion se realizo con exito (0) o no (-1)");
+        printf("Intercambie el contenido de dos elementos, deberá retornar si la operacion se realizo con exito (0) o no (-1)\n");
         for (size_t i = 0; i < A.filas; i++) {
             free(A.datos[i]);
             free(B.datos[i]);
@@ -116,7 +116,7 @@ int main() {
         free(R.datos);
 
         // 7. swap
-        printf("Intercambie el contenido de dos elementos, deberá retornar si la operacion se realizo con exito (0) o no (-1)");
+        printf("Intercambie el contenido de dos elementos, deberá retornar si la operacion se realizo con exito (0) o no (-1)\n");
         int x = 10, y = 20;
         printf("Antes del swap: x = %d, y = %d\n", x, y);
         if (swap(&x, &y, sizeof(int)) == 0) {
@@ -126,13 +126,13 @@ int main() {
         }
         
         // 8. consonantes y vocales
-        printf("Cuente el número de vocales y consonantes en un string");
+        printf("Cuente el número de vocales y consonantes en un string\n");
         char texto1[] = "Hola Mundo";
         consonantes(texto1);
         vocales(texto1);
     
         // 9. reverse_string
-        printf("Imprima y devuelve un string al revés");
+        printf("Imprima y devuelve un string al revés\n");
         char mensaje[] = "Hola Mundo";
         printf("Antes de invertir: %s\n", mensaje);
         reverse_string(mensaje);
@@ -140,7 +140,7 @@ int main() {
     
 
         // 10. string_length
-        printf("Encuentre la longitud de un string (sin usar funciones de biblioteca) retorna -1 en caso de error");
+        printf("Encuentre la longitud de un string (sin usar funciones de biblioteca) retorna -1 en caso de error\n");
         char cadena[] = "Lenguaje C";
         int32_t largo = string_length(cadena);
         printf("La cadena de caracteres era: %s\n", cadena);
