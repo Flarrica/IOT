@@ -4,6 +4,7 @@
 
 
 /* 
+
 Para compilar, ingresar los siguientes comandos en "cmd"
 
 (Ir al directorio)
@@ -20,12 +21,42 @@ build.cmd compile
 build.cmd run
 
 */
-// VERIFICAR SI ESTA BIEN DECLARADA EN EL MAIN O DEBE IR EN LA LIBRERIA
-// *listStudent; // Apunta al primer elemento de la lista. Una vez que se crea el primer elemento, no se va a mover de alli.
-//Estudiante_t *listResult; // Se crea lista vacia para almacenar lso resultados de busquedas.
+
 int main() {
 
+    //Prueba de la primera parte Libreria 1_1
+
+    char texto[50];
+    //Funcion cuenta palabras
+    string_words(texto);
+    /*-----------------------------------------------*/
+
+    //Funcion para cambiar de may a min y al reves
+    solicitarTexto();
+    /*-----------------------------------------------*/
+
+    // Funcion para copiar un string
+    char source[50];   
+    char destination[50]; 
+    string_copy(source, destination); 
+    /*-----------------------------------------------*/
+    //Funcion para calcular dias entre dos fechas
+    ejecutarCalculoDeDias();
+    
+    /*-----------------------------------------------*/
+    // Funcion para encontrar una dub cadena
+    solicitar_texto();  
+    /*-----------------------------------------------*/
+    //Multiplica dos nnumeros complejos
+    procesarMultiplicacionCompleja();
+    /*-----------------------------------------------*/
+    //Funcion suma dos numeros complejos
+    procesarSumaCompleja();
+
+    // Final de la prueba de libreria 1_1
+
     //Prueba de la primera parte Libreria 1_2
+
         // 1. init_lab
         init_lab();
 
@@ -105,10 +136,33 @@ int main() {
         
     // Final de la prueba de libreria 1_2
 
-    //listStudent = inicializarEstudiante(listStudent); // INICIALIZAR LISTA DE ESTUDIANTES
-    //listResult = inicializarEstudiante(listResult); // INICIALIZAR LISTA DE RESULTADOS DE BUSQUEDA
-    //accesoMenu(listStudent, listResult); // Entramos al MENU
 
+    //Prueba de la primera parte Parte 2
+
+    // Agregamos estudiantes con datos correctos
+
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Catalina", "Viera", "89012345", CUARTO, 82);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Alan", "Villalba", "90123456", PRIMERO, 79);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Milagros", "Zeballos", "91234567", QUINTO, 94);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Kevin", "Zunino", "92345678", SEXTO, 88);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Agustina", "Abreu", "93456789", TERCERO, 3);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Dylan", "Alonso", "94567890", SEGUNDO, 92);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Kiara", "Andrade", "95678901", CUARTO, 56);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Ian", "Arce", "96789012", PRIMERO, 80);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Ashley", "Arismendi", "97890123", QUINTO, 93);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Axel", "Barrios", "98901234", SEXTO, 86);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Zoe", "Bentancur", "99012345", TERCERO, 79);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Thiago", "Burgos", "40123456", SEGUNDO, 98);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Maite", "Cabrera", "41234567", CUARTO, 83);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Santino", "Caceres", "42345678", PRIMERO, 89);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Benicio", "Campos", "44567890", SEXTO, 87);
+    listaEstudiantes = printfList(listaEstudiantes, SIN_FILTRO);
+    listaEstudiantes = printfList(listaEstudiantes, APELLIDO);
+    listaEstudiantes = printfList(listaEstudiantes, NOMBRE);
+    listaEstudiantes = agregarNuevoEstudiante(listaEstudiantes, "Diego", "Massaferro", "43748445", QUINTO, 79);
+    listaEstudiantes = printfList(listaEstudiantes, CI);
+    deleteStudentFromList(listaEstudiantes, "43748445");
+    listaEstudiantes = printfList(listaEstudiantes, CI);
 
     return 0;
 }
