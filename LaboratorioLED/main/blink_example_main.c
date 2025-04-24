@@ -18,7 +18,7 @@ static const uint8_t colors[][3] = {
     {0, 255, 0},     // Verde
     {0, 0, 255},     // Azul
     {200, 0, 0},    // Naranja (rojo bajo + verde)
-    {250, 250, 250}  // Blanco
+    {250, 250, 0}  // Violeta
 };
 
 static void set_color(uint8_t r, uint8_t g, uint8_t b)
@@ -84,6 +84,6 @@ void app_main(void)
         set_color(r, g, b);
 
         color_index = (color_index + 1) % total_colors;
-        vTaskDelay(pdMS_TO_TICKS(1500)); // Espera 1 segundo
+        esp_rom_delay_us(1000000);
     }
 }
