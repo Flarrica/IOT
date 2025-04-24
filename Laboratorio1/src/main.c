@@ -154,7 +154,6 @@ int main() {
     //Funcion cuenta palabras
     string_words(texto);
     /*-----------------------------------------------*/
-
     //Funcion para cambiar de may a min y al reves
     solicitarTexto();
     /*-----------------------------------------------*/
