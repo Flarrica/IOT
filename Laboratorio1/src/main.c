@@ -149,7 +149,7 @@ int main() {
     // Final de la prueba de libreria 1_2
 
     //Prueba de la primera parte Libreria 1_1
-
+    
     char texto[50];
     //Funcion cuenta palabras
     string_words(texto);
