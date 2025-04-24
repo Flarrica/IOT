@@ -159,7 +159,7 @@ int main() {
     solicitarTexto();
     /*-----------------------------------------------*/
 
-    // Funcion para copiar un string
+    // Funcion para copiar un string en otro string
     char source[50];   
     char destination[50]; 
     string_copy(source, destination); 
