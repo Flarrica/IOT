@@ -1,13 +1,13 @@
 {
-    "files.associations": {
-        "my_lib_2.h": "c",
-        "string.h": "c",
-        "stdlib.h": "c"
-    },
-    "idf.customExtraVars": {
-        "IDF_TARGET": "esp32s2"
-    },
+    "C_Cpp.intelliSenseEngine": "default",
     "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
+    "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.openOcdConfigs": [
+        "board/esp32s2-kaluga-1.cfg"
+    ],
+    "idf.portWin": "COM14",
     "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
-    "idf.pythonInstallPath": "/Users/marcosgiombini/.platformio/penv/bin/python"
+    "files.associations": {
+        "led_strip.h": "c"
+    }
 }

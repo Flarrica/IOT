@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "my_lib_2.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
+    },
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32s2"
+    },
+    "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
+    "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
+    "idf.pythonInstallPath": "/Users/marcosgiombini/.platformio/penv/bin/python"
+}
