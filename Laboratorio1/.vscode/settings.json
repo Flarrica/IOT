@@ -8,6 +8,7 @@
     "idf.portWin": "COM14",
     "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
     "files.associations": {
-        "led_strip.h": "c"
+        "led_strip.h": "c",
+        "rmt.h": "c"
     }
 }
