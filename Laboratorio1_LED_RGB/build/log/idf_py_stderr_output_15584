@@ -1,0 +1,941 @@
+[0;33m--- esp-idf-monitor 1.6.2 on /dev/cu.usbserial-11201 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872ac: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872bb: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872bb: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872ac: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872b2: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:21
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/xtensa/xtensa_vectors.S:1240
+--- 0x400872a9: delay_ciclos at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:20
+--- 0x400872ec: delay_ms at /Users/marcosgiombini/esp/Laboratorio1/components/my_led_delay/src/led_delay.c:28
+--- 0x400871eb: app_main at /Users/marcosgiombini/esp/Laboratorio1/main/hello_world_main.c:13
+--- 0x4009573c: main_task at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/app_startup.c:208
+--- 0x4002a7bd: vPortTaskWrapper at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x40088acf: task_wdt_timeout_handling at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:434
+--- 0x40088e60: task_wdt_isr at /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esp_system/task_wdt/task_wdt.c:507
+--- 0x400265d5: _xt_lowint1 at /Us
