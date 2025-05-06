@@ -1,0 +1,7 @@
+[1/4] cd /Users/marcosgiombini/esp/Laboratorio1/build/esp-idf/esptool_py && /Users/marcosgiombini/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/marcosgiombini/esp/Laboratorio1/build/partition_table/partition-table.bin /Users/marcosgiombini/esp/Laboratorio1/build/Laboratorio1.bin
+Laboratorio1.bin binary size 0x2ea90 bytes. Smallest app partition is 0x100000 bytes. 0xd1570 bytes (82%) free.
+[2/4] Performing build step for 'bootloader'
+[1/1] cd /Users/marcosgiombini/esp/Laboratorio1/build/bootloader/esp-idf/esptool_py && /Users/marcosgiombini/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/marcosgiombini/esp/Laboratorio1/build/bootloader/bootloader.bin
+Bootloader binary size 0x5540 bytes. 0x1ac0 bytes (24%) free.
+[3/4] No install step for 'bootloader'
+[4/4] Completed 'bootloader'

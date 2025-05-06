@@ -1,5 +1,21 @@
 {
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
+    "idf.pythonInstallPath": "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+    "idf.openOcdConfigs": [
+        "board/esp32s2-kaluga-1.cfg"
+    ],
+    "idf.portWin": "COM14",
+    "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
     "files.associations": {
-        "my_lib_2.h": "c"
-    }
+        "led_strip.h": "c",
+        "rmt.h": "c"
+    },
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32s2"
+    },
+    "idf.flashType": "UART",
+    "idf.port": "/dev/tty.usbserial-11301",
+    "idf.espIdfPath": "/Users/marcosgiombini/esp/v5.4.1/esp-idf",
+    "idf.toolsPath": "/Users/marcosgiombini/.espressif"
 }
