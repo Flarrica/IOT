@@ -1,7 +1,7 @@
 {
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
-  "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+  "idf.pythonInstallPath": "/Users/marcosgiombini/.platformio/penv/bin/python",
   "idf.openOcdConfigs": [
     "board/esp32s2-kaluga-1.cfg"
   ],
