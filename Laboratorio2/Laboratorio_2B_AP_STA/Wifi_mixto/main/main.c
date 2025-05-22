@@ -1,7 +1,7 @@
 #include <string.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h" // Para EventGroup
+//#include "freertos/FreeRTOS.h"
+//#include "freertos/task.h"
+//#include "freertos/event_groups.h" // Para EventGroup
 #include "esp_system.h"
 #include "esp_wifi.h"
 #include "esp_event.h"
@@ -16,15 +16,15 @@
 
 // --- Configuración del Access Point (AP) ---
 // NOTA: Estos valores no se leerán de sdkconfig.h, sino directamente de aquí.
-#define AP_SSID "ESP32-S2_MyAP" // SSID de tu punto de acceso (visible para otros dispositivos)
+#define AP_SSID "ESP32-S2_Marcos" // SSID de tu punto de acceso (visible para otros dispositivos)
 #define AP_PASSWORD "123456789"     // Contraseña de tu punto de acceso (mín. 8 caracteres para WPA2)
 #define AP_CHANNEL          6               // Canal WiFi para el AP (1-13)
 #define AP_MAX_CONNECTIONS  4               // Máximo de estaciones que pueden conectarse a este AP
 
 // --- Configuración de la Estación (STA) ---
 // ¡¡¡IMPORTANTE!!! Reemplaza estos valores con el SSID y la contraseña de tu red Wi-Fi
-#define STA_SSID "Anteltcbp9-2.4GHz"    // SSID de tu red Wi-Fi (a la que el ESP32 se conectará)
-#define STA_PASSWORD "ssxug473" // Contraseña de tu red Wi-Fi
+#define STA_SSID "caliope"    // SSID de tu red Wi-Fi (a la que el ESP32 se conectará)
+#define STA_PASSWORD "sinlugar" // Contraseña de tu red Wi-Fi
 #define STA_MAX_RETRY       5              // Número máximo de reintentos para la conexión STA
 
 // --- Event Group para la conexión STA ---
