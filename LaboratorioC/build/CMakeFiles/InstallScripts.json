@@ -1,11 +1,11 @@
 {
 	"InstallScripts" : 
 	[
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/build/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/build/components/Global/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/build/components/my_lib_1_1/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/build/components/my_lib_1_2/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/build/components/my_lib_2/cmake_install.cmake"
+		"C:/Users/gasto/Desktop/IoT/IOT/LaboratorioC/build/cmake_install.cmake",
+		"C:/Users/gasto/Desktop/IoT/IOT/LaboratorioC/build/components/Global/cmake_install.cmake",
+		"C:/Users/gasto/Desktop/IoT/IOT/LaboratorioC/build/components/my_lib_1_1/cmake_install.cmake",
+		"C:/Users/gasto/Desktop/IoT/IOT/LaboratorioC/build/components/my_lib_1_2/cmake_install.cmake",
+		"C:/Users/gasto/Desktop/IoT/IOT/LaboratorioC/build/components/my_lib_2/cmake_install.cmake"
 	],
 	"Parallel" : false
 }
