@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "esp_log.h"
 #include "led_rgb.h"
-#include "led_strip.h"
+#include "ejemplo_led_strip.h"
 #include "driver/rmt.h"
 
 static const char *TAG = "LED_RGB";

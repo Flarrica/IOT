@@ -1,5 +1,5 @@
-#ifndef LED_RGB_CONTROL_H_
-#define LED_RGB_CONTROL_H_
+#ifndef LED_RGB_H_
+#define LED_RGB_H_
 
 // Inicializa el LED RGB embebido en la placa
 void led_rgb_inicializar(void);
