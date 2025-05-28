@@ -10,15 +10,37 @@ static const char *TAG = "Touch Button";
 static touch_button_handle_t button_handle[TOUCH_BUTTON_NUM];
 
 static const touch_pad_t channel_array[TOUCH_BUTTON_NUM] = {
-    TOUCH_PAD_NUM1, TOUCH_PAD_NUM2, TOUCH_PAD_NUM3, TOUCH_PAD_NUM4,
-    TOUCH_PAD_NUM5, TOUCH_PAD_NUM6, TOUCH_PAD_NUM7, TOUCH_PAD_NUM8,
-    TOUCH_PAD_NUM9, TOUCH_PAD_NUM10, TOUCH_PAD_NUM11, TOUCH_PAD_NUM12,
-    TOUCH_PAD_NUM13, TOUCH_PAD_NUM14,
+    TOUCH_PAD_NUM1, 
+    TOUCH_PAD_NUM2, 
+    TOUCH_PAD_NUM3, 
+    TOUCH_PAD_NUM4,
+    TOUCH_PAD_NUM5, 
+    TOUCH_PAD_NUM6, 
+    TOUCH_PAD_NUM7, 
+    TOUCH_PAD_NUM8,
+    TOUCH_PAD_NUM9, 
+    TOUCH_PAD_NUM10, 
+    TOUCH_PAD_NUM11, 
+    TOUCH_PAD_NUM12,
+    TOUCH_PAD_NUM13, 
+    TOUCH_PAD_NUM14,
 };
 
 static const float channel_sens_array[TOUCH_BUTTON_NUM] = {
-    0.1F, 0.1F, 0.1F, 0.1F, 0.1F, 0.1F, 0.1F,
-    0.1F, 0.1F, 0.1F, 0.1F, 0.1F, 0.1F, 0.1F,
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F,
+    0.1F,
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F, 
+    0.1F,
 };
 
 static void button_handler(touch_button_handle_t out_handle, touch_button_message_t *out_message, void *arg)
