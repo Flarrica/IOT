@@ -8,6 +8,8 @@
 
 static const char *TAG = "Touch Button";
 static touch_button_handle_t button_handle[TOUCH_BUTTON_NUM];
+static int button_states[TOUCH_BUTTON_NUM] = {0};
+int led_mode_touch = -1;
 
 static const touch_pad_t channel_array[TOUCH_BUTTON_NUM] = {
     TOUCH_PAD_NUM1, 
@@ -43,14 +45,33 @@ static const float channel_sens_array[TOUCH_BUTTON_NUM] = {
     0.1F,
 };
 
+void touch_button_clear(int id) {
+    if (id >= 0 && id < TOUCH_BUTTON_NUM)
+        button_states[id] = 0;
+}
+
+int touch_button_pressed(int id)
+{
+    if (id < 0 || id >= TOUCH_BUTTON_NUM) return 0;
+    if (button_states[id]) {
+        button_states[id] = 0;  // Se limpia automáticamente
+        return 1;
+    }
+    return 0;
+}
+
+
 static void button_handler(touch_button_handle_t out_handle, touch_button_message_t *out_message, void *arg)
 {
     int btn = (int)arg;
+
     switch (out_message->event) {
         case TOUCH_BUTTON_EVT_ON_PRESS:
+            button_states[btn] = 1;
             ESP_LOGI(TAG, "Button[%d] Press", btn);
             break;
         case TOUCH_BUTTON_EVT_ON_RELEASE:
+            button_states[btn] = 0;
             ESP_LOGI(TAG, "Button[%d] Release", btn);
             break;
         case TOUCH_BUTTON_EVT_ON_LONGPRESS:

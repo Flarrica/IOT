@@ -37,6 +37,15 @@ void app_main(void)
         esp_task_wdt_reset();           // Alimenta al watchdog
         led_rgb_set_event((led_rgb_evento_t) led_mode_web);  // Se setea desde la web
         led_rgb_bucle();  // Actualiza el LED si hubo un cambio
-        vTaskDelay(pdMS_TO_TICKS(10));  // Espera 10 ms
+        vTaskDelay(pdMS_TO_TICKS(1000)); // Espera 1 s
+        if (touch_button_pressed(1)) led_rgb_set_event(LED_EVENT_ROJO);
+        if (touch_button_pressed(2)) led_rgb_set_event(LED_EVENT_VERDE);
+        if (touch_button_pressed(3)) led_rgb_set_event(LED_EVENT_AZUL);
+        if (touch_button_pressed(5)) led_rgb_set_event(LED_EVENT_BLANCO);
+        if (touch_button_pressed(6)) led_rgb_set_event(LED_EVENT_AMARILLO);
+        if (touch_button_pressed(11)) led_rgb_set_event(LED_EVENT_CIAN);
+        if (touch_button_pressed(14)) led_rgb_set_event(LED_EVENT_APAGAR);
+        led_rgb_bucle();  // Aplica el color según evento
+        vTaskDelay(pdMS_TO_TICKS(1000)); // Espera 1 s
     }
 }
