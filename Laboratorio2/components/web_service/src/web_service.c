@@ -3,7 +3,7 @@
 #include "esp_log.h"
 #include "led_rgb.h"
 
-
+static int ultimo_evento_web = LED_EVENT_INVALIDO;
 static const char *TAG = "WEB_SERVER";
 static httpd_handle_t server = NULL;
 int led_mode_web = -1;  // o cualquier valor por defecto
@@ -50,19 +50,19 @@ esp_err_t led_handler(httpd_req_t *req) {
         char param[32];
         if (httpd_query_key_value(buf, "color", param, sizeof(param)) == ESP_OK) {
             if (strcmp(param, "rojo") == 0)
-                led_mode_web = LED_EVENT_ROJO;
+                ultimo_evento_web = LED_EVENT_ROJO;
             else if (strcmp(param, "verde") == 0)
-                led_mode_web = LED_EVENT_VERDE;
+                ultimo_evento_web = LED_EVENT_VERDE;
             else if (strcmp(param, "azul") == 0)
-                led_mode_web = LED_EVENT_AZUL;
+                ultimo_evento_web = LED_EVENT_AZUL;
             else if (strcmp(param, "blanco") == 0)
-                led_mode_web = LED_EVENT_BLANCO;
+                ultimo_evento_web = LED_EVENT_BLANCO;
             else if (strcmp(param, "amarillo") == 0)
-                led_mode_web = LED_EVENT_AMARILLO;
+                ultimo_evento_web = LED_EVENT_AMARILLO;
             else if (strcmp(param, "cian") == 0)
-                led_mode_web = LED_EVENT_CIAN;
+                ultimo_evento_web = LED_EVENT_CIAN;
             else if (strcmp(param, "off") == 0)
-                led_mode_web = LED_EVENT_APAGAR;
+                ultimo_evento_web = LED_EVENT_APAGAR;
         }
     }
     httpd_resp_send(req, "OK", HTTPD_RESP_USE_STRLEN);
@@ -93,6 +93,11 @@ void web_service_inicializar(void) {
 }
 
 void web_service_bucle(void) {
-    // No hace nada, el servidor corre en una tarea propia de IDF
-    // Queda por las dudas que lo precisemos para algo
+    static int evento_previo = LED_EVENT_INVALIDO;
+
+    if (ultimo_evento_web != LED_EVENT_INVALIDO &&
+        ultimo_evento_web != evento_previo) {
+        led_rgb_set_event(ultimo_evento_web);
+        evento_previo = ultimo_evento_web;
+    }
 }

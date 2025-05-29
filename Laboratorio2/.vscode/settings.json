@@ -5,7 +5,7 @@
   "idf.openOcdConfigs": [
     "board/esp32s2-kaluga-1.cfg"
   ],
-  "idf.portWin": "COM16",
+  "idf.portWin": "COM12",
   "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32s2"
@@ -19,7 +19,8 @@
     "touch_input.h": "c",
     "touch_pad.h": "c",
     "esp_rom_sys.h": "c",
-    "esp_task_wdt.h": "c"
+    "esp_task_wdt.h": "c",
+    "rmt.h": "c"
   },
   "idf.flashType": "UART"
 }

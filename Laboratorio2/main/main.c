@@ -2,7 +2,6 @@
 #include <stdbool.h>
 
 #include "touch_buttons.h"
-#include "touch_element/touch_element.h"
 #include "wifi_APSTA.h"
 #include "web_service.h"
 #include "led_rgb.h"
@@ -14,13 +13,13 @@
 #include "freertos/task.h"
 
 extern int led_mode_web;
-
+static const char *TAG = "MAIN";
 void app_main(void)
 {
     esp_log_level_set("LED_RGB", ESP_LOG_NONE);
     esp_log_level_set("ws2812", ESP_LOG_NONE);
     // Inicializaciones
-    touch_buttons_init();
+    touch_polling_init();
     led_rgb_inicializar();
     wifi_apsta_inicializar();
     web_service_inicializar();
@@ -35,7 +34,8 @@ void app_main(void)
     // Bucle principal (round robin sin RTOS)
     while (true) {
         esp_task_wdt_reset();           // Alimenta al watchdog
-        led_rgb_set_event((led_rgb_evento_t) led_mode_web);  // Se setea desde la web
+        touch_polling_bucle();
+        web_service_bucle();  // Se setea desde la web
         led_rgb_bucle();  // Actualiza el LED si hubo un cambio
         vTaskDelay(pdMS_TO_TICKS(10));  // Espera 10 ms
     }
