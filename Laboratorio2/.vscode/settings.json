@@ -25,7 +25,7 @@
     "led_rgb.h": "c"
   },
   "idf.flashType": "UART",
-  "idf.port": "/dev/tty.usbserial-1201",
+  "idf.port": "/dev/tty.usbserial-11201",
   "idf.espIdfPath": "/Users/marcosgiombini/esp/v5.4.1/esp-idf",
   "idf.toolsPath": "/Users/marcosgiombini/.espressif"
 }
