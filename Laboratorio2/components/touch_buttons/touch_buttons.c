@@ -28,7 +28,6 @@ static const led_rgb_evento_t color_touch[TOUCH_BUTTON_NUM] = {
     LED_EVENT_BLANCO,
     LED_EVENT_AZUL
 };
-static const char *TAG = "Botones";
 
 void touch_polling_init(void) {
     touch_pad_init();

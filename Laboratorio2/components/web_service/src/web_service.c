@@ -6,7 +6,6 @@
 static int ultimo_evento_web = LED_EVENT_INVALIDO;
 static const char *TAG = "WEB_SERVER";
 static httpd_handle_t server = NULL;
-int led_mode_web = -1;  // o cualquier valor por defecto
 
 static esp_err_t root_handler(httpd_req_t *req) {
     const char *resp_str =
