@@ -1,13 +1,31 @@
 {
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
-  "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+  "idf.pythonInstallPath": "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
   "idf.openOcdConfigs": [
     "board/esp32s2-kaluga-1.cfg"
   ],
-  "idf.portWin": "COM15",
+  "idf.portWin": "COM12",
   "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32s2"
-  }
+  },
+  "C_Cpp.errorSquiggles": "enabled",
+  "files.associations": {
+    "web_service.h": "c",
+    "wifi_apsta.h": "c",
+    "stdbool.h": "c",
+    "stdio.h": "c",
+    "touch_input.h": "c",
+    "touch_pad.h": "c",
+    "esp_rom_sys.h": "c",
+    "esp_task_wdt.h": "c",
+    "rmt.h": "c",
+    "stdint.h": "c",
+    "led_rgb.h": "c"
+  },
+  "idf.flashType": "UART",
+  "idf.port": "/dev/tty.usbserial-11201",
+  "idf.espIdfPath": "/Users/marcosgiombini/esp/v5.4.1/esp-idf",
+  "idf.toolsPath": "/Users/marcosgiombini/.espressif"
 }

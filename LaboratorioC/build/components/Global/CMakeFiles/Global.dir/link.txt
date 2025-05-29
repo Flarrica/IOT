@@ -1,2 +1,2 @@
-/usr/bin/ar qc libGlobal.a CMakeFiles/Global.dir/Global.c.o
-/usr/bin/ranlib libGlobal.a
+C:\MinGW\bin\ar.exe qc libGlobal.a CMakeFiles/Global.dir/Global.c.obj
+C:\MinGW\bin\ranlib.exe libGlobal.a

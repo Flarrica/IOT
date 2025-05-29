@@ -9,5 +9,5 @@
     },
     "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
     "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
-    "idf.pythonInstallPath": "/Users/marcosgiombini/.platformio/penv/bin/python"
+    "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe"
 }

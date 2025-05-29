@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio1/components/Global/Global.c" "components/Global/CMakeFiles/Global.dir/Global.c.o" "gcc" "components/Global/CMakeFiles/Global.dir/Global.c.o.d"
+  "C:/Users/gasto/Desktop/IoT/IOT/LaboratorioC/components/Global/Global.c" "components/Global/CMakeFiles/Global.dir/Global.c.obj" "gcc" "components/Global/CMakeFiles/Global.dir/Global.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
