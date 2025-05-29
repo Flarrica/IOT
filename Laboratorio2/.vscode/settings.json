@@ -1,7 +1,7 @@
 {
   "C_Cpp.intelliSenseEngine": "default",
   "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
-  "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+  "idf.pythonInstallPath": "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
   "idf.openOcdConfigs": [
     "board/esp32s2-kaluga-1.cfg"
   ],
@@ -24,5 +24,8 @@
     "stdint.h": "c",
     "led_rgb.h": "c"
   },
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "idf.port": "/dev/tty.usbserial-1201",
+  "idf.espIdfPath": "/Users/marcosgiombini/esp/v5.4.1/esp-idf",
+  "idf.toolsPath": "/Users/marcosgiombini/.espressif"
 }

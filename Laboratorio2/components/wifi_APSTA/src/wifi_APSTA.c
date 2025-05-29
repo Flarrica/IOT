@@ -56,8 +56,8 @@ void wifi_apsta_inicializar(void) {
     //Configuración de STA
     wifi_config_t sta_config = {
         .sta = {
-            .ssid = "BONG0",
-            .password = "46713321"
+            .ssid = "caliope",
+            .password = "sinlugar"
         }
     };
 
