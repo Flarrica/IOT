@@ -1,3 +1,5 @@
-idf_component_register(SRCS "main.c"
-                       INCLUDE_DIRS "."
-                       REQUIRES task_a task_b task_c led_rgb) 
+idf_component_register(
+    SRCS "main.c"
+    INCLUDE_DIRS "."
+    REQUIRES led_rgb uart_manager task_a task_b task_c driver led_strip
+)
