@@ -81,11 +81,11 @@
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/touch_element/libtouch_element.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/usb/libusb.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
-/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/espressif__led_strip/libespressif__led_strip.a
+/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/ejemplo_led_strip/libejemplo_led_strip.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/led_rgb/libled_rgb.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/uart_manager/libuart_manager.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/task_a/libtask_a.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/task_b/libtask_b.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/task_c/libtask_c.a
+/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/espressif__led_strip/libespressif__led_strip.a
 /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/main/libmain.a
-/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/ejemplo_led_strip/libejemplo_led_strip.a

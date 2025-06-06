@@ -1,0 +1,23 @@
+/*{
+    "idf.openOcdConfigs": [
+        "board/esp32s2-kaluga-1.cfg"
+    ],
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32s2"
+    }
+}*/
+
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "C:\\Users\\Usuario\\esp\\v5.4.1\\esp-idf",
+    "idf.pythonInstallPath": "/Users/marcosgiombini/.platformio/penv/bin/python",
+    "idf.openOcdConfigs": [
+        "board/esp32s2-kaluga-1.cfg"
+    ],
+    "idf.toolsPathWin": "C:\\Users\\Usuario\\.espressif",
+    "files.associations": {
+        "uart_manager.h": "c"
+    },
+    "idf.port": "/dev/tty.usbserial-1301",
+    "idf.flashType": "UART"
+}

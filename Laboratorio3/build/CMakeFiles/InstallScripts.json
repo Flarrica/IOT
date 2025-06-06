@@ -118,14 +118,14 @@
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/ulp/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/usb/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/wifi_provisioning/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/espressif__led_strip/cmake_install.cmake",
+		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/ejemplo_led_strip/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/led_rgb/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/uart_manager/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/task_a/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/task_b/cmake_install.cmake",
 		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/task_c/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/main/cmake_install.cmake",
-		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/ejemplo_led_strip/cmake_install.cmake"
+		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/espressif__led_strip/cmake_install.cmake",
+		"/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/esp-idf/main/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

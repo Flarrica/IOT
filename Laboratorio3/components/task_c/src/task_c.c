@@ -1,5 +1,11 @@
-#include "freertos/timers.h"
+
 #include "stdlib.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/timers.h"
+#include "led_rgb.h" // Esta línea es crucial para led_rgb_evento_t
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h" 
+#include "task_c.h" 
 
 void timer_callback(TimerHandle_t xTimer) {
     led_rgb_evento_t *color = (led_rgb_evento_t *)pvTimerGetTimerID(xTimer);

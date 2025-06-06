@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #include <stdlib.h>
-#include <string.h>z
+#include <string.h>
 #include <sys/cdefs.h>
 #include "esp_log.h"
 #include "esp_attr.h"
 #include "led_strip.h"
 #include "driver/rmt.h"
-#include "driver/rmt_legacy.h"
 
 static const char *TAG = "ws2812";
 #define STRIP_CHECK(a, str, goto_tag, ret_value, ...)                             \
@@ -37,8 +36,6 @@ static const char *TAG = "ws2812";
 #define WS2812_T1H_NS (1000)
 #define WS2812_T1L_NS (350)
 #define WS2812_RESET_US (280)
-
-#define KALUGA_RGB_LED_PIN GPIO_NUM_8
 #define KALUGA_RGB_LED_NUMBER 1
 
 uint32_t ws2812_t0h_ticks = 0;
