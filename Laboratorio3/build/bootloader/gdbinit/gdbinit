@@ -1,2 +1,2 @@
-source /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/bootloader/gdbinit/symbols
-source /Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build/bootloader/gdbinit/connect
+source C:/Users/Usuario/Desktop/IoT/IOT/Laboratorio3/build/bootloader/gdbinit/symbols
+source C:/Users/Usuario/Desktop/IoT/IOT/Laboratorio3/build/bootloader/gdbinit/connect
