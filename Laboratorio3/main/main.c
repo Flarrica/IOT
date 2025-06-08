@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "freertos/task.h"
+
 #include "driver/uart.h" // Asegúrate de que esta inclusión sea necesaria y correcta
 #include "uart_manager.h" // Si tienes task_c, asegúrate de que también esté incluida y declarada
 #include "led_RGB.h"
