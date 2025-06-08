@@ -16,7 +16,9 @@
     ],
     "idf.toolsPathWin": "C:\\Users\\Usuario\\.espressif",
     "files.associations": {
-        "uart_manager.h": "c"
+        "uart_manager.h": "c",
+        "queue.h": "c",
+        "esp_log.h": "c"
     },
     "idf.port": "/dev/tty.usbserial-1301",
     "idf.flashType": "UART",

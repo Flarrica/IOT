@@ -1,17 +1,17 @@
 {
-  "configurations": [
+    "configurations": [
     {
-      "name": "Win32",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "C:/Users/Usuario/esp/v5.4.1/esp-idf/components/**"
-      ],
-      "defines": [],
-      "compilerPath": "C:/Users/Usuario/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp32s2-elf/bin/xtensa-esp32s2-elf-gcc.exe",
-      "cStandard": "c11",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "windows-gcc-x64"
+        "name": "Win32",
+        "includePath": [
+            "${workspaceFolder}/**",
+            "C:/Users/Usuario/esp/v5.4.1/esp-idf/components/**"
+        ],
+        "defines": [],
+        "compilerPath": "C:/Users/Usuario/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s2-elf-gcc.exe",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "intelliSenseMode": "windows-gcc-x64"
     }
-  ],
-  "version": 4
+    ],
+    "version": 4
 }
