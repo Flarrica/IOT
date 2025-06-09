@@ -8,6 +8,15 @@
 #include "uart_manager.h"
 #include "task_c.h" 
 
+SemaphoreHandle_t color_semaphore = NULL;
+
+void task_c_init(void) {
+    color_semaphore = xSemaphoreCreateMutex();
+    if (color_semaphore == NULL) {
+        ESP_LOGE("TASK_C", "No se pudo crear el semáforo");
+    }
+}
+
 void timer_callback(TimerHandle_t xTimer) {
     led_rgb_evento_t *color = (led_rgb_evento_t *)pvTimerGetTimerID(xTimer);
     xSemaphoreTake(color_semaphore, portMAX_DELAY);
@@ -21,6 +30,10 @@ void task_c(void *pvParameters) {
     while (1) {
         if (xQueueReceive(command_queue, &cmd, portMAX_DELAY)) {
             led_rgb_evento_t *color_ptr = malloc(sizeof(led_rgb_evento_t));
+            if (color_ptr == NULL) {
+                ESP_LOGE("TASK_C", "Fallo malloc para color_ptr");
+                continue;
+            }
             *color_ptr = cmd.color;
             TimerHandle_t timer = xTimerCreate(
                 "DelayTimer",

@@ -1,12 +1,3 @@
-/*{
-    "idf.openOcdConfigs": [
-        "board/esp32s2-kaluga-1.cfg"
-    ],
-    "idf.customExtraVars": {
-        "IDF_TARGET": "esp32s2"
-    }
-}*/
-
 {
     "C_Cpp.intelliSenseEngine": "default",
     "idf.espIdfPathWin": "C:\\Users\\Usuario\\esp\\v5.4.1\\esp-idf",
@@ -15,23 +6,12 @@
         "board/esp32s2-kaluga-1.cfg"
     ],
     "idf.toolsPathWin": "C:\\Users\\Usuario\\.espressif",
-    "files.associations": {
-        "uart_manager.h": "c",
-        "queue.h": "c",
-        "esp_log.h": "c",
-        "led_rgb.h": "c",
-        "freertos.h": "c",
-        "task.h": "c",
-        "uart.h": "c",
-        "led_strip.h": "c"
-    },
-    "idf.port": "/dev/tty.usbserial-1301",
-    "idf.flashType": "UART",
+    "idf.portWin": "COM12",
     "idf.customExtraVars": {
         "OPENOCD_SCRIPTS": "C:\\Users\\Usuario\\.espressif\\tools\\openocd-esp32\\v0.12.0-esp32-20241016/openocd-esp32/share/openocd/scripts",
         "IDF_CCACHE_ENABLE": "1",
         "ESP_ROM_ELF_DIR": "C:\\Users\\Usuario\\.espressif\\tools\\esp-rom-elfs\\20241011/",
         "IDF_TARGET": "esp32s2"
     },
-    "idf.portWin": "COM8"
+    "idf.flashType": "UART"
 }
