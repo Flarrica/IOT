@@ -3,14 +3,10 @@
 #include "led_rgb.h"
 #include "led_strip.h"
 #include "driver/rmt.h"
+#include "driver/gpio.h"
 
-
-#include "driver/gpio.h" // Asegúrate de que esta línea exista
-#include "led_rgb.h"
-// ... otros includes ...
 static const char *TAG = "LED_RGB";
 static led_strip_t *strip = NULL;
-static led_rgb_evento_t evento_pendiente = LED_EVENT_INVALIDO;
 
 void led_rgb_inicializar(void)
 {
@@ -28,48 +24,32 @@ void led_rgb_inicializar(void)
 
 void led_rgb_set_event(led_rgb_evento_t evento)
 {
-    evento_pendiente = evento;
-}
-
-void led_rgb_bucle(void)
-{
-    static led_rgb_evento_t evento_previo = LED_EVENT_INVALIDO;
-    ESP_LOGI(TAG, "Entra bucle LED");
     if (!strip) return;
-        if (evento_pendiente != LED_EVENT_INVALIDO && evento_pendiente != evento_previo) {
-            switch (evento_pendiente) {
-                case LED_EVENT_ROJO:
-                    strip->set_pixel(strip, 0, 255, 0, 0);
-                    ESP_LOGI(TAG, "LED encendido en ROJO");
-                    break;
-                case LED_EVENT_VERDE:
-                    strip->set_pixel(strip, 0, 0, 255, 0);
-                    ESP_LOGI(TAG, "LED encendido en VERDE");
-                    break;
-                case LED_EVENT_AZUL:
-                    strip->set_pixel(strip, 0, 0, 0, 255);
-                    ESP_LOGI(TAG, "LED encendido en AZUL");
-                    break;
-                case LED_EVENT_BLANCO:
-                    strip->set_pixel(strip, 0, 255, 255, 255);
-                    ESP_LOGI(TAG, "LED encendido en BLANCO");
-                    break;
-                case LED_EVENT_AMARILLO:
-                    strip->set_pixel(strip, 0, 255, 255, 0);
-                    ESP_LOGI(TAG, "LED encendido en AMARILLO");
-                    break;
-                case LED_EVENT_CIAN:
-                    strip->set_pixel(strip, 0, 0, 255, 255);
-                    ESP_LOGI(TAG, "LED encendido en CIAN");
-                    break;
-                case LED_EVENT_APAGAR:
-                default:
-                    strip->set_pixel(strip, 0, 0, 0, 0);
-                    ESP_LOGI(TAG, "LED apagado");
-                    break;
-            }
-            strip->refresh(strip, 100);
-            evento_previo = evento_pendiente;  // Limpia evento después de aplicarlo
-        }
-    
+
+    switch (evento) {
+        case LED_EVENT_ROJO:
+            strip->set_pixel(strip, 0, 255, 0, 0);
+            break;
+        case LED_EVENT_VERDE:
+            strip->set_pixel(strip, 0, 0, 255, 0);
+            break;
+        case LED_EVENT_AZUL:
+            strip->set_pixel(strip, 0, 0, 0, 255);
+            break;
+        case LED_EVENT_BLANCO:
+            strip->set_pixel(strip, 0, 255, 255, 255);
+            break;
+        case LED_EVENT_AMARILLO:
+            strip->set_pixel(strip, 0, 255, 255, 0);
+            break;
+        case LED_EVENT_CIAN:
+            strip->set_pixel(strip, 0, 0, 255, 255);
+            break;
+        case LED_EVENT_APAGAR:
+        default:
+            strip->set_pixel(strip, 0, 0, 0, 0);
+            break;
+    }
+
+    strip->refresh(strip, 100);  // Asegura que el cambio se vea
 }

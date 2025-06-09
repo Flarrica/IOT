@@ -18,7 +18,10 @@
     "files.associations": {
         "uart_manager.h": "c",
         "queue.h": "c",
-        "esp_log.h": "c"
+        "esp_log.h": "c",
+        "led_rgb.h": "c",
+        "freertos.h": "c",
+        "task.h": "c"
     },
     "idf.port": "/dev/tty.usbserial-1301",
     "idf.flashType": "UART",
@@ -28,5 +31,5 @@
         "ESP_ROM_ELF_DIR": "C:\\Users\\Usuario\\.espressif\\tools\\esp-rom-elfs\\20241011/",
         "IDF_TARGET": "esp32s2"
     },
-    "idf.portWin": "COM12"
+    "idf.portWin": "COM8"
 }

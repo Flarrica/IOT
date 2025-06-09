@@ -5,6 +5,7 @@
 #include "led_rgb.h" // Esta línea es crucial para led_rgb_evento_t
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h" 
+#include "uart_manager.h"
 #include "task_c.h" 
 
 void timer_callback(TimerHandle_t xTimer) {
