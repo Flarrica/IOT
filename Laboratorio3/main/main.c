@@ -1,28 +1,26 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
-#include "uart_manager.h"
-#include "task_b.h"
+#include "freertos/semphr.h"
 #include "esp_log.h"
 
-extern QueueHandle_t command_queue;
+#include "uart_manager.h"
+#include "task_b.h"
+#include "task_c.h"
+#include "led_rgb.h"
 
-void debug_consumer(void *pvParameters) {
-    uart_command_t cmd;
-    while (1) {
-        if (xQueueReceive(command_queue, &cmd, portMAX_DELAY)) {
-            printf("DEBUG >> Comando recibido: Color=%d, Delay=%lu\n", 
-                    cmd.color, (unsigned long)cmd.delay_seconds);
-        }
-    }
-}
+SemaphoreHandle_t color_semaphore;
 
 void app_main(void) {
-    // 🔇 Silenciar logs por UART para evitar interferencia
-    esp_log_level_set("*", ESP_LOG_NONE);  
+    // Inicialización de UART y LED
+    uart_init();
+    led_rgb_inicializar();
 
-    uart_init();  // UART0 (USB), crea command_queue
+    // Inicializar semáforo binario para acceso al LED
+    color_semaphore = xSemaphoreCreateBinary();
+    xSemaphoreGive(color_semaphore); // Dar el semáforo inicialmente
 
-    xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);               // UART → command_queue
-    xTaskCreate(debug_consumer, "debug_consumer", 2048, NULL, 5, NULL); // Muestra lo recibido
+    // Crear tareas
+    xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
+    xTaskCreate(task_c, "task_c", 4096, NULL, 9, NULL);
 }

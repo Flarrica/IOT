@@ -24,9 +24,10 @@ void uart_init(void) {
         .source_clk = UART_SCLK_DEFAULT,
     };
 
-    uart_driver_install(UART_PORT, UART_RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_driver_install(UART_PORT, UART_RX_BUF_SIZE * 2, UART_RX_BUF_SIZE * 2, 20, NULL, 0);
     uart_param_config(UART_PORT, &uart_config);
-    uart_set_pin(UART_PORT, 1, 2, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_set_pin(UART_PORT, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+
     ESP_LOGI("UART_MGR", "UART Inicializado en GPIO1 (TX), GPIO2 (RX)");
 
     xQueue_led = xQueueCreate(10, sizeof(led_rgb_evento_t));

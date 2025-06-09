@@ -17,7 +17,4 @@ void led_rgb_inicializar(void);
 // Evento de cambio de color
 void led_rgb_set_event(led_rgb_evento_t evento);
 
-// Bucle de actualización si fuese necesario
-void led_rgb_bucle(void);
-
 #endif  // LED_RGB_H_
