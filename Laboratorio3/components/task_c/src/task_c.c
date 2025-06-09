@@ -2,13 +2,20 @@
 #include "stdlib.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/timers.h"
-#include "led_rgb.h" // Esta línea es crucial para led_rgb_evento_t
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h" 
+#include "freertos/task.h"
+#include "freertos/semphr.h"
+#include "led_rgb.h"
 #include "uart_manager.h"
-#include "task_c.h" 
+#include "task_c.h"
 
 SemaphoreHandle_t color_semaphore = NULL;
+led_rgb_evento_t current_color = LED_EVENT_APAGAR;  // valor inicial
+bool parpadeo_habilitado = false;
+
+typedef struct {
+    led_rgb_evento_t color;
+    uint32_t duration; // en segundos
+} blink_info_t;
 
 void task_c_init(void) {
     color_semaphore = xSemaphoreCreateMutex();
@@ -17,32 +24,43 @@ void task_c_init(void) {
     }
 }
 
-void timer_callback(TimerHandle_t xTimer) {
-    led_rgb_evento_t *color = (led_rgb_evento_t *)pvTimerGetTimerID(xTimer);
-    xSemaphoreTake(color_semaphore, portMAX_DELAY);
-    led_rgb_set_event(*color);  // Usa tu función para cambiar el color
-    xSemaphoreGive(color_semaphore);
-    free(color);  // Liberar memoria
+void blink_for_duration_task(void *param) {
+    blink_info_t *info = (blink_info_t *)param;
+    uint32_t total_ms = info->duration * 1000;
+    uint32_t elapsed = 0;
+
+    while (elapsed < total_ms) {
+        xSemaphoreTake(color_semaphore, portMAX_DELAY);
+        led_rgb_set_event(info->color);
+        xSemaphoreGive(color_semaphore);
+
+        vTaskDelay(pdMS_TO_TICKS(500));
+        elapsed += 500;
+
+        led_rgb_set_event(LED_EVENT_APAGAR);
+        vTaskDelay(pdMS_TO_TICKS(500));
+        elapsed += 500;
+    }
+
+    led_rgb_set_event(LED_EVENT_APAGAR);
+    free(info);
+    vTaskDelete(NULL);
 }
 
 void task_c(void *pvParameters) {
     uart_command_t cmd;
     while (1) {
         if (xQueueReceive(command_queue, &cmd, portMAX_DELAY)) {
-            led_rgb_evento_t *color_ptr = malloc(sizeof(led_rgb_evento_t));
-            if (color_ptr == NULL) {
-                ESP_LOGE("TASK_C", "Fallo malloc para color_ptr");
+            blink_info_t *info = malloc(sizeof(blink_info_t));
+            if (info == NULL) {
+                ESP_LOGE("TASK_C", "Fallo malloc para blink_info_t");
                 continue;
             }
-            *color_ptr = cmd.color;
-            TimerHandle_t timer = xTimerCreate(
-                "DelayTimer",
-                pdMS_TO_TICKS(cmd.delay_seconds * 1000),
-                pdFALSE,  // One-shot
-                (void *)color_ptr,
-                timer_callback
-            );
-            xTimerStart(timer, 0);
+
+            info->color = cmd.color;
+            info->duration = cmd.delay_seconds;
+
+            xTaskCreate(blink_for_duration_task, "blink_for_duration_task", 2048, info, 8, NULL);
         }
     }
 }

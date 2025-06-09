@@ -1,25 +1,80 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
+#include "driver/uart.h"
 #include "esp_log.h"
-#include "uart_manager.h"
+#include <string.h>
+#include <stdlib.h>
 #include "led_rgb.h"
+#include "uart_manager.h"
 
-extern QueueHandle_t command_queue;  // Cola con estructura completa
+#define UART_PORT UART_NUM_0
+#define BUF_SIZE 1024
+#define LINE_BUF_SIZE 64
+
+extern QueueHandle_t command_queue;
 
 void task_b(void *pvParameters) {
-    uart_command_t received_cmd;
+    uint8_t c;
+    static char line_buffer[LINE_BUF_SIZE];
+    static int line_pos = 0;
+
+    uart_config_t uart_config = {
+        .baud_rate = 115200,
+        .data_bits = UART_DATA_8_BITS,
+        .parity    = UART_PARITY_DISABLE,
+        .stop_bits = UART_STOP_BITS_1,
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+        .source_clk = UART_SCLK_DEFAULT,
+    };
+
+    uart_driver_install(UART_PORT, BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_param_config(UART_PORT, &uart_config);
+    uart_set_pin(UART_PORT, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE,
+                 UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+
+    ESP_LOGI("TaskB", "UART configurado");
 
     while (1) {
-        uart_read_command(&received_cmd);
+        int len = uart_read_bytes(UART_PORT, &c, 1, portMAX_DELAY);
+        if (len > 0) {
+            if (c == '\n' || c == '\r') {
+                if (line_pos > 0) {
+                    line_buffer[line_pos] = '\0';
 
-        if (xQueueSend(command_queue, &received_cmd, portMAX_DELAY) != pdPASS) {
-            ESP_LOGE("TaskB", "Error al enviar comando a la cola");
-        } else {
-            ESP_LOGI("TaskB", "Comando encolado: color=%d, delay=%lu",
-                received_cmd.color, (unsigned long)received_cmd.delay_seconds);
+                    uart_command_t cmd;
+                    char color_str[10];
+                    uint32_t delay_val;
+
+                    if (sscanf(line_buffer, "%9[^,],%lu", color_str, &delay_val) == 2) {
+                        if (strcasecmp(color_str, "rojo") == 0) {
+                            cmd.color = LED_EVENT_ROJO;
+                        } else if (strcasecmp(color_str, "verde") == 0) {
+                            cmd.color = LED_EVENT_VERDE;
+                        } else if (strcasecmp(color_str, "azul") == 0) {
+                            cmd.color = LED_EVENT_AZUL;
+                        } else if (strcasecmp(color_str, "apagar") == 0) {
+                            cmd.color = LED_EVENT_APAGAR;
+                        } else {
+                            ESP_LOGW("TaskB", "Color desconocido: %s", color_str);
+                            cmd.color = LED_EVENT_APAGAR;
+                        }
+
+                        cmd.delay_seconds = delay_val;
+                        xQueueSend(command_queue, &cmd, portMAX_DELAY);
+                        ESP_LOGI("TaskB", "Comando encolado: %s, %lu", color_str, delay_val);
+                    } else {
+                        ESP_LOGW("TaskB", "Formato inválido: %s", line_buffer);
+                    }
+
+                    line_pos = 0;
+                }
+            } else if (line_pos < LINE_BUF_SIZE - 1) {
+                line_buffer[line_pos++] = c;
+            } else {
+                ESP_LOGW("TaskB", "Línea demasiado larga, descartada");
+                line_pos = 0;
+            }
         }
-
-        // No se aplica delay aquí, eso lo maneja task_c con timer
     }
 }
