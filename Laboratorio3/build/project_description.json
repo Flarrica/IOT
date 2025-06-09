@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "Laboratorio3",
-    "project_version":    "Entrega_Laboratorio2-4-g21e1c09-dirty",
+    "project_version":    "Entrega_Laboratorio2-5-g4be0e89-dirty",
     "project_path":       "/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3",
     "idf_path":           "/Users/marcosgiombini/esp/esp-idf-v5.4.1",
     "build_dir":          "/Users/marcosgiombini/Documents/GitHub/IOT/Laboratorio3/build",
