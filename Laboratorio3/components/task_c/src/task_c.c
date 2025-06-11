@@ -43,7 +43,7 @@ void blink_for_duration_task(void *param) {
 }
 
 void task_c(void *pvParameters) {
-    uart_command_t cmd;
+    uart_command_t *cmd;
     while (1) {
         if (xQueueReceive(command_queue, &cmd, portMAX_DELAY)) {
             blink_info_t *info = malloc(sizeof(blink_info_t));
@@ -52,10 +52,11 @@ void task_c(void *pvParameters) {
                 continue;
             }
 
-            info->color = cmd.color;
-            info->duration = cmd.delay_seconds;
+            info->color = cmd->color;
+            info->duration = cmd->delay_seconds;
 
             xTaskCreate(blink_for_duration_task, "blink_for_duration_task", 2048, info, 8, NULL);
+            free(cmd);
         }
     }
 }
