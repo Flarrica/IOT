@@ -1,11 +1,11 @@
 {
     "C_Cpp.intelliSenseEngine": "default",
-    "idf.espIdfPathWin": "C:\\Users\\Usuario\\esp\\v5.4.1\\esp-idf",
-    "idf.pythonInstallPath": "C:\\Users\\Usuario\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
+    "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
     "idf.openOcdConfigs": [
         "board/esp32s2-kaluga-1.cfg"
     ],
-    "idf.toolsPathWin": "C:\\Users\\Usuario\\.espressif",
+    "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
     "idf.portWin": "COM12",
     "idf.customExtraVars": {
         "OPENOCD_SCRIPTS": "C:\\Users\\Usuario\\.espressif\\tools\\openocd-esp32\\v0.12.0-esp32-20241016/openocd-esp32/share/openocd/scripts",
@@ -13,5 +13,15 @@
         "ESP_ROM_ELF_DIR": "C:\\Users\\Usuario\\.espressif\\tools\\esp-rom-elfs\\20241011/",
         "IDF_TARGET": "esp32s2"
     },
-    "idf.flashType": "UART"
+    "idf.flashType": "UART",
+    "files.associations": {
+        "stdbool.h": "c",
+        "task.h": "c",
+        "queue.h": "c",
+        "timers.h": "c",
+        "task_b.h": "c",
+        "shared_lib.h": "c",
+        "led_rgb.h": "c",
+        "esp_log.h": "c"
+    }
 }
