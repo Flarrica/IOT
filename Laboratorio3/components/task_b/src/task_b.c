@@ -1,19 +1,14 @@
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "driver/uart.h"
-#include "esp_log.h"
-#include <string.h>
-#include <stdlib.h>
-#include "led_rgb.h"
-#include "uart_manager.h"
+#include "task_b.h"
 
 #define UART_PORT UART_NUM_0
 #define BUF_SIZE 1024
 #define LINE_BUF_SIZE 64
 
-extern QueueHandle_t command_queue;
+static const char *TAG = "TASK_B";
 
+QueueHandle_t command_queue;
+
+// Nueva tarea de lectura caracter a caracter
 void task_b(void *pvParameters) {
     uint8_t c;
     static char line_buffer[LINE_BUF_SIZE];
@@ -32,8 +27,14 @@ void task_b(void *pvParameters) {
     uart_param_config(UART_PORT, &uart_config);
     uart_set_pin(UART_PORT, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE,
                  UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    ESP_LOGI(TAG, "TaskB - UART configurado");
 
-    ESP_LOGI("TaskB", "UART configurado");
+    command_queue = xQueueCreate(10, sizeof(uart_command_t));
+    if (command_queue == NULL) {
+        ESP_LOGE(TAG, "Error al crear command_queue");
+    } else {
+        ESP_LOGI(TAG, "command_queue creada exitosamente");
+    }
 
     while (1) {
         int len = uart_read_bytes(UART_PORT, &c, 1, portMAX_DELAY);

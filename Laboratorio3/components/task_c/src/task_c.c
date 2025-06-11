@@ -1,12 +1,7 @@
-
-#include "stdlib.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/timers.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "led_rgb.h"
-#include "uart_manager.h"
 #include "task_c.h"
+#include "task_b.h"
+
+static const char *TAG = "TASK_C";
 
 SemaphoreHandle_t color_semaphore = NULL;
 led_rgb_evento_t current_color = LED_EVENT_APAGAR;  // valor inicial

@@ -5,7 +5,8 @@
             "compilerPath": "${config:idf.toolsPathWin}\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s2-elf-gcc.exe",
             "includePath": [
                 "${config:idf.espIdfPathWin}/components/**",
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:/Users/gasto/esp/v5.4.1/esp-idf/components/freertos/FreeRTOS-Kernel-SMP/portable/linux/include/freertos"
             ],
             "browse": {
                 "path": [

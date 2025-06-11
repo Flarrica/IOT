@@ -1,6 +1,5 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "uart_manager.h"
 #include "task_c.h"
 #include "task_b.h"
 #include "task_a.h"
@@ -10,9 +9,7 @@
 void app_main(void) {
     // Inicialización de logs, UART, LED y tareas
     esp_log_level_set("TASK_C", ESP_LOG_INFO);
-    esp_log_level_set("UART_MGR", ESP_LOG_INFO);
 
-    uart_init();              // Inicializa UART y crea la cola
     led_rgb_inicializar();   // Inicializa el LED
     task_c_init();           // Inicializa el semáforo
 
