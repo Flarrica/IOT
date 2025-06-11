@@ -18,6 +18,7 @@
         "stdbool.h": "c",
         "task.h": "c",
         "queue.h": "c",
-        "timers.h": "c"
+        "timers.h": "c",
+        "task_b.h": "c"
     }
 }
