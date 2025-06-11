@@ -6,6 +6,7 @@ static const char *TAG = "TASK_C";
 void vTimerCallback(TimerHandle_t xTimer)
 {
     xSemaphoreGive(timer_done_semaphore);
+    current_color = LED_EVENT_APAGAR; // Primero apagamos al finalizar el contador. Si no hay nada en cola, el LED queda apagado.
 }
 
 void task_c(void *pvParameters) {

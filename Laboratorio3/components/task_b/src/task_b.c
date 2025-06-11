@@ -46,6 +46,12 @@ void task_b(void *pvParameters) {
                             cmd.color = LED_EVENT_VERDE;
                         } else if (strcasecmp(color_str, "azul") == 0) {
                             cmd.color = LED_EVENT_AZUL;
+                        } else if (strcasecmp(color_str, "amarillo") == 0) {
+                            cmd.color = LED_EVENT_AMARILLO;
+                        } else if (strcasecmp(color_str, "cian") == 0) {
+                            cmd.color = LED_EVENT_CIAN;
+                            } else if (strcasecmp(color_str, "blanco") == 0) {
+                            cmd.color = LED_EVENT_BLANCO;
                         } else if (strcasecmp(color_str, "apagar") == 0) {
                             cmd.color = LED_EVENT_APAGAR;
                         } else {
