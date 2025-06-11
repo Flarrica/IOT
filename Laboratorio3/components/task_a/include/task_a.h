@@ -4,11 +4,8 @@
 #include <stdint.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "led_rgb.h"
 
-extern SemaphoreHandle_t color_semaphore;
-extern bool parpadeo_habilitado;
-extern led_rgb_evento_t current_color;
+#include "shared_lib.h"
 
 typedef struct {
     led_rgb_evento_t color;
@@ -17,6 +14,5 @@ typedef struct {
 
 // Declaración de la función de la tarea
 void task_a(void *pvParameters);
-void blink_for_duration_task(void *param);
 
 #endif // TASK_A_H_

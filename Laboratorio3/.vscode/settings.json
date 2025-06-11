@@ -19,6 +19,9 @@
         "task.h": "c",
         "queue.h": "c",
         "timers.h": "c",
-        "task_b.h": "c"
+        "task_b.h": "c",
+        "shared_lib.h": "c",
+        "led_rgb.h": "c",
+        "esp_log.h": "c"
     }
 }

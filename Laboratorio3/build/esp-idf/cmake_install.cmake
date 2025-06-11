@@ -564,6 +564,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_a/cmake_install.cmake")
 endif()
 

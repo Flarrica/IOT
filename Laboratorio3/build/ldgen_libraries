@@ -83,6 +83,7 @@ C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/usb/libusb.a
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/ejemplo_led_strip/libejemplo_led_strip.a
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/led_rgb/libled_rgb.a
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/libshared_lib.a
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_a/libtask_a.a
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_b/libtask_b.a
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_c/libtask_c.a

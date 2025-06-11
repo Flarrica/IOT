@@ -6,8 +6,6 @@
 
 static const char *TAG = "TASK_B";
 
-QueueHandle_t command_queue;
-
 // Nueva tarea de lectura caracter a caracter
 void task_b(void *pvParameters) {
     uint8_t c;
@@ -29,58 +27,50 @@ void task_b(void *pvParameters) {
                  UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
     ESP_LOGI(TAG, "TaskB - UART configurado");
 
-    command_queue = xQueueCreate(10, sizeof(uart_command_t*));
-    if (command_queue == NULL) {
-        ESP_LOGE(TAG, "Error al crear command_queue");
-    } else {
-        ESP_LOGI(TAG, "command_queue creada exitosamente");
-    }
-
     while (1) {
-    int len = uart_read_bytes(UART_PORT, &c, 1, portMAX_DELAY);
-    if (len > 0) {
-        if (c == '\n' || c == '\r') {
-            if (line_pos > 0) {
-                line_buffer[line_pos] = '\0';
-                uart_command_t *cmd = malloc(sizeof(uart_command_t));
-                if (cmd == NULL) {
-                    ESP_LOGE(TAG, "Error al reservar memoria para cmd");
-                } else {
+        int len = uart_read_bytes(UART_PORT, &c, 1, portMAX_DELAY);
+        if (len > 0) {
+            if (c == '\n' || c == '\r') {
+                if (line_pos > 0) {
+                    line_buffer[line_pos] = '\0';
+                    
+                    uart_command_t cmd;
+
                     char color_str[10];
                     uint32_t delay_val;
 
                     if (sscanf(line_buffer, "%9[^,],%lu", color_str, &delay_val) == 2) {
                         if (strcasecmp(color_str, "rojo") == 0) {
-                            cmd->color = LED_EVENT_ROJO;
+                            cmd.color = LED_EVENT_ROJO;
                         } else if (strcasecmp(color_str, "verde") == 0) {
-                            cmd->color = LED_EVENT_VERDE;
+                            cmd.color = LED_EVENT_VERDE;
                         } else if (strcasecmp(color_str, "azul") == 0) {
-                            cmd->color = LED_EVENT_AZUL;
+                            cmd.color = LED_EVENT_AZUL;
                         } else if (strcasecmp(color_str, "apagar") == 0) {
-                            cmd->color = LED_EVENT_APAGAR;
+                            cmd.color = LED_EVENT_APAGAR;
                         } else {
                             ESP_LOGW("TaskB", "Color desconocido: %s", color_str);
-                            cmd->color = LED_EVENT_APAGAR;
+                            cmd.color = LED_EVENT_APAGAR;
                         }
 
-                        cmd->delay_seconds = delay_val;
+                        cmd.delay_seconds = delay_val;
+
+                        // Enviamos el comando
                         xQueueSend(command_queue, &cmd, portMAX_DELAY);
                         ESP_LOGI("TaskB", "Comando encolado: %s, %lu", color_str, delay_val);
                     } else {
                         ESP_LOGW("TaskB", "Formato inválido: %s", line_buffer);
-                        free(cmd);
                     }
+                    line_pos = 0;
                 }
-                line_pos = 0;
-            }
-        } else {
-            if (line_pos < LINE_BUF_SIZE - 1) {
-                line_buffer[line_pos++] = c;
             } else {
-                ESP_LOGW(TAG, "Línea demasiado larga, descartada");
-                line_pos = 0;
+                if (line_pos < LINE_BUF_SIZE - 1) {
+                    line_buffer[line_pos++] = c;
+                } else {
+                    ESP_LOGW(TAG, "Línea demasiado larga, descartada");
+                    line_pos = 0;
+                }
             }
         }
     }
-}
 }

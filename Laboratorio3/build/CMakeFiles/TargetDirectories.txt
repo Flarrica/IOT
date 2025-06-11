@@ -847,6 +847,13 @@ C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/led_rgb/CMakeFiles/lis
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/led_rgb/CMakeFiles/install.dir
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/led_rgb/CMakeFiles/install/local.dir
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/led_rgb/CMakeFiles/install/strip.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/__idf_shared_lib.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/edit_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/rebuild_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/list_install_components.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/install.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/install/local.dir
+C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/shared_lib/CMakeFiles/install/strip.dir
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_a/CMakeFiles/__idf_task_a.dir
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_a/CMakeFiles/edit_cache.dir
 C:/Users/gasto/Desktop/IoT/IOT/Laboratorio3/build/esp-idf/task_a/CMakeFiles/rebuild_cache.dir

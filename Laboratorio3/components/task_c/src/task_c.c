@@ -1,32 +1,44 @@
-#include "task_a.h"
-#include "task_b.h"
 #include "task_c.h"
-
 
 static const char *TAG = "TASK_C";
 
-void task_c_init(void) {
-    color_semaphore = xSemaphoreCreateMutex();
-    if (color_semaphore == NULL) {
-        ESP_LOGE(TAG, "No se pudo crear el semáforo");
-    }
+// Este es el callback de los timers creados
+void vTimerCallback(TimerHandle_t xTimer)
+{
+    xSemaphoreGive(timer_done_semaphore);
 }
 
 void task_c(void *pvParameters) {
-    uart_command_t *cmd;
+    
+    uart_command_t cmd;
+
     while (1) {
-        if (xQueueReceive(command_queue, &cmd, portMAX_DELAY)) {
-            blink_info_t *info = malloc(sizeof(blink_info_t));
-            if (info == NULL) {
-                ESP_LOGE(TAG, "Fallo malloc para blink_info_t");
-                continue;
+        // Espera el primer comando
+        if (xQueueReceive(command_queue, &cmd, portMAX_DELAY) == pdTRUE) {
+            
+            // Apenas lo leo, actualizo el color para que task_a lo tome
+            current_color = cmd.color;
+
+            // Aviso a task_a que hay nuevo color
+            xSemaphoreGive(color_semaphore);
+            
+            // Creamos el timer
+            TimerHandle_t first_timer = xTimerCreate(
+                "BlinkTimer",
+                pdMS_TO_TICKS(cmd.delay_seconds * 1000),
+                pdFALSE,  // No autoreload. Sería one-shot.
+                NULL, //No pasamos nada en el ID, no es necesario
+                vTimerCallback // La funcion de callback es la que definimos arriba
+            );
+
+            if (first_timer != NULL) {
+                //Arranca el timer
+                xTimerStart(first_timer, 0); 
+                // Bloquea el inicio de otra lectura de la cola
+                xSemaphoreTake(timer_done_semaphore, portMAX_DELAY);               
+            } else {
+                ESP_LOGE(TAG, "Error al crear el timer");
             }
-
-            info->color = cmd->color;
-            info->duration = cmd->delay_seconds;
-
-            xTaskCreate(blink_for_duration_task, "blink_for_duration_task", 2048, info, 8, NULL);
-            free(cmd);
-        }
+        } 
     }
 }
