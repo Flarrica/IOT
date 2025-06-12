@@ -11,7 +11,7 @@
 
 void app_main(void) {
     // Inicialización de logs, UART, LED y tareas
-    esp_log_level_set("TASK_C", ESP_LOG_INFO);
+    //esp_log_level_set("TASK_C", ESP_LOG_INFO);
     esp_log_level_set("ws2812", ESP_LOG_WARN);
     
     led_rgb_inicializar();   // Inicializa el LED
