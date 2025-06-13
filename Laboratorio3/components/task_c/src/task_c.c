@@ -6,6 +6,20 @@ typedef struct {
     led_rgb_evento_t color;
 } timer_info_t;
 
+// ... justo antes del callback
+const char* color_to_string(led_rgb_evento_t color) {
+    switch (color) {
+        case LED_EVENT_ROJO:     return "Rojo";
+        case LED_EVENT_VERDE:    return "Verde";
+        case LED_EVENT_AZUL:     return "Azul";
+        case LED_EVENT_CIAN:     return "Cian";
+        case LED_EVENT_AMARILLO: return "Amarillo";
+        case LED_EVENT_BLANCO:   return "Blanco";
+        case LED_EVENT_APAGAR:   return "Apagar";
+        default:                 return "Desconocido";
+    }
+}
+
 // Este es el callback del timer
 void vTimerCallback(TimerHandle_t xTimer)
 {
@@ -43,6 +57,7 @@ void task_c(void *pvParameters) {
 
             if (timer != NULL) {
                 xTimerStart(timer, 0);
+                ESP_LOGI(TAG, "Prende %s en %lu seg.", color_to_string(info->color), (unsigned long)cmd.delay_seconds);
             } else {
                 ESP_LOGE(TAG, "Error al crear el timer");
                 free(info); // Importante liberar si falla
