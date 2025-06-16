@@ -1,12 +1,12 @@
 {
     "C_Cpp.intelliSenseEngine": "default",
-    "idf.espIdfPathWin": "C:\\Users\\gasto\\esp\\v5.4\\esp-idf",
-    "idf.pythonInstallPath": "C:\\Users\\gasto\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.espIdfPathWin": "C:\\Users\\Usuario\\esp\\v5.4.1\\esp-idf",
+    "idf.pythonInstallPath": "C:\\Users\\Usuario\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
     "idf.openOcdConfigs": [
         "board/esp32s2-kaluga-1.cfg"
     ],
     "idf.portWin": "COM14",
-    "idf.toolsPathWin": "C:\\Users\\gasto\\.espressif",
+    "idf.toolsPathWin": "C:\\Users\\Usuario\\.espressif",
     "files.associations": {
         "led_strip.h": "c",
         "rmt.h": "c"
