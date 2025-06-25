@@ -1,0 +1,14 @@
+# ESP32 Partition Table
+# Name       Type    SubType    Offset     Size
+# ---------------------------------------------
+# Almacén de datos persistentes de clave-valor, usado por NVS (ej. Wi-Fi, volumen, comandos)
+nvs,         data,   nvs,        0x9000,    0x6000
+
+# Configuración de la PHY Wi-Fi (guardamos contraseñas, direccioens, etc)
+phy_init,    data,   phy,        0xf000,    0x1000
+
+# Aplicación principal (acá va el firmware) // 1 MB = 0x100000
+factory,     app,    factory,    0x10000,   1M
+
+# Sistema de archivos SPIFFS para guardar tus audios .wav // 2 MB = 0x200000
+spiffs,      data,   spiffs,     0x110000,  0x200000
