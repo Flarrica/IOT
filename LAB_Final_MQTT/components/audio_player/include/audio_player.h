@@ -22,6 +22,6 @@ esp_err_t audio_player_init(void);
 esp_err_t audio_player_play_file(const char *filepath);
 esp_err_t audio_player_enqueue(audio_event_t evt);
 void task_audio_player(void *pvParams);
-
+void listar_archivos_spiffs(void);
 
 #endif // AUDIO_PLAYER_H_

@@ -6,6 +6,8 @@
 #include "driver/i2s_std.h"
 #include "es8311.h"
 #include "esp_check.h"
+#include "dirent.h"
+#include "esp_vfs_spiffs.h"
 
 #include "freertos/queue.h"
 #include "freertos/semphr.h"
@@ -52,6 +54,24 @@ static es8311_handle_t es_handle = NULL;
 
 esp_err_t audio_player_init(void)
 {
+    // SPIFFS
+    esp_vfs_spiffs_conf_t conf = {
+        .base_path = "/spiffs",
+        .partition_label = NULL,
+        .max_files = 5,
+        .format_if_mount_failed = true
+    };
+
+    esp_err_t ret = esp_vfs_spiffs_register(&conf);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to mount SPIFFS (%s)", esp_err_to_name(ret));
+        return ret;
+    }
+
+    size_t total = 0, used = 0;
+    esp_vfs_spiffs_info(NULL, &total, &used);
+    ESP_LOGI(TAG, "SPIFFS mounted: total=%d KB, used=%d KB", total / 1024, used / 1024);
+
     // I2S
     i2s_chan_config_t chan_cfg = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM, I2S_ROLE_MASTER);
     chan_cfg.auto_clear = true;
@@ -103,7 +123,6 @@ esp_err_t audio_player_init(void)
     ESP_LOGI(TAG, "audio player initialized");
     return ESP_OK;
 }
-
 esp_err_t audio_player_play_file(const char *filepath)
 {
     FILE *f = fopen(filepath, "rb");
@@ -126,8 +145,7 @@ esp_err_t audio_player_play_file(const char *filepath)
     return ESP_OK;
 }
 
-void task_audio_player(void *pvParams)
-{
+void task_audio_player(void *pvParams){
     audio_event_t evt;
     audio_event_queue = xQueueCreate(5, sizeof(audio_event_t));
     if (!audio_event_queue) {
@@ -178,4 +196,27 @@ void task_audio_player(void *pvParams)
             }
         }
     }
+}
+
+esp_err_t audio_player_enqueue(audio_event_t evt)
+{
+    if (audio_event_queue == NULL) {
+        return ESP_FAIL;
+    }
+    return xQueueSend(audio_event_queue, &evt, portMAX_DELAY) == pdPASS ? ESP_OK : ESP_FAIL;
+}
+
+void listar_archivos_spiffs(void) {
+    DIR *dir = opendir("/spiffs");
+    if (dir == NULL) {
+        ESP_LOGE("SPIFFS", "No se pudo abrir el directorio /spiffs");
+        return;
+    }
+
+    struct dirent *entry;
+    ESP_LOGI("SPIFFS", "Archivos encontrados en /spiffs:");
+    while ((entry = readdir(dir)) != NULL) {
+        ESP_LOGI("SPIFFS", "  %s", entry->d_name);
+    }
+    closedir(dir);
 }

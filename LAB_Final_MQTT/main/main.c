@@ -17,6 +17,10 @@
 
 #include "nvs_flash.h"
 
+// Para ir al menuconfig
+// cd C:\Users\gasto\esp\v5.4.1\esp-idf
+// .\export.ps1
+// idf.py menuconfig
 
 void app_main(void) {
     // Info inicial del sistema (memoria libre, versión IDF)
@@ -77,10 +81,16 @@ void app_main(void) {
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
 
+    // Esperamos un momento a que task_audio_player cree su cola
+    vTaskDelay(pdMS_TO_TICKS(300));
+
+    // Enviamos el primer comando de reproducción
+    audio_event_t evt = { .cmd = AUDIO_CMD_PLAY };
+    audio_player_enqueue(evt);
     while (true) {
         // Procesa los botones web (desde HTML)
         web_service_bucle(); //Gastón: Esto debería pasar a ser una task
-
+        
         // Pequeña pausa de control (10ms)
         vTaskDelay(pdMS_TO_TICKS(10));
     }
