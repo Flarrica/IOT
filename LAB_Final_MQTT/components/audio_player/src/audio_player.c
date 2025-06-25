@@ -52,26 +52,32 @@ static es8311_handle_t es_handle = NULL;
 #define I2C_SDA_IO      8
 #define I2C_NUM         0
 
-esp_err_t audio_player_init(void)
-{
-    // SPIFFS
+
+esp_err_t init_spiffs(void) {
     esp_vfs_spiffs_conf_t conf = {
         .base_path = "/spiffs",
         .partition_label = NULL,
         .max_files = 5,
         .format_if_mount_failed = true
     };
-
     esp_err_t ret = esp_vfs_spiffs_register(&conf);
     if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to mount SPIFFS (%s)", esp_err_to_name(ret));
+        ESP_LOGE("SPIFFS", "Fallo al montar SPIFFS (%s)", esp_err_to_name(ret));
         return ret;
     }
-
     size_t total = 0, used = 0;
     esp_spiffs_info(NULL, &total, &used);
-    ESP_LOGI(TAG, "SPIFFS mounted: total=%d KB, used=%d KB", total / 1024, used / 1024);
+    ESP_LOGI("SPIFFS", "SPIFFS montado: total=%d KB, usado=%d KB", total / 1024, used / 1024);
+    return ESP_OK;
+}
 
+esp_err_t audio_player_init(void)
+{
+    static bool audio_initialized = false;
+    if (audio_initialized) {
+        ESP_LOGW(TAG, "audio_player_init ya fue ejecutado, se omite reinicialización");
+        return ESP_OK;
+    }
     // I2S
     i2s_chan_config_t chan_cfg = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM, I2S_ROLE_MASTER);
     chan_cfg.auto_clear = true;

@@ -18,6 +18,7 @@ typedef struct {
     audio_cmd_t cmd;
 } audio_event_t;
 
+esp_err_t init_spiffs(void);
 esp_err_t audio_player_init(void);
 esp_err_t audio_player_play_file(const char *filepath);
 esp_err_t audio_player_enqueue(audio_event_t evt);
