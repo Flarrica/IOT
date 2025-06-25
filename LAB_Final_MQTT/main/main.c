@@ -4,7 +4,6 @@
 
 #include "esp_netif.h"
 #include "esp_event.h"
-#include "protocol_examples_common.h"
 
 #include "task_a.h"
 #include "task_b.h"
@@ -14,6 +13,7 @@
 #include "task_mqtt.h"
 #include "wifi_APSTA.h"
 #include "web_service.h"
+#include "audio_player.h"
 
 #include "nvs_flash.h"
 
@@ -71,8 +71,9 @@ void app_main(void) {
         ESP_LOGW("MAIN", "No hay WiFi STA. MQTT no se iniciará.");
     }
     ESP_LOGI("MAIN", "MQTT. Ready!");
-    // Lanzo tareas A, B y C (cada una maneja lógica distinta con eventos y timers)
+    // Lanzo tareas A, audio_player, B y C (cada una maneja lógica distinta con eventos y timers)
     xTaskCreate(task_a, "task_a", 2048, NULL, 6, NULL);
+    xTaskCreate(task_audio_player, "task_audio", 4096, NULL, 5, NULL);
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
 

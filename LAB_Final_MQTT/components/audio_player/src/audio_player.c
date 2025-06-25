@@ -7,8 +7,29 @@
 #include "es8311.h"
 #include "esp_check.h"
 
+#include "freertos/queue.h"
+#include "freertos/semphr.h"
 
 static const char *TAG = "audio_player";
+
+#define MAX_PLAYLIST 9
+static const char *playlist[MAX_PLAYLIST] = {
+    "/spiffs/ch_1.wav",
+    "/spiffs/cv_1.wav",
+    "/spiffs/cv_2.wav",
+    "/spiffs/dk_1.wav",
+    "/spiffs/dk_2.wav",
+    "/spiffs/dk_3.wav",
+    "/spiffs/gk_1.wav",
+    "/spiffs/rei_1.wav",
+    "/spiffs/zd_1.wav",
+};
+
+static int current_track = 0;
+static bool is_playing = false;
+static int volume = 80;
+
+static QueueHandle_t audio_event_queue = NULL;
 
 static i2s_chan_handle_t tx_chan = NULL;
 static es8311_handle_t es_handle = NULL;
@@ -96,10 +117,65 @@ esp_err_t audio_player_play_file(const char *filepath)
     size_t r, w;
 
     while ((r = fread(buffer, 1, BUFFER_SIZE, f)) > 0) {
+        if (!is_playing) break; // Con esto da el STOP!!!!
         i2s_channel_write(tx_chan, buffer, r, &w, portMAX_DELAY);
     }
 
     fclose(f);
     ESP_LOGI(TAG, "Reproducción finalizada: %s", filepath);
     return ESP_OK;
+}
+
+void task_audio_player(void *pvParams)
+{
+    audio_event_t evt;
+    audio_event_queue = xQueueCreate(5, sizeof(audio_event_t));
+    if (!audio_event_queue) {
+        ESP_LOGE(TAG, "No se pudo crear la cola de eventos de audio");
+        vTaskDelete(NULL);
+    }
+
+    audio_player_init();
+
+    while (1) {
+        if (xQueueReceive(audio_event_queue, &evt, portMAX_DELAY)) {
+            switch (evt.cmd) {
+                case AUDIO_CMD_PLAY:
+                    if (!is_playing) {
+                        is_playing = true;
+                        audio_player_play_file(playlist[current_track]);
+                        is_playing = false;
+                    }
+                    break;
+
+                case AUDIO_CMD_STOP:
+                    is_playing = false;  // Esto fuerza que el bucle de reproducción se interrumpa
+                    break;
+
+                case AUDIO_CMD_NEXT:
+                    current_track = (current_track + 1) % MAX_PLAYLIST;
+                    is_playing = true;
+                    audio_player_play_file(playlist[current_track]);
+                    is_playing = false;
+                    break;
+
+                case AUDIO_CMD_PREV:
+                    current_track = (current_track - 1 + MAX_PLAYLIST) % MAX_PLAYLIST;
+                    is_playing = true;
+                    audio_player_play_file(playlist[current_track]);
+                    is_playing = false;
+                    break;
+
+                case AUDIO_CMD_VOL_UP:
+                    if (volume < 100) volume += 10;
+                    es8311_voice_volume_set(es_handle, volume, NULL);
+                    break;
+
+                case AUDIO_CMD_VOL_DOWN:
+                    if (volume > 0) volume -= 10;
+                    es8311_voice_volume_set(es_handle, volume, NULL);
+                    break;
+            }
+        }
+    }
 }
