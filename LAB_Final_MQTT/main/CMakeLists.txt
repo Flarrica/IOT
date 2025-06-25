@@ -18,4 +18,7 @@ idf_component_register(
     led_rgb
     shared_lib
     task_mqtt
+    
+    wifi_APSTA 
+    web_service
 )
