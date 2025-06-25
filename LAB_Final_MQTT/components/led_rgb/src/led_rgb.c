@@ -9,6 +9,7 @@
 
 static const char *TAG = "LED_RGB";
 static led_strip_t *strip = NULL;
+extern SemaphoreHandle_t color_semaphore;
 
 void led_rgb_inicializar(void)
 {
@@ -22,6 +23,8 @@ void led_rgb_inicializar(void)
 
     led_strip_config_t strip_config = LED_STRIP_DEFAULT_CONFIG(1, (led_strip_dev_t)config.channel);
     strip = led_strip_new_rmt_ws2812(&strip_config);
+
+    color_semaphore = xSemaphoreCreateBinary();
 }
 
 void led_rgb_set_event(led_rgb_evento_t evento)

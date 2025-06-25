@@ -3,6 +3,7 @@
 #include "led_rgb.h"
 #include "esp_mac.h"
 #include "task_a.h"
+#include "shared_lib.h"
 
 static TimerHandle_t blink_timer = NULL;
 static bool led_on = false;

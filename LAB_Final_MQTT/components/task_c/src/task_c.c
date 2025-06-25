@@ -1,4 +1,5 @@
 #include "task_c.h"
+#include "shared_lib.h"
 
 static const char *TAG = "TASK_C";
 

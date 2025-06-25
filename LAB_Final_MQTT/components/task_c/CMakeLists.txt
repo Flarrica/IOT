@@ -3,6 +3,6 @@ set(component_srcs "src/task_c.c")
 idf_component_register(
                         SRCS "src/task_c.c"
                         INCLUDE_DIRS "include"
-                        REQUIRES shared_lib
+                        REQUIRES led_rgb shared_lib 
                     )
 
