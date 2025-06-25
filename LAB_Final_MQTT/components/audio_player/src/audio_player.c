@@ -7,7 +7,7 @@
 #include "es8311.h"
 #include "esp_check.h"
 #include "dirent.h"
-#include "esp_vfs_spiffs.h"
+#include "esp_spiffs.h"
 
 #include "freertos/queue.h"
 #include "freertos/semphr.h"
@@ -69,7 +69,7 @@ esp_err_t audio_player_init(void)
     }
 
     size_t total = 0, used = 0;
-    esp_vfs_spiffs_info(NULL, &total, &used);
+    esp_spiffs_info(NULL, &total, &used);
     ESP_LOGI(TAG, "SPIFFS mounted: total=%d KB, used=%d KB", total / 1024, used / 1024);
 
     // I2S

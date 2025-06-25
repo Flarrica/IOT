@@ -32,6 +32,7 @@
     "uart.h": "c",
     "stdio.h": "c",
     "freertos.h": "c",
-    "i2s_std.h": "c"
+    "i2s_std.h": "c",
+    "esp_spiffs.h": "c"
   }
 }
