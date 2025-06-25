@@ -12,6 +12,11 @@ typedef enum {
     LED_EVENT_INVALIDO
 } led_rgb_evento_t;
 
+typedef struct {
+    led_rgb_evento_t color;
+    uint32_t delay_seconds;
+} color_event_t;
+
 void led_rgb_inicializar(void);
 
 // Evento de cambio de color
