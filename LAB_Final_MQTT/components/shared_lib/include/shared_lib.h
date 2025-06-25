@@ -13,9 +13,9 @@ extern led_rgb_evento_t current_color;
 extern QueueHandle_t command_queue;
 
 typedef struct {
-    int color;
-    int delay_seconds;
-} uart_command_t;
+    led_rgb_evento_t color;
+    uint32_t delay_seconds;
+} color_event_t;
 
 // Función de inicialización
 void inicializar_recursos_globales(void);

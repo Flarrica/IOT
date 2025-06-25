@@ -882,6 +882,13 @@ C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_c/CMakeFiles/li
 C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_c/CMakeFiles/install.dir
 C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_c/CMakeFiles/install/local.dir
 C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_c/CMakeFiles/install/strip.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/__idf_task_mqtt.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/edit_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/rebuild_cache.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/list_install_components.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/install.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/install/local.dir
+C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/task_mqtt/CMakeFiles/install/strip.dir
 C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/main/CMakeFiles/__idf_main.dir
 C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/main/CMakeFiles/edit_cache.dir
 C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build/esp-idf/main/CMakeFiles/rebuild_cache.dir

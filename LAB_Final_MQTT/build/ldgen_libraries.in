@@ -88,4 +88,5 @@ $<TARGET_FILE:__idf_shared_lib>
 $<TARGET_FILE:__idf_task_a>
 $<TARGET_FILE:__idf_task_b>
 $<TARGET_FILE:__idf_task_c>
+$<TARGET_FILE:__idf_task_mqtt>
 $<TARGET_FILE:__idf_main>

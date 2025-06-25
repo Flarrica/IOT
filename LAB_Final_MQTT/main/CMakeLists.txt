@@ -1,15 +1,17 @@
 idf_component_register(
-    SRCS "app_main.c"
+    SRCS "main.c"
     INCLUDE_DIRS "."
+
     REQUIRES
-        nvs_flash
-        esp_event
-        esp_netif
-        mqtt
-        protocol_examples_common
-        led_rgb
-        shared_lib
-        task_a
-        task_b
-        task_c
+    nvs_flash
+    esp_netif
+    esp_event
+    protocol_examples_common
+
+    task_a
+    task_b
+    task_c
+    led_rgb
+    shared_lib
+    task_mqtt
 )

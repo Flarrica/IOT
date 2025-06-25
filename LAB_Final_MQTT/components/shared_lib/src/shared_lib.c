@@ -14,7 +14,7 @@ QueueHandle_t command_queue = NULL;
 void inicializar_recursos_globales(void) {
     color_semaphore = xSemaphoreCreateBinary();
     timer_done_semaphore = xSemaphoreCreateBinary();
-    command_queue = xQueueCreate(50, sizeof(uart_command_t));
+    command_queue = xQueueCreate(50, sizeof(color_event_t));
 
     // Chequear que todo este inicializado y sino, dar ERROR
     if (color_semaphore == NULL || timer_done_semaphore == NULL || command_queue == NULL) {

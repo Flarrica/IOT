@@ -17,5 +17,19 @@
     "--query-driver=C:\\Users\\gasto\\.espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32-elf-gcc.exe",
     "--compile-commands-dir=${workspaceFolder}\\build"
   ],
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "files.associations": {
+    "queue.h": "c",
+    "led_rgb.h": "c",
+    "task_mqtt.h": "c",
+    "string.h": "c",
+    "mqtt_client.h": "c",
+    "esp_log.h": "c",
+    "task.h": "c",
+    "semphr.h": "c",
+    "esp_event.h": "c",
+    "shared_lib.h": "c",
+    "uart.h": "c",
+    "stdio.h": "c"
+  }
 }

@@ -33,7 +33,7 @@ void vTimerCallback(TimerHandle_t xTimer)
 }
 
 void task_c(void *pvParameters) {
-    uart_command_t cmd;
+    color_event_t cmd;
 
     while (1) {
         if (xQueueReceive(command_queue, &cmd, portMAX_DELAY) == pdTRUE) {

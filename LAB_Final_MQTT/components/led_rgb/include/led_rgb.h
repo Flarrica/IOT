@@ -17,4 +17,6 @@ void led_rgb_inicializar(void);
 // Evento de cambio de color
 void led_rgb_set_event(led_rgb_evento_t evento);
 
+// Toma string y cambia a evento color. La usa tanto task_b como task_mqtt
+led_rgb_evento_t led_rgb_string_to_color(const char *color_str);
 #endif  // LED_RGB_H_

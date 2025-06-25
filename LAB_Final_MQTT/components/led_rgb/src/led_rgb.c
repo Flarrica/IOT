@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <strings.h>
+
 #include "esp_log.h"
 #include "led_rgb.h"
 #include "led_strip.h"
@@ -52,4 +54,23 @@ void led_rgb_set_event(led_rgb_evento_t evento)
     }
 
     strip->refresh(strip, 100);  // Asegura que el cambio se vea
+}
+
+led_rgb_evento_t led_rgb_string_to_color(const char *color_str) {
+    if (strcasecmp(color_str, "rojo") == 0) {
+        return LED_EVENT_ROJO;
+    } else if (strcasecmp(color_str, "verde") == 0) {
+        return LED_EVENT_VERDE;
+    } else if (strcasecmp(color_str, "azul") == 0) {
+        return LED_EVENT_AZUL;
+    } else if (strcasecmp(color_str, "amarillo") == 0) {
+        return LED_EVENT_AMARILLO;
+    } else if (strcasecmp(color_str, "cian") == 0) {
+        return LED_EVENT_CIAN;
+    } else if (strcasecmp(color_str, "blanco") == 0) {
+        return LED_EVENT_BLANCO;
+    } else if (strcasecmp(color_str, "apagar") == 0) {
+        return LED_EVENT_APAGAR;
+    }
+    return LED_EVENT_INVALIDO;
 }

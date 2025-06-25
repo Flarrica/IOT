@@ -1,4 +1,5 @@
 #include "task_b.h"
+#include "led_rgb.h" // Para usar: led_rgb_string_to_color
 
 #define UART_PORT UART_NUM_0
 #define BUF_SIZE 1024
@@ -31,44 +32,20 @@ void task_b(void *pvParameters) {
         int len = uart_read_bytes(UART_PORT, &c, 1, portMAX_DELAY);
         if (len > 0) {
             if (c == '\n' || c == '\r') {
-                if (line_pos > 0) {
-                    line_buffer[line_pos] = '\0';
-                    
-                    uart_command_t cmd;
+                color_event_t cmd;
+                char color_str[10];
+                uint32_t delay_val;
 
-                    char color_str[10];
-                    uint32_t delay_val;
+                if (sscanf(line_buffer, "%9[^,],%lu", color_str, &delay_val) == 2) {
+                    cmd.color = led_rgb_string_to_color(color_str);
+                    cmd.delay_seconds = delay_val;
 
-                    if (sscanf(line_buffer, "%9[^,],%lu", color_str, &delay_val) == 2) {
-                        if (strcasecmp(color_str, "rojo") == 0) {
-                            cmd.color = LED_EVENT_ROJO;
-                        } else if (strcasecmp(color_str, "verde") == 0) {
-                            cmd.color = LED_EVENT_VERDE;
-                        } else if (strcasecmp(color_str, "azul") == 0) {
-                            cmd.color = LED_EVENT_AZUL;
-                        } else if (strcasecmp(color_str, "amarillo") == 0) {
-                            cmd.color = LED_EVENT_AMARILLO;
-                        } else if (strcasecmp(color_str, "cian") == 0) {
-                            cmd.color = LED_EVENT_CIAN;
-                            } else if (strcasecmp(color_str, "blanco") == 0) {
-                            cmd.color = LED_EVENT_BLANCO;
-                        } else if (strcasecmp(color_str, "apagar") == 0) {
-                            cmd.color = LED_EVENT_APAGAR;
-                        } else {
-                            ESP_LOGW("TaskB", "Color desconocido: %s", color_str);
-                            cmd.color = LED_EVENT_APAGAR;
-                        }
-
-                        cmd.delay_seconds = delay_val;
-
-                        // Enviamos el comando
-                        xQueueSend(command_queue, &cmd, portMAX_DELAY);
-                        ESP_LOGI("TaskB", "Comando encolado: %s, %lu", color_str, delay_val);
-                    } else {
-                        ESP_LOGW("TaskB", "Formato inválido: %s", line_buffer);
-                    }
-                    line_pos = 0;
+                    xQueueSend(command_queue, &cmd, portMAX_DELAY);
+                    ESP_LOGI("TaskB", "Comando encolado: %s, %lu", color_str, delay_val);
+                } else {
+                    ESP_LOGW("TaskB", "Formato inválido: %s", line_buffer);
                 }
+                line_pos = 0;
             } else {
                 if (line_pos < LINE_BUF_SIZE - 1) {
                     line_buffer[line_pos++] = c;
