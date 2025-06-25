@@ -3,6 +3,10 @@ idf_component_register(
     INCLUDE_DIRS "."
 
     REQUIRES
+    audio_player
+    es8311
+    driver
+    
     nvs_flash
     esp_netif
     esp_event

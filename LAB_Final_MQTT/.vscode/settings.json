@@ -30,6 +30,7 @@
     "esp_event.h": "c",
     "shared_lib.h": "c",
     "uart.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "freertos.h": "c"
   }
 }
