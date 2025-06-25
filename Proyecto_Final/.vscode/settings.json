@@ -1,0 +1,6 @@
+{
+    "idf.openOcdConfigs": [
+        "board/esp32s2-kaluga-1.cfg"
+    ],
+    "idf.portWin": "COM12"
+}
