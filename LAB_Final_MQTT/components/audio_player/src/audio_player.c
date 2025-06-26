@@ -16,15 +16,13 @@ static const char *TAG = "audio_player";
 
 #define MAX_PLAYLIST 9
 static const char *playlist[MAX_PLAYLIST] = {
-    "/spiffs/gk_1.wav",
-    "/spiffs/ch_1.wav",
-    "/spiffs/cv_1.wav",
-    "/spiffs/cv_2.wav",
-    "/spiffs/dk_1.wav",
-    "/spiffs/dk_2.wav",
-    "/spiffs/dk_3.wav",
-    "/spiffs/rei_1.wav",
-    "/spiffs/zd_1.wav",
+    "/spiffs/ch_1_16.wav",
+   // "/spiffs/cv_2.wav",
+   // "/spiffs/dk_1.wav",
+    //"/spiffs/dk_2.wav",
+   // "/spiffs/dk_3.wav",
+    //"/spiffs/rei_1.wav",
+    //"/spiffs/zd_1.wav",
 };
 
 static int current_track = 0;
@@ -41,12 +39,12 @@ static es8311_handle_t es_handle = NULL;
 #define MCLK_MULTIPLE   I2S_MCLK_MULTIPLE_256
 #define BUFFER_SIZE     512
 
-#define I2S_NUM         0
-#define I2S_BCK_IO      39
-#define I2S_WS_IO       21
-#define I2S_DO_IO       3
-#define I2S_DI_IO       1
-#define I2S_MCK_IO      41
+#define I2S_NUM         1
+#define I2S_BCK_IO      18
+#define I2S_WS_IO       17
+#define I2S_DO_IO       12
+#define I2S_DI_IO       46
+#define I2S_MCK_IO      35
 #define I2C_SCL_IO      7
 #define I2C_SDA_IO      8
 #define I2C_NUM         0
@@ -94,7 +92,7 @@ esp_err_t audio_player_init(void)
     ESP_LOGI(TAG, "Inicializando canal I2S en modo estándar...");
     i2s_std_config_t std_cfg = {
         .clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(SAMPLE_RATE),
-        .slot_cfg = I2S_STD_PHILIPS_SLOT_DEFAULT_CONFIG(I2S_SLOT_BIT_WIDTH_8BIT, I2S_SLOT_MODE_MONO),
+        .slot_cfg = I2S_STD_PHILIPS_SLOT_DEFAULT_CONFIG(I2S_SLOT_BIT_WIDTH_16BIT, I2S_SLOT_MODE_MONO), //GASTON: CONFIG AUDACITY
         .gpio_cfg = {
             .mclk = I2S_MCK_IO,
             .bclk = I2S_BCK_IO,
@@ -180,11 +178,12 @@ void task_audio_player(void *pvParams){
         if (xQueueReceive(audio_event_queue, &evt, portMAX_DELAY)) {
             switch (evt.cmd) {
                 case AUDIO_CMD_PLAY:
-                    ESP_LOGI(TAG, "Comando recibido: PLAY (track %d)", current_track);
-                    if (!is_playing) {
-                        is_playing = true;
+                    ESP_LOGI(TAG, "Comando recibido: PLAY (iniciando reproducción en loop)");
+                    is_playing = true;
+                    while (is_playing) {
+                        ESP_LOGI(TAG, "Reproduciendo track %d: %s", current_track, playlist[current_track]);
                         audio_player_play_file(playlist[current_track]);
-                        is_playing = false;
+                        //current_track = (current_track + 1) % MAX_PLAYLIST;
                     }
                     break;
 
