@@ -33,6 +33,9 @@
     "stdio.h": "c",
     "freertos.h": "c",
     "i2s_std.h": "c",
-    "esp_spiffs.h": "c"
+    "esp_spiffs.h": "c",
+    "sdkconfig.h": "c",
+    "i2s_common.h": "c",
+    "i2s_types.h": "c"
   }
 }

@@ -87,7 +87,7 @@ void app_main(void) {
     xTaskCreate(task_a, "task_a", 2048, NULL, 6, NULL);
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
-
+    
     // Esperamos a que task_audio_player cree su cola
     vTaskDelay(pdMS_TO_TICKS(300));
 
