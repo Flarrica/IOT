@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "LAB_Final_MQTT",
-    "project_version":    "Entrega_Laboratorio3_Rev2-17-ge4639bfb-dirty",
+    "project_version":    "Entrega_Laboratorio3_Rev2-18-g3c21e353-dirty",
     "project_path":       "C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT",
     "idf_path":           "C:/Users/gasto/esp/v5.4.1/esp-idf",
     "build_dir":          "C:/Users/gasto/Desktop/IoT/IOT/LAB_Final_MQTT/build",

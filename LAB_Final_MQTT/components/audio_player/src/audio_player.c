@@ -16,13 +16,13 @@ static const char *TAG = "audio_player";
 
 #define MAX_PLAYLIST 9
 static const char *playlist[MAX_PLAYLIST] = {
+    "/spiffs/gk_1.wav",
     "/spiffs/ch_1.wav",
     "/spiffs/cv_1.wav",
     "/spiffs/cv_2.wav",
     "/spiffs/dk_1.wav",
     "/spiffs/dk_2.wav",
     "/spiffs/dk_3.wav",
-    "/spiffs/gk_1.wav",
     "/spiffs/rei_1.wav",
     "/spiffs/zd_1.wav",
 };

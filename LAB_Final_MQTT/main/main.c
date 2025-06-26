@@ -46,7 +46,9 @@ void app_main(void) {
 
     // Montamos SPIFFS (sistema de archivos)
     ESP_ERROR_CHECK(init_spiffs());
+    vTaskDelay(pdMS_TO_TICKS(500));
 
+    listar_archivos_spiffs();
     // Inicializamos LED RGB
     led_rgb_inicializar();
 
@@ -81,11 +83,15 @@ void app_main(void) {
 
     //  inicializamos el audio (I2S + ES8311) y creamos la task
     ESP_ERROR_CHECK(audio_player_init());
+    vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_audio_player, "task_audio", 4096, NULL, 5, NULL);
 
+    vTaskDelay(pdMS_TO_TICKS(500));
     // Lanzamos otras tareas de aplicación
     xTaskCreate(task_a, "task_a", 2048, NULL, 6, NULL);
+    vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
+    vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
     
     // Esperamos a que task_audio_player cree su cola
