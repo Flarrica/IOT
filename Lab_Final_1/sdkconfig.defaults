@@ -1,0 +1,13 @@
+CONFIG_BROKER_URL="mqtt://192.168.1.100:1883"
+
+# GASTON: Estas son las configuraciones que hay que poner
+# Activar uso de archivo CSV personalizado de particiones
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_FILENAME="particiones.csv"
+
+# Tamaño total de la flash (ajustable si usás más de 4 MB)
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+
+# Sacamos el warning de RMT
+CONFIG_RMT_SUPPRESS_DEPRECATE_WARN=y
+

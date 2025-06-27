@@ -1,0 +1,16 @@
+{
+  "idf.flashType": "UART",
+  "idf.portWin": "COM16",
+  "idf.openOcdConfigs": [
+    "board/esp32s2-kaluga-1.cfg"
+  ],
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32s2"
+  },
+  "clangd.path": "C:\\Users\\gasto\\.espressif\\tools\\esp-clang\\esp-18.1.2_20240912\\esp-clang\\bin\\clangd.exe",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=C:\\Users\\gasto\\.espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s2-elf-gcc.exe",
+    "--compile-commands-dir=c:\\Users\\gasto\\esp\\v5.4.1\\examples\\peripherals\\i2s\\i2s_codec\\i2s_es8311\\build"
+  ]
+}

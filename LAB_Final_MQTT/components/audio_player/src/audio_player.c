@@ -39,11 +39,13 @@ static es8311_handle_t es_handle = NULL;
 #define MCLK_MULTIPLE   I2S_MCLK_MULTIPLE_256
 #define BUFFER_SIZE     512
 
+#define EXAMPLE_PA_CTRL_IO 
 #define I2S_NUM         1
 #define I2S_BCK_IO      18
 #define I2S_WS_IO       17
 #define I2S_DO_IO       12
 #define I2S_DI_IO       46
+#define PA_CTRL         10
 #define I2S_MCK_IO      35
 #define I2C_SCL_IO      7
 #define I2C_SDA_IO      8
