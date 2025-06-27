@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "main",
-    "project_version":    "Entrega_Laboratorio3_Rev2-21-g20d73315-dirty",
+    "project_version":    "Entrega_Laboratorio3_Rev2-22-gbf2c334d-dirty",
     "project_path":       "C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1",
     "idf_path":           "C:/Users/gasto/esp/v5.4.1/esp-idf",
     "build_dir":          "C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build",
@@ -400,7 +400,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/esp_driver_i2c/libesp_driver_i2c.a",
-            "sources": [ "C:/Users/gasto/esp/v5.4.1/esp-idf/components/esp_driver_i2c/i2c_master.c", "C:/Users/gasto/esp/v5.4.1/esp-idf/components/esp_driver_i2c/i2c_common.c", "C:/Users/gasto/esp/v5.4.1/esp-idf/components/esp_driver_i2c/i2c_slave.c" ],
+            "sources": [ "C:/Users/gasto/esp/v5.4.1/esp-idf/components/esp_driver_i2c/i2c_master.c", "C:/Users/gasto/esp/v5.4.1/esp-idf/components/esp_driver_i2c/i2c_common.c", "C:/Users/gasto/esp/v5.4.1/esp-idf/components/esp_driver_i2c/i2c_slave_v2.c" ],
             "include_dirs": [ "include" ]
         },
         "esp_driver_i2s": {

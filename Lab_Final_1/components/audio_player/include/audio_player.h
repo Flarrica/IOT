@@ -26,7 +26,7 @@
 #if CONFIG_KALUGA_VERSION_1_2
     #define I2S_DI_IO (GPIO_NUM_46)
 #elif CONFIG_KALUGA_VERSION_1_3
-    #define I2S_DI_IO (GPIO_NUM_46)
+    #define I2S_DI_IO (GPIO_NUM_34)
 #else
     #error "Debes seleccionar la versión de Kaluga en menuconfig"
 #endif
@@ -44,6 +44,16 @@
 #define I2S_WS_IO    (GPIO_NUM_17)
 
 #endif /* !CONFIG_EXAMPLE_BSP */
+
+/* Comandos de control de audio que pueden ser enviados por otras tareas */
+typedef enum {
+    CMD_PLAY,
+    CMD_STOP,
+    CMD_NEXT,
+    CMD_PREV,
+    CMD_VOL_UP,
+    CMD_VOL_DOWN
+} audio_cmd_t;
 
 /* Declaraciones públicas del reproductor de audio */
 esp_err_t audio_player_init(void);
