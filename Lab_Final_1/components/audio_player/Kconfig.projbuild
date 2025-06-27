@@ -1,0 +1,16 @@
+
+menu "Configuración de Placa Kaluga"
+
+choice
+    prompt "Versión de la Kaluga"
+    default KALUGA_VERSION_1_2
+
+config KALUGA_VERSION_1_2
+    bool "Usar Kaluga v1.2"
+
+config KALUGA_VERSION_1_3
+    bool "Usar Kaluga v1.3"
+
+endchoice
+
+endmenu

@@ -74,5 +74,8 @@ menu "Example Configuration"
         default "mqtt://192.168.1.100:1883"
         help
             Dirección del broker MQTT en formato URI. Ej: mqtt://192.168.1.100:1883"
-            
+    
 endmenu
+
+            
+

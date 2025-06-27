@@ -11,6 +11,6 @@
   "clangd.arguments": [
     "--background-index",
     "--query-driver=C:\\Users\\gasto\\.espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s2-elf-gcc.exe",
-    "--compile-commands-dir=c:\\Users\\gasto\\esp\\v5.4.1\\examples\\peripherals\\i2s\\i2s_codec\\i2s_es8311\\build"
+    "--compile-commands-dir=c:\\Users\\gasto\\Desktop\\IoT\\IOT\\Lab_Final_1\\build"
   ]
 }

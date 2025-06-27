@@ -11,3 +11,6 @@ CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 # Sacamos el warning de RMT
 CONFIG_RMT_SUPPRESS_DEPRECATE_WARN=y
 
+# Versión predeterminada de la Kaluga (solo una debe estar habilitada)
+CONFIG_KALUGA_VERSION_1_2=y
+# CONFIG_KALUGA_VERSION_1_3 is not set

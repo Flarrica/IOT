@@ -486,6 +486,13 @@ CONFIG_BROKER_URL="mqtt://192.168.1.100:1883"
 # end of Example Configuration
 
 #
+# Configuración de Placa Kaluga
+#
+CONFIG_KALUGA_VERSION_1_2=y
+# CONFIG_KALUGA_VERSION_1_3 is not set
+# end of Configuración de Placa Kaluga
+
+#
 # Compiler options
 #
 CONFIG_COMPILER_OPTIMIZATION_DEBUG=y
