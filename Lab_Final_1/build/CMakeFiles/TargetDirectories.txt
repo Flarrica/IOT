@@ -10,7 +10,7 @@ C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/monitor.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/flash.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/encrypted-flash.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/_project_elf_src.dir
-C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/main.elf.dir
+C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/lab_final_1.elf.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/size.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/size-files.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/CMakeFiles/size-components.dir

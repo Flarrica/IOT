@@ -73,9 +73,54 @@ menu "Example Configuration"
         string "MQTT Broker URL"
         default "mqtt://192.168.1.100:1883"
         help
-            Dirección del broker MQTT en formato URI. Ej: mqtt://192.168.1.100:1883"
-    
+            Dirección del broker MQTT en formato URI. Ej: mqtt://192.168.1.100:1883
+
+    config PARTITION_TABLE_CUSTOM
+        bool "Usar tabla de particiones personalizada"
+        default y
+
+    config PARTITION_TABLE_FILENAME
+        string "Archivo de tabla de particiones personalizada"
+        default "particiones.csv"
+
+    config ESPTOOLPY_FLASHSIZE_4MB
+        bool "Flash de 4 MB"
+        default y
+
+    config RMT_SUPPRESS_DEPRECATE_WARN
+        bool "Suprimir warnings deprecados en RMT"
+        default y
+
+    config ADC_SUPPRESS_DEPRECATE_WARN
+        bool "Suprimir warnings deprecados en ADC"
+        default y
+
+    config DAC_SUPPRESS_DEPRECATE_WARN
+        bool "Suprimir warnings deprecados en DAC"
+        default y
+
+    config I2S_SUPPRESS_DEPRECATE_WARN
+        bool "Suprimir warnings deprecados en I2S"
+        default y
+
+    config I2C_ENABLE_SLAVE_DRIVER_VERSION_2
+        bool "Habilitar versión nueva del driver I2C"
+        default y
+
+    config KALUGA_VERSION_1_2
+        bool "Seleccionar Kaluga v1.2"
+        default y
+
+    config KALUGA_VERSION_1_3
+        bool "Seleccionar Kaluga v1.3"
+        default n
+
+    config I2C_ENABLE_LEGACY_WARNINGS
+        bool "Habilitar warnings legacy de I2C"
+        default n
+
+    config RMT_ENABLE_LEGACY_WARNINGS
+        bool "Habilitar warnings legacy de RMT"
+        default n
+
 endmenu
-
-            
-

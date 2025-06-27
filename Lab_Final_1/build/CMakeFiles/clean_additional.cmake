@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.16)
 
 if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   file(REMOVE_RECURSE
-  "Sonido3.pcm.S"
   "bootloader\\bootloader.bin"
   "bootloader\\bootloader.elf"
   "bootloader\\bootloader.map"
@@ -15,10 +14,10 @@ if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   "flash_bootloader_args"
   "flash_project_args"
   "flasher_args.json"
+  "lab_final_1.bin"
+  "lab_final_1.map"
   "ldgen_libraries"
   "ldgen_libraries.in"
-  "main.bin"
-  "main.map"
   "project_elf_src_esp32s2.c"
   "x509_crt_bundle.S"
   )

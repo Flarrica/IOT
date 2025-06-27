@@ -1,6 +1,8 @@
 #ifndef AUDIO_PLAYER_H
 #define AUDIO_PLAYER_H
 
+#include "freertos/FreeRTOS.h"
+#include "freertos/queue.h"
 #include "sdkconfig.h"
 #include "driver/gpio.h"
 #include "esp_err.h"
@@ -55,8 +57,11 @@ typedef enum {
     CMD_VOL_DOWN
 } audio_cmd_t;
 
+// Declaramos la cola de eventos de audio como extern para que puedan agregar elementos desde otras librerias
+extern QueueHandle_t audio_event_queue;
+
 /* Declaraciones públicas del reproductor de audio */
 esp_err_t audio_player_init(void);
-esp_err_t audio_player_start(void);
+
 
 #endif // AUDIO_PLAYER_H

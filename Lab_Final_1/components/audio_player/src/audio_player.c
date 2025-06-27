@@ -1,8 +1,20 @@
-#include "audio_player.h"
+// ------------------------
+// INCLUDES
+// ------------------------
+
+#include <stdint.h>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <dirent.h>
+#include <string.h>
 
 #include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include "freertos/queue.h"
+#include "freertos/semphr.h"
+#include "freertos/task.h"
+
+#include "audio_player.h"
 
 #include "esp_log.h"
 #include "esp_check.h"
@@ -11,13 +23,53 @@
 #include "driver/gpio.h"
 #include "es8311.h"
 
+#include "esp_spiffs.h"
+
+// ------------------------
+// DEFINES Y GLOBALES
+// ------------------------
+
+#define MAX_PLAYLIST 10          // Número máximo de canciones
+#define MAX_FILENAME_LEN 255
+#define MAX_PATH_LEN (8 + MAX_FILENAME_LEN + 1)  // "/spiffs/" + nombre + '\0'
+
 static const char *TAG = "audio_player";
 static i2s_chan_handle_t tx_handle = NULL;
 
-QueueHandle_t audio_event_queue = NULL;
+QueueHandle_t audio_event_queue = NULL;  // Cola compartida de comandos
 
-extern const uint8_t music_pcm_start[] asm("_binary_Sonido3_pcm_start");
-extern const uint8_t music_pcm_end[]   asm("_binary_Sonido3_pcm_end");
+// Playlist de archivos de audio
+static char playlist[MAX_PLAYLIST][MAX_PATH_LEN];
+static int playlist_size = 0;
+
+// ------------------------
+// MONTAJE DE SPIFFS
+// ------------------------
+
+esp_err_t spiffs_init(void) {
+    esp_vfs_spiffs_conf_t conf = {
+        .base_path = "/spiffs",
+        .partition_label = "spiffs",
+        .max_files = 10,
+        .format_if_mount_failed = false
+    };
+
+    ESP_RETURN_ON_ERROR(esp_vfs_spiffs_register(&conf), TAG, "Fallo al montar SPIFFS");
+
+    size_t total = 0, used = 0;
+    esp_err_t info_ret = esp_spiffs_info("spiffs", &total, &used);
+    if (info_ret == ESP_OK) {
+        ESP_LOGI(TAG, "SPIFFS montado: %d KB totales, %d KB usados", total / 1024, used / 1024);
+    } else {
+        ESP_LOGW(TAG, "No se pudo obtener información de SPIFFS (err=0x%x)", info_ret);
+    }
+
+    return ESP_OK;
+}
+
+// ------------------------
+// INICIALIZACIÓN DEL CÓDEC ES8311
+// ------------------------
 
 static esp_err_t es8311_codec_init(void)
 {
@@ -54,6 +106,10 @@ static esp_err_t es8311_codec_init(void)
 
     return ESP_OK;
 }
+
+// ------------------------
+// INICIALIZACIÓN DE DRIVER I2S
+// ------------------------
 
 static esp_err_t i2s_driver_init(void)
 {
@@ -95,25 +151,34 @@ static esp_err_t i2s_driver_init(void)
     return ESP_OK;
 }
 
+// ------------------------
+// TAREA DE AUDIO PLAYER
+// ------------------------
+
 static void task_audio_player(void *args)
 {
     audio_cmd_t cmd;
     static int current_track = 0;
     static int volume = EXAMPLE_VOICE_VOLUME;
     size_t bytes_written;
-    uint8_t *ptr;
 
     while (1) {
         if (xQueueReceive(audio_event_queue, &cmd, portMAX_DELAY)) {
             switch (cmd) {
                 case CMD_PLAY:
                     ESP_LOGI(TAG, "PLAY received (track %d)", current_track);
-                    ptr = (uint8_t *)music_pcm_start;
-                    i2s_channel_enable(tx_handle);
-                    while (ptr < music_pcm_end) {
-                        i2s_channel_write(tx_handle, ptr, music_pcm_end - ptr, &bytes_written, portMAX_DELAY);
-                        ptr += bytes_written;
+                    FILE *f = fopen(playlist[current_track], "r");
+                    if (!f) {
+                        ESP_LOGE(TAG, "No se pudo abrir el archivo: %s", playlist[current_track]);
+                        break;
                     }
+                    uint8_t buffer[512];
+                    size_t read_bytes;
+                    i2s_channel_enable(tx_handle);
+                    while ((read_bytes = fread(buffer, 1, sizeof(buffer), f)) > 0) {
+                        i2s_channel_write(tx_handle, buffer, read_bytes, &bytes_written, portMAX_DELAY);
+                    }
+                    fclose(f);
                     break;
 
                 case CMD_STOP:
@@ -122,12 +187,12 @@ static void task_audio_player(void *args)
                     break;
 
                 case CMD_NEXT:
-                    current_track = (current_track + 1) % 9;  // suponiendo 9 pistas
+                    current_track = (current_track + 1) % playlist_size;
                     ESP_LOGI(TAG, "NEXT: track %d", current_track);
                     break;
 
                 case CMD_PREV:
-                    current_track = (current_track - 1 + 9) % 9;
+                    current_track = (current_track - 1 + playlist_size) % playlist_size;
                     ESP_LOGI(TAG, "PREV: track %d", current_track);
                     break;
 
@@ -149,24 +214,46 @@ static void task_audio_player(void *args)
     }
 }
 
+// ------------------------
+// CONSTRUCCIÓN DE LA PLAYLIST
+// ------------------------
+
+static void load_playlist_from_spiffs(void) {
+    DIR *dir = opendir("/spiffs");
+    struct dirent *entry;
+
+    if (!dir) {
+        ESP_LOGE(TAG, "No se pudo abrir /spiffs");
+        return;
+    }
+
+    while ((entry = readdir(dir)) != NULL && playlist_size < MAX_PLAYLIST) {
+        if (strstr(entry->d_name, ".wav")) {
+            snprintf(playlist[playlist_size], sizeof(playlist[0]), "/spiffs/%s", entry->d_name);
+            playlist_size++;
+        }
+    }
+
+    closedir(dir);
+}
+
+// ------------------------
+// INICIALIZADOR GENERAL
+// ------------------------
+
 esp_err_t audio_player_init(void)
 {
+    ESP_RETURN_ON_ERROR(spiffs_init(), TAG, "Fallo al montar SPIFFS");
+
+    load_playlist_from_spiffs();  // construye la lista de archivos
+
     ESP_LOGI(TAG, "Inicializando driver I2S...");
     ESP_RETURN_ON_ERROR(i2s_driver_init(), TAG, "Fallo init I2S");
 
     ESP_LOGI(TAG, "Inicializando codec ES8311...");
     ESP_RETURN_ON_ERROR(es8311_codec_init(), TAG, "Fallo init codec");
 
-#if EXAMPLE_PA_CTRL_IO >= 0
-    gpio_config_t gpio_cfg = {
-        .pin_bit_mask = (1ULL << EXAMPLE_PA_CTRL_IO),
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    ESP_ERROR_CHECK(gpio_config(&gpio_cfg));
-    ESP_ERROR_CHECK(gpio_set_level(EXAMPLE_PA_CTRL_IO, 1));
-#endif
-
-    audio_event_queue = xQueueCreate(8, sizeof(audio_event_t));
+    audio_event_queue = xQueueCreate(8, sizeof(audio_cmd_t));
     xTaskCreate(task_audio_player, "task_audio_player", 4096, NULL, 5, NULL);
 
     return ESP_OK;

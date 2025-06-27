@@ -5,6 +5,8 @@
     "board/esp32s2-kaluga-1.cfg"
   ],
   "idf.customExtraVars": {
+    "CC": "xtensa-esp32s2-elf-gcc",
+    "CXX": "xtensa-esp32s2-elf-g++",
     "IDF_TARGET": "esp32s2"
   },
   "clangd.path": "C:\\Users\\gasto\\.espressif\\tools\\esp-clang\\esp-18.1.2_20240912\\esp-clang\\bin\\clangd.exe",
@@ -12,5 +14,10 @@
     "--background-index",
     "--query-driver=C:\\Users\\gasto\\.espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s2-elf-gcc.exe",
     "--compile-commands-dir=c:\\Users\\gasto\\Desktop\\IoT\\IOT\\Lab_Final_1\\build"
-  ]
+  ],
+  "files.associations": {
+    "audio_player.h": "c",
+    "stdbool.h": "c",
+    "esp_spiffs.h": "c"
+  }
 }

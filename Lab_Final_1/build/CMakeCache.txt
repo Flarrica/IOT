@@ -154,7 +154,7 @@ CMAKE_INSTALL_MANDIR:PATH=
 CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/main
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/lab_final_1
 
 //Run-time variable data (LOCALSTATEDIR/run)
 CMAKE_INSTALL_RUNSTATEDIR:PATH=
@@ -210,7 +210,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=main
+CMAKE_PROJECT_NAME:STATIC=lab_final_1
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=3.6.2
@@ -374,13 +374,13 @@ esp-idf_SOURCE_DIR:STATIC=C:/Users/gasto/esp/v5.4.1/esp-idf
 everest_LIB_DEPENDS:STATIC=general;__idf_cxx;general;__idf_newlib;general;__idf_freertos;general;__idf_esp_hw_support;general;__idf_heap;general;__idf_log;general;__idf_soc;general;__idf_hal;general;__idf_esp_rom;general;__idf_esp_common;general;__idf_esp_system;general;__idf_xtensa;
 
 //Value Computed by CMake
-main_BINARY_DIR:STATIC=C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build
+lab_final_1_BINARY_DIR:STATIC=C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build
 
 //Value Computed by CMake
-main_IS_TOP_LEVEL:STATIC=ON
+lab_final_1_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-main_SOURCE_DIR:STATIC=C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1
+lab_final_1_SOURCE_DIR:STATIC=C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1
 
 //Dependencies for the target
 mbedcrypto_LIB_DEPENDS:STATIC=general;__idf_cxx;general;__idf_newlib;general;__idf_freertos;general;__idf_esp_hw_support;general;__idf_heap;general;__idf_log;general;__idf_soc;general;__idf_hal;general;__idf_esp_rom;general;__idf_esp_common;general;__idf_esp_system;general;__idf_xtensa;general;everest;general;p256m;general;idf::esp_security;general;idf::esp_mm;
@@ -596,7 +596,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/main
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/lab_final_1
 //Compiler reason failure
 _Python3_Compiler_REASON_FAILURE:INTERNAL=
 //Development reason failure

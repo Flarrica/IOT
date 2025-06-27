@@ -69,13 +69,8 @@ void app_main(void)
     } else {
         ESP_LOGW("MAIN", "No hay WiFi STA. MQTT no se iniciará.");
     }
-
-    ESP_LOGI("MAIN", "Inicializando audio...");
-    if (audio_player_init() != ESP_OK) {
-        ESP_LOGE("MAIN", "Fallo al inicializar audio");
-    } else {
-        audio_player_start();
-    }
+    
+    
 
     // Lanzamos tareas
     vTaskDelay(pdMS_TO_TICKS(500));
@@ -84,6 +79,18 @@ void app_main(void)
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
+
+
+
+    //ACA HACEMOS LA PRIEMR PRUEBA DE ENVIAR UN COMANDO DE AUDIO A LA COLA
+    // INICIALIZAMOS AUDIO
+    ESP_LOGI("MAIN", "Inicializando audio...");
+    if (audio_player_init() != ESP_OK) {
+        ESP_LOGE("MAIN", "Fallo al inicializar audio");
+    } else {
+        audio_cmd_t cmd = CMD_PLAY;
+        xQueueSend(audio_event_queue, &cmd, portMAX_DELAY);
+    }
 
     // Loop del servicio web
     while (true) {
