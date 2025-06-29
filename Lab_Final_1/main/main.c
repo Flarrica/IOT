@@ -2,6 +2,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
+#include "esp_netif.h"
+#include "esp_event.h"
+#include "nvs_flash.h"
 
 #include "task_a.h"
 #include "task_b.h"
@@ -82,5 +85,10 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
 
-
+    // Loop del servicio web
+    while (true) {
+        web_service_bucle();  // Se recomienda eventualmente migrar a su propia tarea
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+    
 }

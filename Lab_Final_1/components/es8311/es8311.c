@@ -157,9 +157,7 @@ static inline esp_err_t es8311_read_reg(es8311_handle_t dev, uint8_t reg_addr, u
     return i2c_master_write_read_device(es->port, es->dev_addr, &reg_addr, 1, reg_value, 1, pdMS_TO_TICKS(1000));
 }
 
-/*
-* look for the coefficient in coeff_div[] table
-*/
+
 static int get_coeff(uint32_t mclk, uint32_t rate)
 {
     for (int i = 0; i < (sizeof(coeff_div) / sizeof(coeff_div[0])); i++) {
