@@ -1,0 +1,124 @@
+ESP-ROM:esp32s2-rc4-20191025
+Build:Oct 25 2019
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3ffe5110,len:0x1664
+load:0x4004a000,len:0x4
+load:0x4004a004,len:0xb18
+load:0x4004e000,len:0x335c
+entry 0x4004a1c8
+[0;32mI (23) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Jun 29 2025 14:41:09[0m
+[0;32mI (24) boot: chip revision: v0.0[0m
+[0;32mI (25) boot: efuse block revision: v0.1[0m
+[0;32mI (28) boot.esp32s2: SPI Speed      : 80MHz[0m
+[0;32mI (32) boot.esp32s2: SPI Mode       : DIO[0m
+[0;32mI (36) boot.esp32s2: SPI Flash Size : 2MB[0m
+[0;32mI (40) boot: Enabling RNG early entropy source...[0m
+[0;32mI (44) boot: Partition Table:[0m
+[0;32mI (47) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (53) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (60) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (66) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (73) boot: End of partition table[0m
+[0;32mI (76) esp_image: segment 0: paddr=00010020 vaddr=3f000020 size=1f504h (128260) map[0m
+[0;32mI (109) esp_image: segment 1: paddr=0002f52c vaddr=3ff9e010 size=0001ch (    28) load[0m
+[0;32mI (109) esp_image: segment 2: paddr=0002f550 vaddr=3ffc9c20 size=00ac8h (  2760) load[0m
+[0;32mI (113) esp_image: segment 3: paddr=00030020 vaddr=40080020 size=9acc8h (634056) map[0m
+[0;32mI (244) esp_image: segment 4: paddr=000cacf0 vaddr=3ffca6e8 size=02f08h ( 12040) load[0m
+[0;32mI (247) esp_image: segment 5: paddr=000cdc00 vaddr=40024000 size=15c1ch ( 89116) load[0m
+[0;32mI (280) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (280) boot: Disabling RNG early entropy source...[0m
+[0;32mI (290) cache: Instruction cache 	: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (290) cache: Data cache 		: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (307) cpu_start: Unicore app[0m
+[0;32mI (315) cpu_start: Pro cpu start user code[0m
+[0;32mI (315) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (315) app_init: Application information:[0m
+[0;32mI (315) app_init: Project name:     MQTT_5[0m
+[0;32mI (319) app_init: App version:      Entrega_Laboratorio3_Rev2-22-gf[0m
+[0;32mI (325) app_init: Compile time:     Jun 29 2025 14:40:56[0m
+[0;32mI (330) app_init: ELF file SHA256:  c56fd83a3...[0m
+[0;32mI (334) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (338) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (342) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (346) efuse_init: Chip rev:         v0.0[0m
+[0;32mI (350) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (356) heap_init: At 3FFD1EE8 len 0002A118 (168 KiB): RAM[0m
+[0;32mI (361) heap_init: At 3FFFC000 len 00003A10 (14 KiB): RAM[0m
+[0;32mI (367) heap_init: At 3FF9E02C len 00001FBC (7 KiB): RTCRAM[0m
+[0;32mI (373) spi_flash: detected chip: generic[0m
+[0;32mI (376) spi_flash: flash io: dio[0m
+[0;33mW (378) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (395) main_task: Started on CPU0[0m
+[0;32mI (395) main_task: Calling app_main()[0m
+[0;32mI (395) mqtt5_Reproductor_Musica: [APP] Startup..[0m
+[0;32mI (395) mqtt5_Reproductor_Musica: [APP] Free memory: 180856 bytes[0m
+[0;32mI (405) mqtt5_Reproductor_Musica: [APP] IDF version: v5.4.1-dirty[0m
+[0;32mI (415) example_connect: Start example_connect.[0m
+[0;32mI (425) wifi:wifi driver task: 3ffd9edc, prio:23, stack:6656, core=0[0m
+[0;32mI (425) wifi:wifi firmware version: 79fa3f41ba[0m
+[0;32mI (425) wifi:wifi certification version: v7.0[0m
+[0;32mI (425) wifi:config NVS flash: enabled[0m
+[0;32mI (435) wifi:config nano formatting: disabled[0m
+[0;32mI (435) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (435) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (445) wifi:Init management short buffer num: 32[0m
+[0;32mI (445) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (455) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (455) wifi:Init static rx buffer num: 10[0m
+[0;32mI (455) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (465) wifi_init: rx ba win: 6[0m
+[0;32mI (465) wifi_init: accept mbox: 6[0m
+[0;32mI (465) wifi_init: tcpip mbox: 32[0m
+[0;32mI (475) wifi_init: udp mbox: 6[0m
+[0;32mI (475) wifi_init: tcp mbox: 6[0m
+[0;32mI (475) wifi_init: tcp tx win: 5760[0m
+[0;32mI (485) wifi_init: tcp rx win: 5760[0m
+[0;32mI (485) wifi_init: tcp mss: 1440[0m
+[0;32mI (485) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (495) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (495) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (545) wifi:mode : sta (7c:df:a1:0e:37:8e)[0m
+[0;32mI (545) wifi:enable tsf[0m
+[0;32mI (545) example_connect: Connecting to Valentina...[0m
+[0;33mW (545) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (555) example_connect: Waiting for IP(s)[0m
+[0;32mI (3225) wifi:new:<3,0>, old:<1,0>, ap:<255,255>, sta:<3,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (3225) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (3235) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (3235) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (3265) wifi:[ADDBA]RX DELBA, reason:39, delete tid:0, initiator:1(originator)[0m
+[0;32mI (3265) wifi:[ADDBA]RX DELBA, reason:39, delete tid:0, initiator:0(recipient)[0m
+[0;32mI (3265) wifi:[ADDBA]RX DELBA, reason:39, delete tid:7, initiator:1(originator)[0m
+[0;32mI (3355) wifi:connected with Valentina, aid = 6, channel 3, BW20, bssid = b8:dd:71:f8:02:86[0m
+[0;32mI (3355) wifi:security: WPA2-PSK, phy: bgn, rssi: -52[0m
+[0;32mI (3355) wifi:pm start, type: 1[0m
+
+[0;32mI (3355) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (3365) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (3705) wifi:<ba-add>idx:0 (ifx:0, b8:dd:71:f8:02:86), tid:7, ssn:2, winSize:64[0m
+[0;32mI (4415) example_connect: Got IPv6 event: Interface "example_netif_sta" address: fe80:0000:0000:0000:7edf:a1ff:fe0e:378e, type: ESP_IP6_ADDR_IS_LINK_LOCAL[0m
+[0;32mI (5645) wifi:<ba-add>idx:1 (ifx:0, b8:dd:71:f8:02:86), tid:0, ssn:1, winSize:64[0m
+[0;32mI (6865) esp_netif_handlers: example_netif_sta ip: 192.168.1.12, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (6865) example_connect: Got IPv4 event: Interface "example_netif_sta" address: 192.168.1.12[0m
+[0;32mI (6865) example_common: Connected to example_netif_sta[0m
+[0;32mI (6875) example_common: - IPv4 address: 192.168.1.12,[0m
+[0;32mI (6875) example_common: - IPv6 address: fe80:0000:0000:0000:7edf:a1ff:fe0e:378e, type: ESP_IP6_ADDR_IS_LINK_LOCAL[0m
+[0;32mI (6885) mqtt5_Reproductor_Musica: Other event id:7[0m
+[0;32mI (6895) main_task: Returned from app_main()[0m
+[0;32mI (7415) example_connect: Got IPv6 event: Interface "example_netif_sta" address: 2800:00a4:1090:1100:7edf:a1ff:fe0e:378e, type: ESP_IP6_ADDR_IS_GLOBAL[0m
+[0;32mI (7555) mqtt5_Reproductor_Musica: MQTT_EVENT_CONNECTED[0m
+[0;32mI (7555) mqtt5_Reproductor_Musica: sent subscribe successful, msg_id=33676[0m
+[0;32mI (7805) mqtt5_client: MQTT_MSG_TYPE_SUBACK return code is 0[0m
+[0;32mI (7805) mqtt5_Reproductor_Musica: MQTT_EVENT_SUBSCRIBED, msg_id=33676[0m
+[0;32mI (7815) mqtt5_Reproductor_Musica: sent publish successful, msg_id=0[0m
+[0;32mI (41515) mqtt5_Reproductor_Musica: MQTT_EVENT_DATA[0m
+[0;32mI (41515) mqtt5_Reproductor_Musica: payload_format_indicator is 0[0m
+[0;32mI (41515) mqtt5_Reproductor_Musica: response_topic is [0m
+[0;32mI (41525) mqtt5_Reproductor_Musica: correlation_data is [0m
+[0;32mI (41525) mqtt5_Reproductor_Musica: content_type is [0m
+[0;32mI (41535) mqtt5_Reproductor_Musica: TOPIC=/control/reproduccion[0m
+[0;32mI (41535) mqtt5_Reproductor_Musica: DATA=play[0m
+[0;32mI (41545) mqtt5_Reproductor_Musica:

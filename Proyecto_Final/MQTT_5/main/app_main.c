@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2022-2023 Espressif Systems (Shanghai) CO LTD
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 #include <stdio.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -16,7 +10,7 @@
 #include "esp_log.h"
 #include "mqtt_client.h"
 
-static const char *TAG = "mqtt5_example";
+static const char *TAG = "mqtt5_Reproductor_Musica";
 
 static void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -68,6 +62,10 @@ static esp_mqtt5_disconnect_property_config_t disconnect_property = {
     .disconnect_reason = 0,
 };
 
+// Definir los tópicos
+#define TOPIC_CONTROL "/control/reproduccion"
+#define TOPIC_ESTADO "/estado/reproductor"
+#define TOPIC_LOG "/log/eventos"
 static void print_user_property(mqtt5_user_property_handle_t user_property)
 {
     if (user_property) {
@@ -111,24 +109,28 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         print_user_property(event->property->user_property);
         esp_mqtt5_client_set_user_property(&publish_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
         esp_mqtt5_client_set_publish_property(client, &publish_property);
+        
+        /*
         msg_id = esp_mqtt_client_publish(client, "/topic/qos1", "data_3", 0, 1, 1);
         esp_mqtt5_client_delete_user_property(publish_property.user_property);
         publish_property.user_property = NULL;
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        */
 
         esp_mqtt5_client_set_user_property(&subscribe_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
         esp_mqtt5_client_set_subscribe_property(client, &subscribe_property);
-        msg_id = esp_mqtt_client_subscribe(client, "/topic/qos0", 0);
+        msg_id = esp_mqtt_client_subscribe(client, TOPIC_CONTROL, 0);
         esp_mqtt5_client_delete_user_property(subscribe_property.user_property);
         subscribe_property.user_property = NULL;
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-
+    /*
         esp_mqtt5_client_set_user_property(&subscribe1_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
         esp_mqtt5_client_set_subscribe_property(client, &subscribe1_property);
         msg_id = esp_mqtt_client_subscribe(client, "/topic/qos1", 2);
         esp_mqtt5_client_delete_user_property(subscribe1_property.user_property);
         subscribe1_property.user_property = NULL;
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+    */
 /*
         esp_mqtt5_client_set_user_property(&unsubscribe_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
         esp_mqtt5_client_set_unsubscribe_property(client, &unsubscribe_property);
@@ -149,7 +151,7 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         break;
-    /*
+        /*
     case MQTT_EVENT_UNSUBSCRIBED:
         ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
         print_user_property(event->property->user_property);
@@ -173,6 +175,38 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         ESP_LOGI(TAG, "content_type is %.*s", event->property->content_type_len, event->property->content_type);
         ESP_LOGI(TAG, "TOPIC=%.*s", event->topic_len, event->topic);
         ESP_LOGI(TAG, "DATA=%.*s", event->data_len, event->data);
+//Comienza la nueva sección para el control de la musica.
+
+         if (strncmp(event->topic, TOPIC_CONTROL, event->topic_len) == 0) {
+            ESP_LOGI(TAG, "Received command: %.*s", event->data_len, event->data);
+            if (strncmp(event->data, "play", event->data_len) == 0) {
+                ESP_LOGI(TAG, "Received 'play' command");
+                // Iniciar la reproducción de música
+                // Aquí llama a la función para iniciar la reproducción
+            } else if (strncmp(event->data, "pause", event->data_len) == 0) {
+                ESP_LOGI(TAG, "Received 'pause' command");
+                // Pausar la reproducción de música
+                // Aquí llama a la función para pausar la reproducción
+            } else if (strncmp(event->data, "next", event->data_len) == 0) {
+                ESP_LOGI(TAG, "Received 'next' command");
+                // Ir a la siguiente canción
+                // Aquí llama a la función para ir a la siguiente canción
+            } else if (strncmp(event->data, "previous", event->data_len) == 0) {
+                ESP_LOGI(TAG, "Received 'previous' command");
+                // Ir a la canción anterior
+                // Aquí llama a la función para ir a la canción anterior
+            } else if (strncmp(event->data, "volume_up", event->data_len) == 0) {
+                ESP_LOGI(TAG, "Received 'volume_up' command");
+                // Aumentar el volumen
+                // Aquí llama a la función para aumentar el volumen
+            } else if (strncmp(event->data, "volume_down", event->data_len) == 0) {
+                ESP_LOGI(TAG, "Received 'volume_down' command");
+                // Disminuir el volumen
+                // Aquí llama a la función para disminuir el volumen
+            } else {
+                ESP_LOGW(TAG, "Unknown command received: %.*s", event->data_len, event->data);
+            }
+        }
         break;
     case MQTT_EVENT_ERROR:
         ESP_LOGI(TAG, "MQTT_EVENT_ERROR");

@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "MQTT_5",
-    "project_version":    "Entrega_Laboratorio3_Rev2-21-g0f1d3b52-dirty",
+    "project_version":    "Entrega_Laboratorio3_Rev2-22-gf4cb5fea-dirty",
     "project_path":       "/Users/marcosgiombini/Documents/GitHub/IOT/Proyecto_Final/MQTT_5",
     "idf_path":           "/Users/marcosgiombini/esp/v5.4.1/esp-idf",
     "build_dir":          "/Users/marcosgiombini/Documents/GitHub/IOT/Proyecto_Final/MQTT_5/build",
