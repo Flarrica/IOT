@@ -965,6 +965,9 @@ C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/i2s_examples_common/CMa
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/i2s_examples_common/CMakeFiles/install/local.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/i2s_examples_common/CMakeFiles/install/strip.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/__idf_main.dir
+C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/spiffs_spiffs_bin.dir
+C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/spiffs-flash.dir
+C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/encrypted-spiffs-flash.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/edit_cache.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
 C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/build/esp-idf/main/CMakeFiles/list_install_components.dir

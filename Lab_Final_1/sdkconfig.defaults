@@ -1,28 +1,23 @@
+# Dirección del broker MQTT
 CONFIG_BROKER_URL="mqtt://192.168.1.100:1883"
 
-# Estas son las configuraciones que hay que poner
 # Activar uso de archivo CSV personalizado de particiones
 CONFIG_PARTITION_TABLE_CUSTOM=y
-CONFIG_PARTITION_TABLE_FILENAME="particiones.csv"
-CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="particiones.csv"
+CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
 
 # Tamaño total de la flash (ajustable si usás más de 4 MB)
 CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 
-# Sacamos el warning de RMT
+# Suprimir warnings por uso de APIs obsoletas
 CONFIG_RMT_SUPPRESS_DEPRECATE_WARN=y
-
-# Suprimmimos warnings de versiones legacy
 CONFIG_ADC_SUPPRESS_DEPRECATE_WARN=y
 CONFIG_DAC_SUPPRESS_DEPRECATE_WARN=y
 CONFIG_I2S_SUPPRESS_DEPRECATE_WARN=y
 
-# Usamos version nueva del driver I2C
+# Usar versión nueva del driver I2C
 CONFIG_I2C_ENABLE_SLAVE_DRIVER_VERSION_2=y
 
 # Versión predeterminada de la Kaluga (solo una debe estar habilitada)
 CONFIG_KALUGA_VERSION_1_2=y
 # CONFIG_KALUGA_VERSION_1_3 is not set
-
-CONFIG_I2C_ENABLE_LEGACY_WARNINGS=n
-CONFIG_RMT_ENABLE_LEGACY_WARNINGS=n

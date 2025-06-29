@@ -27,6 +27,15 @@ void app_main(void)
     esp_log_level_set("*", ESP_LOG_INFO);
     esp_log_level_set("ws2812", ESP_LOG_WARN);
     esp_log_level_set("LED_RGB", ESP_LOG_NONE);
+    
+    //Inicializamos AUDIO antes de WiFi para solucionar errores (audio no reproducía por conflicto con WiFi)
+    ESP_LOGI("MAIN", "Inicializando audio...");
+    ESP_LOGI("MAIN", "Inicializando audio...");
+    if (audio_player_init() != ESP_OK) {
+        ESP_LOGE("MAIN", "Fallo al inicializar audio");
+    }
+    // Delay para asegurar estabilidad antes del WiFi
+    vTaskDelay(pdMS_TO_TICKS(1000));
 
     // Inicializamos NVS
     esp_err_t ret = nvs_flash_init();
@@ -41,6 +50,10 @@ void app_main(void)
 
     // LED RGB
     led_rgb_inicializar();
+
+ 
+    // Delay para asegurar estabilidad antes del WiFi
+    vTaskDelay(pdMS_TO_TICKS(1000));
 
     // WiFi AP + STA
     wifi_apsta_inicializar();
@@ -69,8 +82,6 @@ void app_main(void)
     } else {
         ESP_LOGW("MAIN", "No hay WiFi STA. MQTT no se iniciará.");
     }
-    
-    
 
     // Lanzamos tareas
     vTaskDelay(pdMS_TO_TICKS(500));
@@ -80,18 +91,9 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
 
-
-
-    //ACA HACEMOS LA PRIEMR PRUEBA DE ENVIAR UN COMANDO DE AUDIO A LA COLA
-    // INICIALIZAMOS AUDIO
-    ESP_LOGI("MAIN", "Inicializando audio...");
-    if (audio_player_init() != ESP_OK) {
-        ESP_LOGE("MAIN", "Fallo al inicializar audio");
-    } else {
-        audio_cmd_t cmd = CMD_PLAY;
-        xQueueSend(audio_event_queue, &cmd, portMAX_DELAY);
-    }
-
+    vTaskDelay(pdMS_TO_TICKS(2000));
+    audio_player_send_cmd(CMD_PLAY);
+    vTaskDelay(pdMS_TO_TICKS(2000));
     // Loop del servicio web
     while (true) {
         web_service_bucle();  // Se recomienda eventualmente migrar a su propia tarea

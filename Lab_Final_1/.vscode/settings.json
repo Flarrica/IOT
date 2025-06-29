@@ -1,6 +1,6 @@
 {
   "idf.flashType": "UART",
-  "idf.portWin": "COM16",
+  "idf.portWin": "COM12",
   "idf.openOcdConfigs": [
     "board/esp32s2-kaluga-1.cfg"
   ],
@@ -18,6 +18,14 @@
   "files.associations": {
     "audio_player.h": "c",
     "stdbool.h": "c",
-    "esp_spiffs.h": "c"
+    "esp_spiffs.h": "c",
+    "es8311.h": "c",
+    "charconv": "c",
+    "string": "c",
+    "vector": "c",
+    "exception": "c",
+    "format": "c",
+    "limits": "c",
+    "functional": "c"
   }
 }

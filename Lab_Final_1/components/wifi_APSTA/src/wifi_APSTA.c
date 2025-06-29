@@ -60,8 +60,10 @@ void wifi_apsta_inicializar(void) {
     // Configuración del cliente STA
     wifi_config_t sta_config = {
         .sta = {
-            .ssid = "Gaston_y_Lu",
-            .password = "Pintorescos1414"
+            //.ssid = "Gaston_y_Lu",
+            //.password = "Pintorescos1414"
+            .ssid = "Usuario",
+            .password = "Contraseña"
 
         }
     };

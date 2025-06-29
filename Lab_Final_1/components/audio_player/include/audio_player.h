@@ -13,7 +13,7 @@
 #define EXAMPLE_SAMPLE_RATE      (16000)
 #define EXAMPLE_MCLK_MULTIPLE    (256) // 256 es suficiente si no se usa 24 bits por muestra
 #define EXAMPLE_MCLK_FREQ_HZ     (EXAMPLE_SAMPLE_RATE * EXAMPLE_MCLK_MULTIPLE)
-#define EXAMPLE_VOICE_VOLUME     80
+#define EXAMPLE_VOICE_VOLUME     45
 
 // Pin de control del amplificador (PA - Power Amplifier)
 #define EXAMPLE_PA_CTRL_IO       (GPIO_NUM_10)
@@ -56,6 +56,19 @@ typedef enum {
     CMD_VOL_UP,
     CMD_VOL_DOWN
 } audio_cmd_t;
+
+// Estado del reproductor
+typedef enum {
+    PLAYER_STOPPED,
+    PLAYER_PLAYING,
+    PLAYER_PAUSED
+} audio_state_t;
+
+// Permitir a otras tareas consultar el estado (si querés exponerlo)
+audio_state_t audio_player_get_state(void);
+
+// Y también si querés exponer comandos externos de control:
+void audio_player_send_cmd(audio_cmd_t cmd);
 
 // Declaramos la cola de eventos de audio como extern para que puedan agregar elementos desde otras librerias
 extern QueueHandle_t audio_event_queue;
