@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <dirent.h>
 #include <string.h>
+#include <math.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -161,6 +162,9 @@ audio_state_t audio_player_get_state(void) {
     return player_state;
 }
 
+// ------------------------
+// ENVIAR COMANDO A COLA DE AUDIO_PLAYER
+// ------------------------
 void audio_player_send_cmd(audio_cmd_t cmd) {
     if (audio_event_queue != NULL) {
         xQueueSend(audio_event_queue, &cmd, 0);
@@ -168,7 +172,17 @@ void audio_player_send_cmd(audio_cmd_t cmd) {
         ESP_LOGW(TAG, "Cola de comandos no inicializada");
     }
 }
-
+// ------------------------
+// MAPEO LOGARITMICO DE VOLUMEN
+// ------------------------
+static int map_volume_perceptual(int vol_user) {
+    // vol_user: 0 a 100 → volumen perceptual (0 a 100 aprox.)
+    float scaled = log10f(1 + 9 * (vol_user / 100.0f));  // log10(1) = 0, log10(10) = 1
+    return (int)roundf(scaled * 100);
+}
+// ------------------------
+// TAREA AUDIO_PLAYER
+// ------------------------
 static void task_audio_player(void *args) {
     audio_cmd_t cmd;
     static int current_track = 0;
@@ -237,9 +251,10 @@ static void task_audio_player(void *args) {
                 case CMD_VOL_UP:
                     if (volume < 100) volume += 10;
                     if (es_handle) {
-                        esp_err_t err = es8311_voice_volume_set(es_handle, volume, NULL);
+                        int perceptual_vol = map_volume_perceptual(volume);
+                        esp_err_t err = es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
                         if (err == ESP_OK) {
-                            ESP_LOGI(TAG, "VOL UP: volumen seteado a %d", volume);
+                            ESP_LOGI(TAG, "VOL UP: volumen seteado a %d (perceptual: %d)", volume, perceptual_vol);
                             int vol_check = -1;
                             if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {
                                 ESP_LOGI(TAG, "VOL UP: volumen confirmado en codec: %d", vol_check);
@@ -251,9 +266,10 @@ static void task_audio_player(void *args) {
                 case CMD_VOL_DOWN:
                     if (volume > 0) volume -= 10;
                     if (es_handle) {
-                        esp_err_t err = es8311_voice_volume_set(es_handle, volume, NULL);
+                        int perceptual_vol = map_volume_perceptual(volume);
+                        esp_err_t err = es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
                         if (err == ESP_OK) {
-                            ESP_LOGI(TAG, "VOL DOWN: volumen seteado a %d", volume);
+                            ESP_LOGI(TAG, "VOL DOWN: volumen seteado a %d (perceptual: %d)", volume, perceptual_vol);
                             int vol_check = -1;
                             if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {
                                 ESP_LOGI(TAG, "VOL DOWN: volumen confirmado en codec: %d", vol_check);
@@ -266,6 +282,9 @@ static void task_audio_player(void *args) {
     }
 }
 
+// ------------------------
+// CARGAR PLAYLIST DESDE MEMORIA
+// ------------------------
 static void load_playlist_from_spiffs(void) {
     DIR *dir = opendir("/spiffs");
     struct dirent *entry;
@@ -290,6 +309,9 @@ static void load_playlist_from_spiffs(void) {
     closedir(dir);
 }
 
+// ------------------------
+// INICIALIZACIÓN DE AUIDO PLAYER
+// ------------------------
 esp_err_t audio_player_init(void) {
     ESP_RETURN_ON_ERROR(spiffs_init(), TAG, "Fallo al montar SPIFFS");
 
@@ -302,7 +324,7 @@ esp_err_t audio_player_init(void) {
     ESP_RETURN_ON_ERROR(es8311_codec_init(), TAG, "Fallo init codec");
 
     audio_event_queue = xQueueCreate(8, sizeof(audio_cmd_t));
-    xTaskCreate(task_audio_player, "task_audio_player", 4096, NULL, configMAX_PRIORITIES - 1, NULL);
+    xTaskCreate(task_audio_player, "task_audio_player", 4096, NULL, 6, NULL);
 
     int vol_check;
     if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {

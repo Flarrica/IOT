@@ -15,6 +15,7 @@
 #include "wifi_APSTA.h"
 #include "web_service.h"
 #include "audio_player.h"
+#include "touch_buttons.h"
 
 void app_main(void)
 {
@@ -45,8 +46,12 @@ void app_main(void)
     }
 
     // Inicialización de red y eventos
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    //ESP_ERROR_CHECK(esp_netif_init());
+    //ESP_ERROR_CHECK(esp_event_loop_create_default());
+
+
+    // Inicializar botones
+    touch_polling_init();
 
     // LED RGB
     led_rgb_inicializar();
@@ -56,12 +61,12 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     // WiFi AP + STA
-    wifi_apsta_inicializar();
+    //wifi_apsta_inicializar();
 
     // Servidor web
-    ESP_LOGI("MAIN", "Inicializando servidor web HTTP...");
-    web_service_inicializar();
-    ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
+    //ESP_LOGI("MAIN", "Inicializando servidor web HTTP...");
+    //web_service_inicializar();
+    //ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
 
     // Recursos compartidos
     ESP_LOGI("MAIN", "Semáforos, colas y recursos compartidos...");
@@ -69,6 +74,7 @@ void app_main(void)
     ESP_LOGI("MAIN", "Recursos compartidos. Ready!");
 
     // Intentamos conectar WiFi antes de iniciar MQTT
+    /*
     ESP_LOGI("MAIN", "Inicializando MQTT y su tarea...");
     int retries = 0;
     while (!wifi_sta_conectado() && retries < 5) {
@@ -76,13 +82,13 @@ void app_main(void)
         vTaskDelay(pdMS_TO_TICKS(500));
         retries++;
     }
-
+    
     if (wifi_sta_conectado()) {
         iniciar_task_mqtt();
     } else {
         ESP_LOGW("MAIN", "No hay WiFi STA. MQTT no se iniciará.");
     }
-
+    */
     // Lanzamos tareas
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_a, "task_a", 2048, NULL, 6, NULL);
@@ -90,13 +96,19 @@ void app_main(void)
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
+    vTaskDelay(pdMS_TO_TICKS(500));
+    xTaskCreate(task_touch, "task_touch", 2048, NULL, 7, NULL);
 
+
+    /* FORZAR COMANDOS de audio
     vTaskDelay(pdMS_TO_TICKS(2000));
     audio_player_send_cmd(CMD_PLAY);
     vTaskDelay(pdMS_TO_TICKS(2000));
-    // Loop del servicio web
+    */
     while (true) {
-        web_service_bucle();  // Se recomienda eventualmente migrar a su propia tarea
+        //touch_polling_bucle();
+        //vTaskDelay(pdMS_TO_TICKS(10));
+        //web_service_bucle();
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

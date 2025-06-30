@@ -26,6 +26,8 @@
     "exception": "c",
     "format": "c",
     "limits": "c",
-    "functional": "c"
+    "functional": "c",
+    "freertos.h": "c",
+    "inttypes.h": "c"
   }
 }
