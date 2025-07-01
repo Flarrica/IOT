@@ -23,7 +23,6 @@
 // Definición del tamaño del buffer de recepción UART
 #define UART_RX_BUF_SIZE 256 // Define un tamaño adecuado
 
-// Declaración de la función de la tarea
 void task_b(void *pvParameters);
 
 #endif // TASK_B_H_

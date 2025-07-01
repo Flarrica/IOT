@@ -16,7 +16,6 @@ extern QueueHandle_t command_queue;
 extern QueueHandle_t audio_event_queue;
 
 
-// Función de inicialización
 void inicializar_recursos_globales(void);
 
 #endif // SHARED_LIB_H_

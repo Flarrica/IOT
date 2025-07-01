@@ -12,7 +12,6 @@ typedef struct {
     uint32_t duration; // en segundos
 } blink_info_t;
 
-// Declaración de la función de la tarea
 void task_a(void *pvParameters);
 
 #endif // TASK_A_H_
