@@ -24,12 +24,6 @@
 
 #if !defined(CONFIG_EXAMPLE_BSP)
 
-// Configuración condicional de pin de entrada de datos I2S
-#if CONFIG_KALUGA_VERSION_1_2
-    #define I2S_DI_IO (GPIO_NUM_46)
-#else
-    #define I2S_DI_IO (GPIO_NUM_34)
-#endif
 
 /* Configuración de I2C */
 #define I2C_NUM      (0)
@@ -42,6 +36,7 @@
 #define I2S_MCK_IO   (GPIO_NUM_35)
 #define I2S_BCK_IO   (GPIO_NUM_18)
 #define I2S_WS_IO    (GPIO_NUM_17)
+#define I2S_DI_IO    (GPIO_NUM_46)
 
 #endif /* !CONFIG_EXAMPLE_BSP */
 

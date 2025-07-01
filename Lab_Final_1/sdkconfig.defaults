@@ -19,4 +19,4 @@ CONFIG_I2S_SUPPRESS_DEPRECATE_WARN=y
 CONFIG_I2C_ENABLE_SLAVE_DRIVER_VERSION_2=y
 
 # Versión predeterminada de la Kaluga (solo una debe estar habilitada)
-CONFIG_KALUGA_VERSION_1_2=0
+CONFIG_KALUGA_VERSION_1_2=y
