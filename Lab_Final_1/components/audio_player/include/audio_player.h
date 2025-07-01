@@ -27,10 +27,8 @@
 // Configuración condicional de pin de entrada de datos I2S
 #if CONFIG_KALUGA_VERSION_1_2
     #define I2S_DI_IO (GPIO_NUM_46)
-#elif CONFIG_KALUGA_VERSION_1_3
-    #define I2S_DI_IO (GPIO_NUM_34)
 #else
-    #error "Debes seleccionar la versión de Kaluga en menuconfig"
+    #define I2S_DI_IO (GPIO_NUM_34)
 #endif
 
 /* Configuración de I2C */

@@ -12,7 +12,7 @@
 #define TOUCH_THRESHOLD 60000
 
 static const touch_pad_t botones_touch[TOUCH_BUTTON_NUM] = {
-    TOUCH_PAD_NUM1,  // VOL_UP
+    TOUCH_PAD_NUM1,  // VOL_UP// PHOTO 
     TOUCH_PAD_NUM6,  // PHOTO
     TOUCH_PAD_NUM5,  // NETWORK
     TOUCH_PAD_NUM4,  // RECORD

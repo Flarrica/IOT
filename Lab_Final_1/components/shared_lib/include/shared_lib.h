@@ -10,7 +10,8 @@
 extern SemaphoreHandle_t color_semaphore;
 extern SemaphoreHandle_t timer_done_semaphore;
 extern led_rgb_evento_t current_color;
-
+extern SemaphoreHandle_t i2c_mutex;
+extern SemaphoreHandle_t io_mutex;
 extern QueueHandle_t command_queue;
 
 extern QueueHandle_t audio_event_queue;

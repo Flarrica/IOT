@@ -1,28 +1,29 @@
 {
-  "configurations": [
-    {
-      "name": "Win32",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "C:/Users/gasto/esp/v5.4.1/components/spiffs/include",
-        "C:/Users/gasto/esp/v5.4.1/components/esp_common/include",
-        "C:\\Users\\gasto\\esp\\v5.4.1\\components\\freertos\\FreeRTOS-Kernel\\include",
-        "C:/Users/gasto/esp/v5.4.1/components/esp_system/include",
-        "C:/Users/gasto/esp/v5.4.1/components/esp_rom/include",
-        "C:\\Users\\gasto\\esp\\v5.4.1\\components\\driver\\i2c\\include",
-        "C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/components/audio_player/include",
-        "C:\\Users\\gasto\\esp\\v5.4.1\\components\\driver\\touch_sensor\\esp32s2\\include"
-      ],
-      "defines": [
-        "_DEBUG",
-        "UNICODE",
-        "_UNICODE"
-      ],
-      "compilerPath": "${config:idf.toolsPathWin}\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s2-elf-gcc.exe",
-      "cStandard": "c11",
-      "cppStandard": "gnu++14",
-      "intelliSenseMode": "windows-gcc-x86"
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Users/gasto/esp/v5.4.1/components/spiffs/include",
+                "C:/Users/gasto/esp/v5.4.1/components/esp_common/include",
+                "C:\\Users\\gasto\\esp\\v5.4.1\\components\\freertos\\FreeRTOS-Kernel\\include",
+                "C:/Users/gasto/esp/v5.4.1/components/esp_system/include",
+                "C:/Users/gasto/esp/v5.4.1/components/esp_rom/include",
+                "C:\\Users\\gasto\\esp\\v5.4.1\\components\\driver\\i2c\\include",
+                "C:/Users/gasto/Desktop/IoT/IOT/Lab_Final_1/components/audio_player/include",
+                "C:\\Users\\gasto\\esp\\v5.4.1\\components\\driver\\touch_sensor\\esp32s2\\include",
+                "C:\\Users\\gasto\\esp\\v5.4.1\\components\\freertos\\FreeRTOS-Kernel\\include\\freertos"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "${config:idf.toolsPathWin}\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32s2-elf-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "windows-gcc-x86"
+        }
+    ],
+    "version": 4
 }

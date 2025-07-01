@@ -28,6 +28,8 @@
     "limits": "c",
     "functional": "c",
     "freertos.h": "c",
-    "inttypes.h": "c"
+    "inttypes.h": "c",
+    "semphr.h": "c",
+    "timers.h": "c"
   }
 }

@@ -29,30 +29,40 @@ void app_main(void)
     esp_log_level_set("ws2812", ESP_LOG_WARN);
     esp_log_level_set("LED_RGB", ESP_LOG_NONE);
     
+    // Creamos semaforos
+    i2c_mutex = xSemaphoreCreateMutex();
+    io_mutex = xSemaphoreCreateMutex();
+
+    // Inicializar botones
+    touch_polling_init();
+    vTaskDelay(pdMS_TO_TICKS(1000));
+
     //Inicializamos AUDIO antes de WiFi para solucionar errores (audio no reproducía por conflicto con WiFi)
+    
+    
     ESP_LOGI("MAIN", "Inicializando audio...");
     ESP_LOGI("MAIN", "Inicializando audio...");
     if (audio_player_init() != ESP_OK) {
         ESP_LOGE("MAIN", "Fallo al inicializar audio");
     }
+    
     // Delay para asegurar estabilidad antes del WiFi
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     // Inicializamos NVS
+    /* PROBAMOS SIN ESTO
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
         ESP_ERROR_CHECK(nvs_flash_init());
     }
-
+*/
     // Inicialización de red y eventos
     //ESP_ERROR_CHECK(esp_netif_init());
     //ESP_ERROR_CHECK(esp_event_loop_create_default());
 
 
-    // Inicializar botones
-    touch_polling_init();
-
+    
     // LED RGB
     led_rgb_inicializar();
 
@@ -69,10 +79,11 @@ void app_main(void)
     //ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
 
     // Recursos compartidos
+    
     ESP_LOGI("MAIN", "Semáforos, colas y recursos compartidos...");
     inicializar_recursos_globales();
     ESP_LOGI("MAIN", "Recursos compartidos. Ready!");
-
+    
     // Intentamos conectar WiFi antes de iniciar MQTT
     /*
     ESP_LOGI("MAIN", "Inicializando MQTT y su tarea...");
@@ -90,13 +101,17 @@ void app_main(void)
     }
     */
     // Lanzamos tareas
+    
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_a, "task_a", 2048, NULL, 6, NULL);
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_b, "task_b", 4096, NULL, 10, NULL);
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(task_c, "task_c", 4096, NULL, 8, NULL);
+    
+    ESP_LOGI("MAIN", "Esperando para estabilizar touch...");
     vTaskDelay(pdMS_TO_TICKS(500));
+
     xTaskCreate(task_touch, "task_touch", 2048, NULL, 7, NULL);
 
 
@@ -106,8 +121,6 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(2000));
     */
     while (true) {
-        //touch_polling_bucle();
-        //vTaskDelay(pdMS_TO_TICKS(10));
         //web_service_bucle();
         vTaskDelay(pdMS_TO_TICKS(10));
     }

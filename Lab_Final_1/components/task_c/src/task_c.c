@@ -39,7 +39,6 @@ void task_c(void *pvParameters) {
     while (1) {
         if (xQueueReceive(command_queue, &cmd, portMAX_DELAY) == pdTRUE) {
 
-            // Creamos estructura dinámica con el color
             timer_info_t *info = malloc(sizeof(timer_info_t));
             if (info == NULL) {
                 ESP_LOGE(TAG, "No se pudo alocar memoria para timer_info_t");
@@ -47,10 +46,20 @@ void task_c(void *pvParameters) {
             }
 
             info->color = cmd.color;
+            uint32_t delay_ticks = pdMS_TO_TICKS(cmd.delay_seconds * 1000);
+
+            if (delay_ticks == 0) {
+                // Ejecutar directamente la lógica del callback
+                current_color = info->color;
+                xSemaphoreGive(color_semaphore);
+                ESP_LOGI(TAG, "Prende %s inmediatamente", color_to_string(info->color));
+                free(info);
+                continue;
+            }
 
             TimerHandle_t timer = xTimerCreate(
                 "StartBlinkTimer",
-                pdMS_TO_TICKS(cmd.delay_seconds * 1000),
+                delay_ticks,
                 pdFALSE, // One-shot
                 info,
                 vTimerCallback
@@ -58,10 +67,10 @@ void task_c(void *pvParameters) {
 
             if (timer != NULL) {
                 xTimerStart(timer, 0);
-                ESP_LOGI(TAG, "Prende %s en %lu seg.", color_to_string(info->color), (unsigned long)cmd.delay_seconds);
+                ESP_LOGI(TAG, "Prende %s en %.1f seg.", color_to_string(info->color), (double)cmd.delay_seconds);
             } else {
                 ESP_LOGE(TAG, "Error al crear el timer");
-                free(info); // Importante liberar si falla
+                free(info); // Liberar si falla
             }
         }
     }

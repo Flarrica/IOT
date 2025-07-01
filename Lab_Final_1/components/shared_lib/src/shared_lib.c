@@ -8,6 +8,8 @@
 SemaphoreHandle_t color_semaphore = NULL;
 SemaphoreHandle_t timer_done_semaphore = NULL;
 led_rgb_evento_t current_color = LED_EVENT_APAGAR;
+SemaphoreHandle_t i2c_mutex = NULL;
+QueueHandle_t io_mutex = NULL;
 
 QueueHandle_t command_queue = NULL;
 
