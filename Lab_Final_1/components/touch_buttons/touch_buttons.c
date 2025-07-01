@@ -12,7 +12,7 @@
 #include "shared_lib.h"
 
 #define TAG "TOUCH_BUTTONS"
-#define TOUCH_BUTTON_NUM 5
+#define TOUCH_BUTTON_NUM 6
 #define TOUCH_THRESHOLD 60000
 
 #define BENCHMARK_INVALID_MAX 4194300
@@ -38,6 +38,7 @@ static const touch_pad_t botones_touch[TOUCH_BUTTON_NUM] = {
 
 };
 
+
 static const led_rgb_evento_t color_touch[TOUCH_BUTTON_NUM] = {
     LED_EVENT_VERDE,
     LED_EVENT_ROJO,
@@ -48,12 +49,12 @@ static const led_rgb_evento_t color_touch[TOUCH_BUTTON_NUM] = {
 };
 
 static const audio_cmd_t comandos_touch[TOUCH_BUTTON_NUM] = {
-    CMD_NEXT,       // TP1 - photo
-    CMD_PLAY,       // TP2 - play/pause
-    CMD_STOP,       // TP3 - network
-    CMD_PREV,       // TP4 - record
-    CMD_VOL_UP,     // TP5 - volume up
-    CMD_VOL_DOWN    // TP6 - volume down
+    CMD_PLAY,
+    CMD_STOP,
+    CMD_NEXT,
+    CMD_PREV,
+    CMD_VOL_UP,
+    CMD_VOL_DOWN
 };
 
 void touch_polling_init(void)
