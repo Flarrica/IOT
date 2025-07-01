@@ -9,8 +9,9 @@
 #include "protocol_examples_common.h"
 #include "esp_log.h"
 #include "mqtt_client.h"
+#include "cJSON.h"
 
-static const char *TAG = "mqtt5_Reproductor_Musica";
+static const char *TAG = "mqtt5_example";
 
 static void log_error_if_nonzero(const char *message, int error_code)
 {
@@ -66,6 +67,17 @@ static esp_mqtt5_disconnect_property_config_t disconnect_property = {
 #define TOPIC_CONTROL "/control/reproduccion"
 #define TOPIC_ESTADO "/estado/reproductor"
 #define TOPIC_LOG "/log/eventos"
+
+// Estructura para el estado del reproductor
+typedef struct {
+    char estado[20];       // "reproduciendo", "pausado", "detenido"
+    int volumen;            // 0-100
+    char cancion[100];      // Nombre de la canción actual
+} reproductor_estado_t;
+
+// Variable global para el estado del reproductor
+reproductor_estado_t estado_reproductor = {"detenido", 50, "Ninguna"};
+
 static void print_user_property(mqtt5_user_property_handle_t user_property)
 {
     if (user_property) {
@@ -83,6 +95,22 @@ static void print_user_property(mqtt5_user_property_handle_t user_property)
             free(item);
         }
     }
+}
+
+// Función para publicar el estado del reproductor
+void publicar_estado_reproductor(esp_mqtt_client_handle_t client, reproductor_estado_t estado) {
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "estado", estado.estado);
+    cJSON_AddNumberToObject(root, "volumen", estado.volumen);
+    cJSON_AddStringToObject(root, "cancion", estado.cancion);
+
+    char *json_string = cJSON_Print(root);
+
+    esp_mqtt_client_publish(client, TOPIC_ESTADO, json_string, 0, 1, 0);
+    ESP_LOGI(TAG, "Published estado: %s", json_string);
+
+    cJSON_Delete(root);
+    free(json_string);
 }
 
 /*
@@ -109,13 +137,10 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         print_user_property(event->property->user_property);
         esp_mqtt5_client_set_user_property(&publish_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
         esp_mqtt5_client_set_publish_property(client, &publish_property);
-        
-        /*
-        msg_id = esp_mqtt_client_publish(client, "/topic/qos1", "data_3", 0, 1, 1);
-        esp_mqtt5_client_delete_user_property(publish_property.user_property);
-        publish_property.user_property = NULL;
-        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
-        */
+        //msg_id = esp_mqtt_client_publish(client, "/topic/qos1", "data_3", 0, 1, 1); // Comentado
+        //esp_mqtt5_client_delete_user_property(publish_property.user_property); // Comentado
+        //publish_property.user_property = NULL; // Comentado
+        //ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id); // Comentado
 
         esp_mqtt5_client_set_user_property(&subscribe_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
         esp_mqtt5_client_set_subscribe_property(client, &subscribe_property);
@@ -123,22 +148,17 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         esp_mqtt5_client_delete_user_property(subscribe_property.user_property);
         subscribe_property.user_property = NULL;
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-    /*
-        esp_mqtt5_client_set_user_property(&subscribe1_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
-        esp_mqtt5_client_set_subscribe_property(client, &subscribe1_property);
-        msg_id = esp_mqtt_client_subscribe(client, "/topic/qos1", 2);
-        esp_mqtt5_client_delete_user_property(subscribe1_property.user_property);
-        subscribe1_property.user_property = NULL;
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-    */
-/*
-        esp_mqtt5_client_set_user_property(&unsubscribe_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
-        esp_mqtt5_client_set_unsubscribe_property(client, &unsubscribe_property);
-        msg_id = esp_mqtt_client_unsubscribe(client, "/topic/qos0");
-        ESP_LOGI(TAG, "sent unsubscribe successful, msg_id=%d", msg_id);
-        esp_mqtt5_client_delete_user_property(unsubscribe_property.user_property);
-        unsubscribe_property.user_property = NULL;
-*/
+
+        //esp_mqtt5_client_set_user_property(&subscribe1_property.user_property, user_property_arr, USE_PROPERTY_ARR_SIZE);
+        //esp_mqtt5_client_set_subscribe_property(client, &subscribe1_property);
+        //msg_id = esp_mqtt_client_subscribe(client, "/topic/qos1", 2);
+        //esp_mqtt5_client_delete_user_property(subscribe1_property.user_property);
+        //subscribe1_property.user_property = NULL;
+        //ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+
+        // Enviar el estado inicial del reproductor
+        publicar_estado_reproductor(client, estado_reproductor);
+
         break;
     case MQTT_EVENT_DISCONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
@@ -148,10 +168,10 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
         ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
         print_user_property(event->property->user_property);
         esp_mqtt5_client_set_publish_property(client, &publish_property);
-        msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
-        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        //msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
+        //ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
         break;
-        /*
+    /*
     case MQTT_EVENT_UNSUBSCRIBED:
         ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
         print_user_property(event->property->user_property);
@@ -183,26 +203,43 @@ static void mqtt5_event_handler(void *handler_args, esp_event_base_t base, int32
                 ESP_LOGI(TAG, "Received 'play' command");
                 // Iniciar la reproducción de música
                 // Aquí llama a la función para iniciar la reproducción
+                strcpy(estado_reproductor.estado, "reproduciendo");
+                publicar_estado_reproductor(client, estado_reproductor);
+
             } else if (strncmp(event->data, "pause", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'pause' command");
                 // Pausar la reproducción de música
                 // Aquí llama a la función para pausar la reproducción
+                strcpy(estado_reproductor.estado, "pausado");
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "next", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'next' command");
                 // Ir a la siguiente canción
                 // Aquí llama a la función para ir a la siguiente canción
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "previous", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'previous' command");
                 // Ir a la canción anterior
                 // Aquí llama a la función para ir a la canción anterior
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "volume_up", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'volume_up' command");
                 // Aumentar el volumen
                 // Aquí llama a la función para aumentar el volumen
+                estado_reproductor.volumen += 10;
+                  if (estado_reproductor.volumen > 100) {
+                      estado_reproductor.volumen = 100;
+                   }
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "volume_down", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'volume_down' command");
                 // Disminuir el volumen
                 // Aquí llama a la función para disminuir el volumen
+                  estado_reproductor.volumen -= 10;
+                   if (estado_reproductor.volumen < 0) {
+                       estado_reproductor.volumen = 0;
+                    }
+                publicar_estado_reproductor(client, estado_reproductor);
             } else {
                 ESP_LOGW(TAG, "Unknown command received: %.*s", event->data_len, event->data);
             }

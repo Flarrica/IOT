@@ -18,7 +18,7 @@ set(HEAD_HASH)
 file(READ "/Users/marcosgiombini/Documents/GitHub/IOT/Proyecto_Final/MQTT_5/build/bootloader/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
-set(GIT_DIR "/Users/marcosgiombini/esp/v5.4.1/esp-idf/.git")
+set(GIT_DIR "/Users/marcosgiombini/esp/esp-adf/.git/modules/esp-idf")
 # handle git-worktree
 if(EXISTS "${GIT_DIR}/commondir")
 	file(READ "${GIT_DIR}/commondir" GIT_DIR_NEW LIMIT 1024)

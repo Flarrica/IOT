@@ -9,5 +9,8 @@
   "idf.toolsPath": "/Users/marcosgiombini/.espressif",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32s2"
+  },
+  "files.associations": {
+    "mqtt_client.h": "c"
   }
 }
