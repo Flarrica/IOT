@@ -13,7 +13,7 @@
 #define EXAMPLE_SAMPLE_RATE      (8000)
 #define EXAMPLE_MCLK_MULTIPLE    (256) // 256 es suficiente si no se usa 24 bits por muestra
 #define EXAMPLE_MCLK_FREQ_HZ     (EXAMPLE_SAMPLE_RATE * EXAMPLE_MCLK_MULTIPLE)
-#define EXAMPLE_VOICE_VOLUME     70
+#define EXAMPLE_VOICE_VOLUME     45
 
 // Pin de control del amplificador (PA - Power Amplifier)
 #define EXAMPLE_PA_CTRL_IO       (GPIO_NUM_10)

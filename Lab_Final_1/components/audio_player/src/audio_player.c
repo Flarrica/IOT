@@ -31,16 +31,16 @@
 // ------------------------
 // DEFINES Y GLOBALES
 // ------------------------
+static const char *TAG = "audio_player";
 
 #define MAX_PLAYLIST 10
 #define MAX_FILENAME_LEN 255
 #define MAX_PATH_LEN (8 + MAX_FILENAME_LEN + 1)
 
 color_event_t event_play  = { .color = LED_EVENT_VERDE,    .delay_seconds = 0 };
-color_event_t event_pause = { .color = LED_EVENT_AMARILLO, .delay_seconds = 0 };
+color_event_t event_pause = { .color = LED_EVENT_AZUL, .delay_seconds = 0 };
 color_event_t event_stop  = { .color = LED_EVENT_ROJO,     .delay_seconds = 0 };
 
-static const char *TAG = "audio_player";
 static i2s_chan_handle_t tx_handle = NULL;
 static es8311_handle_t es_handle = NULL;
 
@@ -49,6 +49,7 @@ QueueHandle_t audio_event_queue = NULL;
 static char playlist[MAX_PLAYLIST][MAX_PATH_LEN];
 static int playlist_size = 0;
 
+SemaphoreHandle_t volume_mutex; //Porque dos task comparten el recurso
 extern SemaphoreHandle_t i2c_mutex;
 extern QueueHandle_t color_queue;
 // ------------------------
@@ -56,9 +57,9 @@ extern QueueHandle_t color_queue;
 // ------------------------
 volatile audio_state_t player_state = PLAYER_STOPPED;
 volatile audio_cmd_t last_cmd = CMD_STOP;
-
-volatile bool btn_vol_up_presionado = false;
-volatile bool btn_vol_down_presionado = false;
+volatile int volumen = EXAMPLE_VOICE_VOLUME;
+volatile int perceptual_vol = 0;
+#define VOLUMEN_MAXIMO_USUARIO 70
 
 // ------------------------
 // VARIABLES
@@ -224,11 +225,13 @@ void audio_player_send_cmd(audio_cmd_t cmd) {
 // MAPEO LOGARITMICO DE VOLUMEN
 // ------------------------
 static int map_volume_perceptual(int vol_user) {
-    // Limitar el volumen de entrada para que 80 sea el nuevo 100
-    if (vol_user > 80) vol_user = 80;
+    // Limitar al máximo definido por el usuario
+    if (vol_user > VOLUMEN_MAXIMO_USUARIO) {
+        vol_user = VOLUMEN_MAXIMO_USUARIO;
+    }
 
-    // Reescalar de 0–80 → 0–100 para aplicar la curva perceptual
-    float norm = vol_user / 80.0f;
+    // Reescalar de 0–VOLUMEN_MAXIMO_USUARIO → 0–100 (perceptual)
+    float norm = vol_user / (float)VOLUMEN_MAXIMO_USUARIO;
     float scaled = log10f(1 + 9 * norm);  // log10(1) = 0, log10(10) = 1
     return (int)roundf(scaled * 100);
 }
@@ -238,18 +241,32 @@ static int map_volume_perceptual(int vol_user) {
 // ------------------------
 static void task_audio_commands(void *args){
     audio_cmd_t cmd;
-    static int volume = EXAMPLE_VOICE_VOLUME;
     while (1) {
         if (xQueueReceive(audio_event_queue, &cmd, portMAX_DELAY)) {
             ESP_LOGI("Audio_CMD_task:", "Comando recibido: %s", command_to_str(cmd));
             switch (cmd) {
                 case CMD_PLAY: // Llega un comando de PLAY
                     if (player_state == PLAYER_PAUSED || player_state == PLAYER_STOPPED ) {
+                        ESP_ERROR_CHECK(i2s_channel_enable(tx_handle));
+                        
+                        //VOLUMEN NORMAL
+                        if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                            perceptual_vol = map_volume_perceptual(volumen);
+                            es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
+                            xSemaphoreGive(volume_mutex);
+                        }
                         player_state = PLAYER_PLAYING;  // Reanuda. La task del audioplayer se encarga de reanudar lectura escritura
                         ESP_LOGI("Audio_CMD_task:", "Reanudar reproducción.");
                         xQueueSend(color_queue, &event_play, portMAX_DELAY); 
                         }else 
                         if (player_state == PLAYER_PLAYING){
+                            i2s_channel_disable(tx_handle);
+                            
+                            //BAJO VOLUMEN
+                            if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                                es8311_voice_volume_set(es_handle, 0, NULL);
+                                xSemaphoreGive(volume_mutex);
+                            }
                             player_state = PLAYER_PAUSED;
                             xQueueSend(color_queue, &event_pause, portMAX_DELAY); 
                             ESP_LOGI("Audio_CMD_task: ","Pausar reproducción.");
@@ -257,6 +274,12 @@ static void task_audio_commands(void *args){
                     break;
                 case CMD_PAUSE:
                     if (player_state == PLAYER_PLAYING) {
+                        i2s_channel_disable(tx_handle);
+                        //BAJO VOLUMEN
+                        if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                            es8311_voice_volume_set(es_handle, 0, NULL);
+                            xSemaphoreGive(volume_mutex);
+                        }
                         player_state = PLAYER_PAUSED;
                         xQueueSend(color_queue, &event_pause, portMAX_DELAY); 
                         ESP_LOGI("Audio_CMD_task: ","Pausar reproducción.");
@@ -265,27 +288,41 @@ static void task_audio_commands(void *args){
 
                 case CMD_STOP:
                     player_state = PLAYER_STOPPED;
+                    i2s_channel_disable(tx_handle);
+                    //BAJO VOLUMEN
+                    if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                        es8311_voice_volume_set(es_handle, 0, NULL);
+                        xSemaphoreGive(volume_mutex);
+                    }
                     xQueueSend(color_queue, &event_stop, portMAX_DELAY); 
                     break;
 
                 case CMD_NEXT:
                     last_cmd = CMD_NEXT;    // Lo maneja la task del reproductor
+                    player_state = PLAYER_STOPPED;
                     ESP_LOGI("Audio_CMD_task: ","Track siguiente");
                     break;
                 case CMD_PREV:
                     last_cmd = CMD_PREV;    // Lo maneja la task del reproductor
+                    player_state = PLAYER_STOPPED;
                     ESP_LOGI("Audio_CMD_task: ","Track anterior");
                     break;
                 case CMD_VOL_UP:
-                    if (volume < 100) volume += 10;
+                    volumen += 10;
+                    if (volumen > VOLUMEN_MAXIMO_USUARIO) {
+                        volumen = VOLUMEN_MAXIMO_USUARIO;
+                    }
                     if (es_handle && xSemaphoreTake(i2c_mutex, pdMS_TO_TICKS(50))) {
-                        int perceptual_vol = map_volume_perceptual(volume);
-                        esp_err_t err = es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
-                        if (err == ESP_OK) {
-                            ESP_LOGI("Audio_CMD_task: ", "VOL UP: volumen seteado a %d (perceptual: %d)", volume, perceptual_vol);
-                            int vol_check = -1;
-                            if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {
-                                ESP_LOGI("Audio_CMD_task: ", "VOL UP: volumen actual: %d", vol_check);
+                        if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                            perceptual_vol = map_volume_perceptual(volumen);
+                            esp_err_t err = es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
+                            xSemaphoreGive(volume_mutex);
+                            if (err == ESP_OK) {
+                                ESP_LOGI("Audio_CMD_task: ", "VOL UP: volumen seteado a %d (perceptual: %d)", volumen, perceptual_vol);
+                                int vol_check = -1;
+                                if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {
+                                    ESP_LOGI("Audio_CMD_task: ", "VOL UP: volumen actual: %d", vol_check);
+                                }
                             }
                         }
                         xSemaphoreGive(i2c_mutex);
@@ -293,15 +330,21 @@ static void task_audio_commands(void *args){
                     break;
 
                 case CMD_VOL_DOWN:
-                    if (volume > 0) volume -= 10;
+                    volumen -= 10;
+                    if (volumen < 0) {
+                        volumen = 0;
+                    }
                     if (es_handle && xSemaphoreTake(i2c_mutex, pdMS_TO_TICKS(50))) {
-                        int perceptual_vol = map_volume_perceptual(volume);
-                        esp_err_t err = es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
-                        if (err == ESP_OK) {
-                            ESP_LOGI("Audio_CMD_task", "VOL DOWN: volumen seteado a %d (perceptual: %d)", volume, perceptual_vol);
-                            int vol_check = -1;
-                            if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {
-                                ESP_LOGI("Audio_CMD_task", "VOL DOWN: volumen actual: %d", vol_check);
+                        if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                            perceptual_vol = map_volume_perceptual(volumen);
+                            esp_err_t err = es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
+                            xSemaphoreGive(volume_mutex);
+                            if (err == ESP_OK) {
+                                ESP_LOGI("Audio_CMD_task", "VOL DOWN: volumen seteado a %d (perceptual: %d)", volumen, perceptual_vol);
+                                int vol_check = -1;
+                                if (es8311_voice_volume_get(es_handle, &vol_check) == ESP_OK) {
+                                    ESP_LOGI("Audio_CMD_task", "VOL DOWN: volumen actual: %d", vol_check);
+                                }
                             }
                         }
                         xSemaphoreGive(i2c_mutex);
@@ -330,23 +373,36 @@ static void task_audio_player(void *args) {
                     if (!f) {
                         f = fopen(playlist[current_track], "r");
                         if (!f) {
-                            ESP_LOGE(TAG, "No se pudo abrir el archivo: %s", playlist[current_track]);
+                            ESP_LOGE("Audio PLAYER", "No se pudo abrir el archivo: %s", playlist[current_track]);
                             player_state = PLAYER_STOPPED;
                             break;
                         }
                         fseek(f, 44, SEEK_SET);
-                        ESP_LOGI(TAG, "Reproduciendo track %d", current_track);
-                        //ESP_ERROR_CHECK(i2s_channel_enable(tx_handle));
+                        ESP_LOGI("Audio PLAYER", "Reproduciendo track %d", current_track);
+                        //SUBO VOLUMEN AL ULTIMO VALOR
+                        
+                        
+                        if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                            perceptual_vol = map_volume_perceptual(volumen);
+                            es8311_voice_volume_set(es_handle, perceptual_vol, NULL);
+                            xSemaphoreGive(volume_mutex);
+                        }
+
                     }
+                    memset(buffer, 0, sizeof(buffer));  // Limpia el buffer antes de cada lectura
                     if ((read_bytes = fread(buffer, 1, sizeof(buffer), f)) > 0) {
                         esp_err_t err = i2s_channel_write(tx_handle, buffer, read_bytes, &bytes_written, portMAX_DELAY);
                         if (err != ESP_OK) {
-                            ESP_LOGE(TAG, "Error al escribir en I2S: 0x%x", err);
+                            ESP_LOGE("Audio PLAYER", "Error al escribir en I2S: 0x%x", err);
                         }
-                    } else {
+                    }else {
+                        //BAJO VOLUMEN
+                        if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
+                            es8311_voice_volume_set(es_handle, 0, NULL);
+                            xSemaphoreGive(volume_mutex);
+                        }
                         fclose(f);
                         f = NULL;
-                        //i2s_channel_disable(tx_handle);
                         current_track = (current_track + 1) % playlist_size;
                         player_state = PLAYER_PLAYING; // sigue en modo reproducción
                     }
@@ -363,13 +419,13 @@ static void task_audio_player(void *args) {
                     }
                     if (last_cmd == CMD_NEXT) {
                         current_track = (current_track + 1) % playlist_size;
-                        ESP_LOGI(TAG, "NEXT: track %d", current_track);
+                        ESP_LOGI("Audio PLAYER", "NEXT: track %d", current_track);
                         player_state = PLAYER_PLAYING;
                         last_cmd = CMD_PLAY;
                     }
                     if (last_cmd == CMD_PREV) {
                         current_track = (current_track - 1 + playlist_size) % playlist_size;
-                        ESP_LOGI(TAG, "PREV: track %d", current_track);
+                        ESP_LOGI("Audio PLAYER", "PREV: track %d", current_track);
                         player_state = PLAYER_PLAYING;
                         last_cmd = CMD_PLAY;
                     }
@@ -419,11 +475,13 @@ esp_err_t audio_player_init(void) {
     ESP_LOGI(TAG, "Inicializando driver I2S...");
     ESP_RETURN_ON_ERROR(i2s_driver_init(), TAG, "Fallo init I2S");
 
-    ESP_LOGI(TAG, "Inicializando canal I2S...");
-    ESP_ERROR_CHECK(i2s_channel_enable(tx_handle));
-
     ESP_LOGI(TAG, "Inicializando codec ES8311...");
     ESP_RETURN_ON_ERROR(es8311_codec_init(), TAG, "Fallo init codec");
+
+    volume_mutex = xSemaphoreCreateMutex();
+    if (volume_mutex == NULL) {
+        ESP_LOGE("Audio", "No se pudo crear el mutex de volumen");
+    }
 
     audio_event_queue = xQueueCreate(8, sizeof(audio_cmd_t));
     xTaskCreate(task_audio_commands, "task_audio_player", 4096, NULL, 7, NULL);
