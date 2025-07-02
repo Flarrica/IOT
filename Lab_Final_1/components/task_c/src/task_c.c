@@ -3,6 +3,8 @@
 
 static const char *TAG = "TASK_C";
 
+extern QueueHandle_t color_queue;
+
 typedef struct {
     led_rgb_evento_t color;
 } timer_info_t;
@@ -37,7 +39,7 @@ void task_c(void *pvParameters) {
     color_event_t cmd;
 
     while (1) {
-        if (xQueueReceive(command_queue, &cmd, portMAX_DELAY) == pdTRUE) {
+        if (xQueueReceive(color_queue, &cmd, portMAX_DELAY) == pdTRUE) {
 
             timer_info_t *info = malloc(sizeof(timer_info_t));
             if (info == NULL) {

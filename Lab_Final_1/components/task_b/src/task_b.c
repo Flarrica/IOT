@@ -1,4 +1,5 @@
 #include "task_b.h"
+#include "shared_lib.h"
 #include "led_rgb.h" // Para usar: led_rgb_string_to_color
 
 #define UART_PORT UART_NUM_0
@@ -6,6 +7,8 @@
 #define LINE_BUF_SIZE 64
 
 static const char *TAG = "TASK_B";
+
+extern QueueHandle_t color_queue;
 
 // Nueva tarea de lectura caracter a caracter
 void task_b(void *pvParameters) {
@@ -40,7 +43,7 @@ void task_b(void *pvParameters) {
                     cmd.color = led_rgb_string_to_color(color_str);
                     cmd.delay_seconds = delay_val;
 
-                    xQueueSend(command_queue, &cmd, portMAX_DELAY);
+                    xQueueSend(color_queue, &cmd, portMAX_DELAY);
                     ESP_LOGI("TaskB", "Comando encolado: %s, %lu", color_str, delay_val);
                 } else {
                     ESP_LOGW("TaskB", "Formato inválido: %s", line_buffer);
