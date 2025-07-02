@@ -1,8 +1,5 @@
-set(component_srcs "src/task_b.c")
-
 idf_component_register(
-                        SRCS "src/task_b.c"
-                        INCLUDE_DIRS "include"
-                        REQUIRES driver freertos shared_lib
-                    )
-
+    SRCS "src/task_b.c"
+    INCLUDE_DIRS "include"
+    REQUIRES esp_driver_uart freertos shared_lib
+)
