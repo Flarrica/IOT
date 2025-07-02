@@ -1,8 +1,13 @@
+#include <stdio.h>
 #include "web_service.h"
 #include "esp_http_server.h"
 #include "esp_log.h"
 #include "led_rgb.h"
+#include "audio_player.h"  // Asumiendo que ahí están los tipos y la cola
+#include "esp_spiffs.h"
 
+extern QueueHandle_t audio_cmd_queue;
+extern audio_state_t current_state;
 static int ultimo_evento_web = LED_EVENT_INVALIDO;
 static const char *TAG = "WEB_SERVER";
 static httpd_handle_t server = NULL;
@@ -119,6 +124,54 @@ esp_err_t led_handler(httpd_req_t *req) {
     }
     httpd_resp_send(req, "OK", HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
+}
+
+static esp_err_t audio_status_handler(httpd_req_t *req) {
+    const char *estado;
+
+    switch (current_state) {
+        case PLAYER_PLAYING: estado = "playing"; break;
+        case PLAYER_PAUSED:  estado = "paused"; break;
+        case PLAYER_STOPPED: estado = "stopped"; break;
+        default: estado = "unknown"; break;
+    }
+
+    httpd_resp_set_type(req, "application/json");
+    char buffer[64];  // Ajustá el tamaño si necesitás más
+    snprintf(buffer, sizeof(buffer), "{\"estado\":\"%s\"}", estado);
+    httpd_resp_sendstr(req, buffer);
+    return ESP_OK;
+}
+
+static esp_err_t audio_cmd_handler(httpd_req_t *req) {
+    char buf[64];
+    size_t len = httpd_req_get_url_query_len(req) + 1;
+
+    if (len > 1 && httpd_req_get_url_query_str(req, buf, len) == ESP_OK) {
+        char cmd_str[32];
+        if (httpd_query_key_value(buf, "cmd", cmd_str, sizeof(cmd_str)) == ESP_OK) {
+            audio_cmd_t cmd;
+
+            if (strcmp(cmd_str, "play") == 0) cmd = CMD_PLAY;
+            else if (strcmp(cmd_str, "pause") == 0) cmd = CMD_PAUSE;
+            else if (strcmp(cmd_str, "stop") == 0) cmd = CMD_STOP;
+            else if (strcmp(cmd_str, "next") == 0) cmd = CMD_NEXT;
+            else if (strcmp(cmd_str, "prev") == 0) cmd = CMD_PREV;
+            else if (strcmp(cmd_str, "volup") == 0) cmd = CMD_VOL_UP;
+            else if (strcmp(cmd_str, "voldown") == 0) cmd = CMD_VOL_DOWN;
+            else {
+                httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Comando inválido");
+                return ESP_FAIL;
+            }
+
+            xQueueSend(audio_cmd_queue, &cmd, 0);
+            httpd_resp_sendstr(req, "OK");
+            return ESP_OK;
+        }
+    }
+
+    httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Faltan parámetros");
+    return ESP_FAIL;
 }
 
 void web_service_inicializar(void) {
