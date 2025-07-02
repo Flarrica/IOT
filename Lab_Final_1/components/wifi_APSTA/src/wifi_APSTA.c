@@ -10,9 +10,13 @@
 
 
 static const char *TAG = "WIFI_APSTA";
+static TaskHandle_t wifi_task_handle = NULL;
+
+#define MAX_STA_RETRIES 3
+#define WIFI_NAMESPACE "wifi_config"
 static bool sta_connected = false;
 
-
+// Evento WiFi
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                                int32_t event_id, void *event_data) {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
@@ -25,6 +29,69 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
     }
 }
 
+// Lee las credenciales del NVS
+static bool nvs_leer_credenciales(char *ssid, char *password) {
+    nvs_handle_t nvs_handle;
+    esp_err_t err = nvs_open(WIFI_NAMESPACE, NVS_READONLY, &nvs_handle);
+    if (err != ESP_OK) return false;
+
+    size_t ssid_len = 32;
+    size_t pass_len = 64;
+
+    err = nvs_get_str(nvs_handle, "ssid", ssid, &ssid_len);
+    if (err != ESP_OK) {
+        nvs_close(nvs_handle);
+        return false;
+    }
+
+    err = nvs_get_str(nvs_handle, "pass", password, &pass_len);
+    nvs_close(nvs_handle);
+
+    return err == ESP_OK;
+}
+
+// Tarea de conexión STA (bloqueante, espera cambios)
+static void wifi_sta_task(void *param) {
+    char ssid[32];
+    char pass[64];
+
+    while (true) {
+        if (!nvs_leer_credenciales(ssid, pass)) {
+            ESP_LOGW(TAG, "Esperando credenciales en NVS...");
+            vTaskDelay(pdMS_TO_TICKS(5000));
+            continue;
+        }
+
+        wifi_config_t sta_config = {0};
+        strncpy((char *)sta_config.sta.ssid, ssid, sizeof(sta_config.sta.ssid));
+        strncpy((char *)sta_config.sta.password, pass, sizeof(sta_config.sta.password));
+
+        ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta_config));
+
+        for (int intentos = 0; intentos < MAX_STA_RETRIES; ++intentos) {
+            ESP_LOGI(TAG, "Intento de conexión STA (%d/3)...", intentos + 1);
+            esp_wifi_connect();
+
+            int wait = 0;
+            while (!sta_connected && wait++ < 20) {  // Espera hasta 2 segundos
+                vTaskDelay(pdMS_TO_TICKS(100));
+            }
+
+            if (sta_connected) {
+                ESP_LOGI(TAG, "Conexión STA exitosa.");
+                break;
+            } else {
+                ESP_LOGW(TAG, "Fallo en la conexión STA.");
+            }
+        }
+
+        if (!sta_connected) {
+            ESP_LOGE(TAG, "No se pudo conectar. Reintentando cuando haya nuevas credenciales...");
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(10000)); // Espera antes de reintentar o seguir conectado
+    }
+}
 
 void wifi_apsta_inicializar(void) {
     // Inicializar NVS de forma segura

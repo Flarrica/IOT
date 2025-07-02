@@ -62,7 +62,7 @@ void touch_polling_init(void)
     ESP_LOGI(TAG, "Inicializando touch polling");
 
      // 1. Reiniciar y re-inicializar touch_pad
-    touch_pad_deinit(); // Asegura estado limpio
+    //touch_pad_deinit(); // Asegura estado limpio
     ESP_ERROR_CHECK(touch_pad_init());
 
     // 2. Configurar tensión de referencia

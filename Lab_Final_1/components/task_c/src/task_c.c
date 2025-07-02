@@ -7,7 +7,7 @@ typedef struct {
     led_rgb_evento_t color;
 } timer_info_t;
 
-// ... justo antes del callback
+//antes del callback
 const char* color_to_string(led_rgb_evento_t color) {
     switch (color) {
         case LED_EVENT_ROJO:     return "Rojo";

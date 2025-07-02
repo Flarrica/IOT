@@ -50,23 +50,21 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     // Inicializamos NVS
-    /* PROBAMOS SIN ESTO
+    /*
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
         ESP_ERROR_CHECK(nvs_flash_init());
     }
-*/
+
     // Inicialización de red y eventos
-    //ESP_ERROR_CHECK(esp_netif_init());
-    //ESP_ERROR_CHECK(esp_event_loop_create_default());
-
-
-    
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    */
     // LED RGB
     led_rgb_inicializar();
 
- 
+
     // Delay para asegurar estabilidad antes del WiFi
     vTaskDelay(pdMS_TO_TICKS(1000));
 
@@ -74,9 +72,9 @@ void app_main(void)
     //wifi_apsta_inicializar();
 
     // Servidor web
-    //ESP_LOGI("MAIN", "Inicializando servidor web HTTP...");
+    ESP_LOGI("MAIN", "Inicializando servidor web HTTP...");
     //web_service_inicializar();
-    //ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
+    ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
 
     // Recursos compartidos
     
