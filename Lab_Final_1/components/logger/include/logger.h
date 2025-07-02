@@ -26,6 +26,7 @@ esp_err_t logger_init(void);
 esp_err_t logger_add_event(logger_event_type_t type);
 esp_err_t logger_get_all_events(logger_event_t *events, size_t max_events, size_t *actual_count);
 esp_err_t logger_clear_all(void);
+void logger_print_all(void);
 
 #ifdef __cplusplus
 }

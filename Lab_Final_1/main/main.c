@@ -16,6 +16,7 @@
 #include "web_service.h"
 #include "audio_player.h"
 #include "touch_buttons.h"
+#include "logger.h"
 
 void app_main(void)
 {
