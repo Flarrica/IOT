@@ -182,8 +182,10 @@ audio_state_t audio_player_get_state(void) {
 void audio_player_send_cmd(audio_cmd_t cmd) {
     if (audio_event_queue != NULL) {
         xQueueSend(audio_event_queue, &cmd, 0);
+
     } else {
         ESP_LOGW(TAG, "Cola de comandos no inicializada");
+        
     }
 }
 // ------------------------
