@@ -20,3 +20,9 @@ CONFIG_I2C_ENABLE_SLAVE_DRIVER_VERSION_2=y
 
 # Versión predeterminada de la Kaluga (solo una debe estar habilitada)
 CONFIG_KALUGA_VERSION_1_2=y
+
+# Desactivamos porque dan erores
+CONFIG_ESP_WIFI_ENABLE_WPA3_SAE=n
+CONFIG_ESP_WIFI_ENABLE_SAE_PK=n
+CONFIG_ESP_WIFI_SOFTAP_SAE_SUPPORT=n
+CONFIG_ESP_WIFI_ENABLE_WPA3_OWE_STA=n

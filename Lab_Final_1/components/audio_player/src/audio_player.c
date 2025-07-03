@@ -9,6 +9,7 @@
 #include <dirent.h>
 #include <string.h>
 #include <math.h>
+#include <stdio.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -31,6 +32,22 @@
 // ------------------------
 // DEFINES Y GLOBALES
 // ------------------------
+typedef struct __attribute__((packed)) {
+    char riff_id[4];
+    uint32_t riff_size;
+    char wave_id[4];
+    char fmt_id[4];
+    uint32_t fmt_size;
+    uint16_t audio_format;
+    uint16_t num_channels;
+    uint32_t sample_rate;
+    uint32_t byte_rate;
+    uint16_t block_align;
+    uint16_t bits_per_sample;
+    char data_id[4];
+    uint32_t data_size;
+} wav_header_t;
+
 static const char *TAG = "audio_player";
 
 #define MAX_PLAYLIST 10
@@ -212,6 +229,23 @@ audio_state_t audio_player_get_state(void) {
 }
 
 // ------------------------
+// LEEE HEADER DE WAV
+// ------------------------
+bool wav_read_header(FILE *f, wav_header_t *header) {
+    size_t read = fread(header, sizeof(wav_header_t), 1, f);
+    if (read != 1) return false;
+
+    if (memcmp(header->riff_id, "RIFF", 4) != 0 ||
+        memcmp(header->wave_id, "WAVE", 4) != 0 ||
+        memcmp(header->fmt_id, "fmt ", 4) != 0 ||
+        memcmp(header->data_id, "data", 4) != 0) {
+        return false;
+    }
+
+    return true;
+}
+
+// ------------------------
 // ENVIAR COMANDO A COLA DE AUDIO_PLAYER
 // ------------------------
 void audio_player_send_cmd(audio_cmd_t cmd) {
@@ -367,17 +401,29 @@ static void task_audio_player(void *args) {
     uint8_t buffer[512];
     size_t read_bytes;
     FILE *f = NULL;
+
+    wav_header_t header;
+    uint32_t remaining_bytes = 0;
+
     while (1) {
         switch (player_state) {
                 case PLAYER_PLAYING:
                     if (!f) {
+                        gpio_set_level(EXAMPLE_PA_CTRL_IO, 1);
                         f = fopen(playlist[current_track], "r");
                         if (!f) {
                             ESP_LOGE("Audio PLAYER", "No se pudo abrir el archivo: %s", playlist[current_track]);
                             player_state = PLAYER_STOPPED;
                             break;
                         }
-                        fseek(f, 44, SEEK_SET);
+                        if (!wav_read_header(f, &header)) {
+                            ESP_LOGE("Audio PLAYER", "Archivo WAV inválido: %s", playlist[current_track]);
+                            fclose(f);
+                            f = NULL;
+                            player_state = PLAYER_STOPPED;
+                            break;
+                        }
+                        remaining_bytes = header.data_size;
                         ESP_LOGI("Audio PLAYER", "Reproduciendo track %d", current_track);
                         //SUBO VOLUMEN AL ULTIMO VALOR
                         
@@ -390,17 +436,35 @@ static void task_audio_player(void *args) {
 
                     }
                     memset(buffer, 0, sizeof(buffer));  // Limpia el buffer antes de cada lectura
-                    if ((read_bytes = fread(buffer, 1, sizeof(buffer), f)) > 0) {
-                        esp_err_t err = i2s_channel_write(tx_handle, buffer, read_bytes, &bytes_written, portMAX_DELAY);
-                        if (err != ESP_OK) {
-                            ESP_LOGE("Audio PLAYER", "Error al escribir en I2S: 0x%x", err);
+                    if (remaining_bytes > 0) {
+                        size_t to_read = remaining_bytes > sizeof(buffer) ? sizeof(buffer) : remaining_bytes;
+                        read_bytes = fread(buffer, 1, to_read, f);
+                        if (read_bytes > 0) {
+                            remaining_bytes -= read_bytes;
+                            esp_err_t err = i2s_channel_write(tx_handle, buffer, read_bytes, &bytes_written, portMAX_DELAY);
+                            if (err != ESP_OK) {
+                                ESP_LOGE("Audio PLAYER", "Error al escribir en I2S: 0x%x", err);
+                            }
                         }
-                    }else {
+                    } else {
+                        // Reproduce 100 ms de silencio para evitar ruidos
+                        memset(buffer, 0, sizeof(buffer));
+                        int silencio_ms = 100;
+                        int bytes_por_muestra = header.bits_per_sample / 8;
+                        int total_muestras = (EXAMPLE_SAMPLE_RATE * silencio_ms) / 1000;
+                        int total_bytes = total_muestras * bytes_por_muestra;
+                        while (total_bytes > 0) {
+                            size_t chunk = total_bytes > sizeof(buffer) ? sizeof(buffer) : total_bytes;
+                            i2s_channel_write(tx_handle, buffer, chunk, &bytes_written, portMAX_DELAY);
+                            total_bytes -= chunk;
+                        }
+
                         //BAJO VOLUMEN
                         if (xSemaphoreTake(volume_mutex, portMAX_DELAY)) {
                             es8311_voice_volume_set(es_handle, 0, NULL);
                             xSemaphoreGive(volume_mutex);
                         }
+                        gpio_set_level(EXAMPLE_PA_CTRL_IO, 0);
                         fclose(f);
                         f = NULL;
                         current_track = (current_track + 1) % playlist_size;

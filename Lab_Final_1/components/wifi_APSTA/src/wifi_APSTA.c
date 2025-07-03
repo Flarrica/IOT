@@ -16,7 +16,9 @@ static TaskHandle_t wifi_task_handle = NULL;
 #define WIFI_NAMESPACE "wifi_config"
 static bool sta_connected = false;
 
-// Evento WiFi
+//------------------
+// Handler de WiFi
+//------------------
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                                int32_t event_id, void *event_data) {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
@@ -29,7 +31,9 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
     }
 }
 
+//-----------------------------
 // Lee las credenciales del NVS
+//-----------------------------
 static bool nvs_leer_credenciales(char *ssid, char *password) {
     nvs_handle_t nvs_handle;
     esp_err_t err = nvs_open(WIFI_NAMESPACE, NVS_READONLY, &nvs_handle);
@@ -50,7 +54,9 @@ static bool nvs_leer_credenciales(char *ssid, char *password) {
     return err == ESP_OK;
 }
 
-// Tarea de conexión STA (bloqueante, espera cambios)
+//-------------------
+//Tarea de conexión STA (bloqueante, espera cambios)
+//-------------------
 static void wifi_sta_task(void *param) {
     char ssid[32];
     char pass[64];
@@ -93,6 +99,9 @@ static void wifi_sta_task(void *param) {
     }
 }
 
+//-------------------
+//Inicializar WiFi
+//-------------------
 void wifi_apsta_inicializar(void) {
     // Inicializar NVS de forma segura
     esp_err_t ret = nvs_flash_init();
@@ -116,9 +125,9 @@ void wifi_apsta_inicializar(void) {
     // Configuración del punto de acceso
     wifi_config_t ap_config = {
         .ap = {
-            .ssid = "ESP32_AP",
-            .password = "12345678",
-            .ssid_len = strlen("ESP32_AP"),
+            .ssid = "Luis_AP",
+            .password = "1234",
+            .ssid_len = strlen("Luis_AP"),
             .max_connection = 4,
             .authmode = WIFI_AUTH_WPA_WPA2_PSK
         }
@@ -132,21 +141,28 @@ void wifi_apsta_inicializar(void) {
 
         }
     };
-
-    // Modo dual AP + STA y aplicación de configuraciones
+    
+    // Aplicamos configuración solo al AP
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_AP, &ap_config));
-    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta_config));
+
+    // Iniciar WiFi (en modo AP+STA)
     ESP_ERROR_CHECK(esp_wifi_start());
-    ESP_ERROR_CHECK(esp_wifi_connect());
+
+    // Lanzamos la tarea que intenta conectar al STA cuando haya credenciales
+    xTaskCreate(wifi_sta_task, "wifi_sta_task", 4096, NULL, 5, &wifi_task_handle);
 
     ESP_LOGI(TAG, "WiFi inicializado en modo AP+STA");
 }
+
 
 bool wifi_sta_conectado(void) { //Devuelve el estado de conexion
     return sta_connected;
 }
 
+//-------------------
+//Inicializar WiFi
+//-------------------
 void wifi_apsta_bucle(void) {
     // Falta esta parte
 }
