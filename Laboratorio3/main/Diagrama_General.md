@@ -1,4 +1,4 @@
-graph TD
+pathgraph TD
     A[INICIO app_main] --> B(Establecer nivel de logs para módulos específicos)
     B --> C(Inicializar TouchPad)
     C --> D(Inicializar LED RGB)

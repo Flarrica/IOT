@@ -29,7 +29,12 @@ void app_main(void)
     esp_log_level_set("ws2812", ESP_LOG_WARN);
     esp_log_level_set("LED_RGB", ESP_LOG_NONE);
     
+    ESP_LOGI("MAIN", "Semáforos, colas y recursos compartidos...");
+    inicializar_recursos_globales();
+    ESP_LOGI("MAIN", "Recursos compartidos. Ready!");
+    vTaskDelay(pdMS_TO_TICKS(1000));
     // Creamos semaforos
+
     i2c_mutex = xSemaphoreCreateMutex();
     io_mutex = xSemaphoreCreateMutex();
 
@@ -49,18 +54,10 @@ void app_main(void)
     // Delay para asegurar estabilidad antes del WiFi
     vTaskDelay(pdMS_TO_TICKS(1000));
 
-    // Inicializamos NVS
-    /*
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ESP_ERROR_CHECK(nvs_flash_init());
-    }
-
     // Inicialización de red y eventos
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    */
+    
     // LED RGB
     led_rgb_inicializar();
 
@@ -69,21 +66,19 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     // WiFi AP + STA
-    //wifi_apsta_inicializar();
+    wifi_apsta_inicializar();
 
     // Servidor web
     ESP_LOGI("MAIN", "Inicializando servidor web HTTP...");
-    //web_service_inicializar();
+    web_service_inicializar();
     ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
 
     // Recursos compartidos
     
-    ESP_LOGI("MAIN", "Semáforos, colas y recursos compartidos...");
-    inicializar_recursos_globales();
-    ESP_LOGI("MAIN", "Recursos compartidos. Ready!");
+    
     
     // Intentamos conectar WiFi antes de iniciar MQTT
-    /*
+    
     ESP_LOGI("MAIN", "Inicializando MQTT y su tarea...");
     int retries = 0;
     while (!wifi_sta_conectado() && retries < 5) {
@@ -97,7 +92,7 @@ void app_main(void)
     } else {
         ESP_LOGW("MAIN", "No hay WiFi STA. MQTT no se iniciará.");
     }
-    */
+    
     // Lanzamos tareas
     
     vTaskDelay(pdMS_TO_TICKS(500));
@@ -112,14 +107,7 @@ void app_main(void)
 
     xTaskCreate(task_touch, "task_touch", 2048, NULL, 7, NULL);
 
-
-    /* FORZAR COMANDOS de audio
-    vTaskDelay(pdMS_TO_TICKS(2000));
-    audio_player_send_cmd(CMD_PLAY);
-    vTaskDelay(pdMS_TO_TICKS(2000));
-    */
     while (true) {
-        //web_service_bucle();
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

@@ -1,6 +1,18 @@
 {
     "idf.openOcdConfigs": [
         "board/esp32s2-kaluga-1.cfg"
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     ],
     "idf.portWin": "COM12"
+=======
+    ]
+>>>>>>> Stashed changes
+=======
+    ]
+>>>>>>> Stashed changes
+=======
+    ]
+>>>>>>> Stashed changes
 }

@@ -1,0 +1,11 @@
+CMake Error at C:/Users/gasto/esp/v5.4.1/esp-idf/tools/cmake/build.cmake:318 (message):
+  Failed to resolve component 'esp_adc_cal' required by component
+  'esp_peripherals': unknown name.
+Call Stack (most recent call first):
+  C:/Users/gasto/esp/v5.4.1/esp-idf/tools/cmake/build.cmake:361 (__build_resolve_and_add_req)
+  C:/Users/gasto/esp/v5.4.1/esp-idf/tools/cmake/build.cmake:368 (__build_expand_requirements)
+  C:/Users/gasto/esp/v5.4.1/esp-idf/tools/cmake/build.cmake:665 (__build_expand_requirements)
+  C:/Users/gasto/esp/v5.4.1/esp-idf/tools/cmake/project.cmake:717 (idf_build_process)
+  CMakeLists.txt:7 (project)
+
+

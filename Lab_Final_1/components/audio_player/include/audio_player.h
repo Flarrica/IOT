@@ -10,10 +10,13 @@
 /* Configuraciones del reproductor de audio */
 
 #define EXAMPLE_RECV_BUF_SIZE    (2400)
-#define EXAMPLE_SAMPLE_RATE      (16000)
+#define EXAMPLE_SAMPLE_RATE      (8000)
 #define EXAMPLE_MCLK_MULTIPLE    (256) // 256 es suficiente si no se usa 24 bits por muestra
 #define EXAMPLE_MCLK_FREQ_HZ     (EXAMPLE_SAMPLE_RATE * EXAMPLE_MCLK_MULTIPLE)
-#define EXAMPLE_VOICE_VOLUME     70
+#define EXAMPLE_VOICE_VOLUME     75
+#define MAX_PLAYLIST 10
+#define MAX_FILENAME_LEN 255
+#define MAX_PATH_LEN (8 + MAX_FILENAME_LEN + 1)
 
 // Pin de control del amplificador (PA - Power Amplifier)
 #define EXAMPLE_PA_CTRL_IO       (GPIO_NUM_10)
@@ -44,6 +47,23 @@
 #define I2S_WS_IO    (GPIO_NUM_17)
 
 #endif /* !CONFIG_EXAMPLE_BSP */
+
+// Header de .WAV
+typedef struct __attribute__((packed)) {
+    char riff_id[4];
+    uint32_t riff_size;
+    char wave_id[4];
+    char fmt_id[4];
+    uint32_t fmt_size;
+    uint16_t audio_format;
+    uint16_t num_channels;
+    uint32_t sample_rate;
+    uint32_t byte_rate;
+    uint16_t block_align;
+    uint16_t bits_per_sample;
+    char data_id[4];
+    uint32_t data_size;
+} wav_header_t;
 
 /* Comandos de control de audio que pueden ser enviados por otras tareas */
 typedef enum {

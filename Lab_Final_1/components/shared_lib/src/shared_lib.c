@@ -10,16 +10,15 @@ SemaphoreHandle_t timer_done_semaphore = NULL;
 led_rgb_evento_t current_color = LED_EVENT_APAGAR;
 SemaphoreHandle_t i2c_mutex = NULL;
 QueueHandle_t io_mutex = NULL;
-
-QueueHandle_t command_queue = NULL;
+QueueHandle_t color_queue = NULL;
 
 void inicializar_recursos_globales(void) {
     color_semaphore = xSemaphoreCreateBinary();
     timer_done_semaphore = xSemaphoreCreateBinary();
-    command_queue = xQueueCreate(50, sizeof(color_event_t));
+    color_queue = xQueueCreate(50, sizeof(color_event_t));
 
     // Chequear que todo este inicializado y sino, dar ERROR
-    if (color_semaphore == NULL || timer_done_semaphore == NULL || command_queue == NULL) {
+    if (color_semaphore == NULL || timer_done_semaphore == NULL || color_queue == NULL) {
         ESP_LOGE("SHARED", "Error creando recursos globales");
         abort();
     }
