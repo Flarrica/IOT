@@ -9,7 +9,6 @@ extern int led_mode_web;
 
 // Inicialización del servidor y ciclo de control
 void web_service_inicializar(void);
-void web_service_bucle(void);
 
 // Handler HTTP para guardar credenciales desde el WebServer
 esp_err_t guardar_wifi_handler(httpd_req_t *req);

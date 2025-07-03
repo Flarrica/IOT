@@ -17,20 +17,20 @@
 
 #define BENCHMARK_INVALID_MAX 4194300
 #define BENCHMARK_MIN_VALID   1000
-#define THRESHOLD_RATIO       1.20f  // Umbral menos agresivo, más sensible
+#define THRESHOLD_RATIO       1.10f  //
 
 // Parámetros configurables para denoise
 #define TOUCH_DENOISE_GRADE       TOUCH_PAD_DENOISE_BIT4
-#define TOUCH_DENOISE_CAP_LEVEL   TOUCH_PAD_DENOISE_CAP_L5
+#define TOUCH_DENOISE_CAP_LEVEL   TOUCH_PAD_DENOISE_CAP_L2
 
 static bool touch_held[TOUCH_BUTTON_NUM] = {0};
 static uint32_t umbral_touch[TOUCH_BUTTON_NUM];
 
 static const touch_pad_t botones_touch[TOUCH_BUTTON_NUM] = {
     TOUCH_PAD_NUM2,   // TP2 - play/pause
+    TOUCH_PAD_NUM4,   // Guard sensor
     TOUCH_PAD_NUM11,  // TP3 - network
     TOUCH_PAD_NUM5,   // TP4 - record
-    TOUCH_PAD_NUM4,   // Guard sensor
     TOUCH_PAD_NUM1,   // TP5 - volume up
     TOUCH_PAD_NUM3    // TP6 - volume down
 

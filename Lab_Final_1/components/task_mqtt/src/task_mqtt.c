@@ -13,7 +13,7 @@
 
 #define TAG "TASK_MQTT"
 
-extern QueueHandle_t command_queue;  // declarada en shared_lib.h
+extern QueueHandle_t color_queue;  // declarada en shared_lib.h
 
 static void log_error_if_nonzero(const char *message, int error_code) {
     if (error_code != 0) {
@@ -53,7 +53,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 evt.color = led_rgb_string_to_color(color_json->valuestring);
                 evt.delay_seconds = (cJSON_IsNumber(delay_json)) ? delay_json->valueint : 0;
 
-                if (xQueueSend(command_queue, &evt, pdMS_TO_TICKS(100)) != pdPASS) {
+                if (xQueueSend(color_queue, &evt, pdMS_TO_TICKS(100)) != pdPASS) {
                     ESP_LOGW(TAG, "Cola llena, evento descartado");
                 } else {
                     ESP_LOGI(TAG, "Comando encolado desde MQTT: %s, %lu seg", color_json->valuestring, evt.delay_seconds);
