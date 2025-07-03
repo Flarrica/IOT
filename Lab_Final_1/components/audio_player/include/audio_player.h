@@ -7,6 +7,7 @@
 //#include "driver/gpio.h"
 #include "esp_err.h"
 
+
 /* Configuraciones del reproductor de audio */
 
 #define EXAMPLE_RECV_BUF_SIZE    (2400)

@@ -175,8 +175,22 @@ void wifi_apsta_inicializar(void) {
 }
 
 
-bool wifi_sta_conectado(void) { //Devuelve el estado de conexion
-    return sta_connected;
+bool wifi_sta_conectado(void) {
+    esp_netif_t* netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+    if (netif == NULL) return false;
+    esp_netif_ip_info_t ip_info;
+    if (esp_netif_get_ip_info(netif, &ip_info) == ESP_OK) {
+        return (ip_info.ip.addr != 0);
+    }
+    return false;
+}
+
+void wait_for_wifi(void) {
+    while (!wifi_sta_conectado()) {
+        ESP_LOGI("WIFI", "Esperando conexión Wi-Fi...");
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+    }
+    ESP_LOGI("WIFI", "Wi-Fi conectada, continuamos...");
 }
 
 //-------------------

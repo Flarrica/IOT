@@ -45,7 +45,6 @@ void app_main(void)
 
     //Inicializamos AUDIO antes de WiFi para solucionar errores (audio no reproducía por conflicto con WiFi)
     
-    
     ESP_LOGI("MAIN", "Inicializando audio...");
     ESP_LOGI("MAIN", "Inicializando audio...");
     if (audio_player_init() != ESP_OK) {
@@ -86,12 +85,6 @@ void app_main(void)
         ESP_LOGI("MAIN", "Esperando conexión WiFi... (%d)", retries);
         vTaskDelay(pdMS_TO_TICKS(500));
         retries++;
-    }
-    
-    if (wifi_sta_conectado()) {
-        iniciar_task_mqtt();
-    } else {
-        ESP_LOGW("MAIN", "No hay WiFi STA. MQTT no se iniciará.");
     }
     
     // Lanzamos tareas
