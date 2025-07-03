@@ -166,7 +166,6 @@ void web_service_inicializar(void) {
     config.max_uri_handlers = 8;
     config.recv_wait_timeout = 10;
     config.lru_purge_enable = true;
-    config.max_req_hdr_len = 1024;
 
     // Tuvimos problemas de header asi que aumentamos tamaños
     config.stack_size = 8192;            // Aumentamos stack por seguridad

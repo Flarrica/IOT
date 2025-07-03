@@ -150,7 +150,7 @@ void touch_polling_bucle(void)
             (comandos_touch[i] == CMD_VOL_DOWN) ? "CMD_VOL_DOWN" :
             "DESCONOCIDO"
 );
-            esp_rom_delay_us(150000);
+            //esp_rom_delay_us(150000);
         }
         else if (!pressed && touch_held[i]) {
             touch_held[i] = false;
@@ -162,6 +162,6 @@ void task_touch(void *pvParameters)
 {
     while (1) {
         touch_polling_bucle();
-        vTaskDelay(pdMS_TO_TICKS(500));
+        vTaskDelay(pdMS_TO_TICKS(250));
     }
 }
