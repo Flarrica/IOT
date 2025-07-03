@@ -1,5 +1,5 @@
 # Dirección del broker MQTT
-CONFIG_BROKER_URL="mqtt://192.168.1.100:1883"
+CONFIG_BROKER_URL="mqtt://broker.hivemq.com"
 
 # Activar uso de archivo CSV personalizado de particiones
 CONFIG_PARTITION_TABLE_CUSTOM=y

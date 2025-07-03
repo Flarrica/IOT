@@ -1,0 +1,108 @@
+[1/6] cd /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/esp-idf/esptool_py && /Users/marcosgiombini/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/partition_table/partition-table.bin /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/lab_final_1.bin
+lab_final_1.bin binary size 0xef550 bytes. Smallest app partition is 0x200000 bytes. 0x110ab0 bytes (53%) free.
+[2/6] Performing build step for 'bootloader'
+[1/1] cd /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/bootloader/esp-idf/esptool_py && /Users/marcosgiombini/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/bootloader/bootloader.bin
+Bootloader binary size 0x5540 bytes. 0x1ac0 bytes (24%) free.
+[3/6] cd /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/esp-idf/main && /Users/marcosgiombini/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/spiffs/spiffsgen.py 0x100000 /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/spiffs /Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build/spiffs.bin --page-size=256 --obj-name-len=32 --meta-len=4 --use-magic --use-magic-len
+[4/6] No install step for 'bootloader'
+[5/6] Completed 'bootloader'
+[5/6] cd /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esptool_py && /opt/homebrew/bin/cmake -D IDF_PATH=/Users/marcosgiombini/esp/v5.4.1/esp-idf -D "SERIAL_TOOL=/Users/marcosgiombini/.espressif/python_env/idf5.4_py3.13_env/bin/python;;/Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32s2" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/marcosgiombini/Documents/GitHub/IOT/Lab_Final_1/build -P /Users/marcosgiombini/esp/v5.4.1/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32s2 -p /dev/cu.usbserial-11301 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 lab_final_1.bin 0x8000 partition_table/partition-table.bin 0x210000 spiffs.bin
+esptool.py v4.8.1
+Serial port /dev/cu.usbserial-11301
+Connecting....
+Chip is ESP32-S2 (revision v0.0)
+Features: WiFi, No Embedded Flash, No Embedded PSRAM, ADC and temperature sensor calibration in BLK2 of efuse V1
+Crystal is 40MHz
+MAC: 7c:df:a1:0e:37:8e
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00006fff...
+Flash will be erased from 0x00010000 to 0x000fffff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x00210000 to 0x0030ffff...
+SHA digest in image updated
+Compressed 21824 bytes to 13808...
+Writing at 0x00001000... (100 %)
+Wrote 21824 bytes (13808 compressed) at 0x00001000 in 0.7 seconds (effective 265.9 kbit/s)...
+Hash of data verified.
+Compressed 980304 bytes to 608874...
+Writing at 0x00010000... (2 %)
+Writing at 0x0001ce17... (5 %)
+Writing at 0x00029630... (7 %)
+Writing at 0x00032aad... (10 %)
+Writing at 0x0003b4c1... (13 %)
+Writing at 0x000415fb... (15 %)
+Writing at 0x000471dd... (18 %)
+Writing at 0x0004d146... (21 %)
+Writing at 0x00052f32... (23 %)
+Writing at 0x00058fa7... (26 %)
+Writing at 0x0005f44b... (28 %)
+Writing at 0x000658e1... (31 %)
+Writing at 0x0006b7e2... (34 %)
+Writing at 0x000714f2... (36 %)
+Writing at 0x000778cd... (39 %)
+Writing at 0x0007d75b... (42 %)
+Writing at 0x000836ad... (44 %)
+Writing at 0x0008878f... (47 %)
+Writing at 0x0008d6b9... (50 %)
+Writing at 0x00092afc... (52 %)
+Writing at 0x00097f40... (55 %)
+Writing at 0x0009d0d0... (57 %)
+Writing at 0x000a227c... (60 %)
+Writing at 0x000a813f... (63 %)
+Writing at 0x000addae... (65 %)
+Writing at 0x000b36e2... (68 %)
+Writing at 0x000b93e0... (71 %)
+Writing at 0x000bf106... (73 %)
+Writing at 0x000c48c1... (76 %)
+Writing at 0x000ca69c... (78 %)
+Writing at 0x000d003f... (81 %)
+Writing at 0x000d565e... (84 %)
+Writing at 0x000dc061... (86 %)
+Writing at 0x000e6917... (89 %)
+Writing at 0x000ece36... (92 %)
+Writing at 0x000f2dad... (94 %)
+Writing at 0x000f91a3... (97 %)
+Writing at 0x000fe2f0... (100 %)
+Wrote 980304 bytes (608874 compressed) at 0x00010000 in 14.6 seconds (effective 536.8 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 118...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (118 compressed) at 0x00008000 in 0.1 seconds (effective 384.0 kbit/s)...
+Hash of data verified.
+Compressed 1048576 bytes to 403602...
+Writing at 0x00210000... (4 %)
+Writing at 0x002154c8... (8 %)
+Writing at 0x0021a6c3... (12 %)
+Writing at 0x0021fb1a... (16 %)
+Writing at 0x00224c5d... (20 %)
+Writing at 0x00229e7d... (24 %)
+Writing at 0x0022efc8... (28 %)
+Writing at 0x00233cf8... (32 %)
+Writing at 0x00238aa5... (36 %)
+Writing at 0x0023d806... (40 %)
+Writing at 0x0024248f... (44 %)
+Writing at 0x00246fec... (48 %)
+Writing at 0x0024bb4e... (52 %)
+Writing at 0x00250718... (56 %)
+Writing at 0x00255375... (60 %)
+Writing at 0x00259f85... (64 %)
+Writing at 0x0025ec5a... (68 %)
+Writing at 0x00263986... (72 %)
+Writing at 0x002686f1... (76 %)
+Writing at 0x0026d3f8... (80 %)
+Writing at 0x00271b03... (84 %)
+Writing at 0x00276292... (88 %)
+Writing at 0x0027a7ff... (92 %)
+Writing at 0x0027ef1d... (96 %)
+Writing at 0x00283842... (100 %)
+Wrote 1048576 bytes (403602 compressed) at 0x00210000 in 10.9 seconds (effective 767.5 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
