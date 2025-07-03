@@ -26,6 +26,7 @@
 #include "driver/i2s_std.h"
 #include "driver/gpio.h"
 #include "es8311.h"
+#include "logger.h"
 
 #include "esp_spiffs.h"
 
@@ -294,6 +295,25 @@ bool wav_read_header(FILE *f, wav_header_t *header) {
 void audio_player_send_cmd(audio_cmd_t cmd) {
     if (audio_event_queue != NULL) {
         xQueueSend(audio_event_queue, &cmd, 0);
+        switch (cmd) {
+        case CMD_PLAY:
+            logger_add_event(LOGGER_EVENT_PLAY);
+            break;
+        case CMD_PAUSE:
+            logger_add_event(LOGGER_EVENT_PAUSE);
+            break;
+        case CMD_STOP:
+            logger_add_event(LOGGER_EVENT_STOP);
+            break;
+        case CMD_NEXT:
+            logger_add_event(LOGGER_EVENT_NEXT);
+            break;
+        case CMD_PREV:
+            logger_add_event(LOGGER_EVENT_PREVIOUS);
+            break;
+        default:
+            break;
+    }
 
     } else {
         ESP_LOGW(TAG, "Cola de comandos no inicializada");
