@@ -87,42 +87,42 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 ESP_LOGI(TAG, "Received 'play' command");
                 // Iniciar la reproducción de música
                 audio_player_send_cmd(CMD_PLAY);
-               // strcpy(estado_reproductor.estado, "reproduciendo");
-              //  publicar_estado_reproductor(client, estado_reproductor);
+                strcpy(estado_reproductor.estado, "reproduciendo");
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "pause", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'pause' command");
                 // Pausar la reproducción de música
                 audio_player_send_cmd(CMD_STOP);
-               // strcpy(estado_reproductor.estado, "pausado");
-               // publicar_estado_reproductor(client, estado_reproductor);
+                strcpy(estado_reproductor.estado, "pausado");
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "next", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'next' command");
                 // Ir a la siguiente canción
                 audio_player_send_cmd(CMD_NEXT);
-              //  publicar_estado_reproductor(client, estado_reproductor);
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "previous", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'previous' command");
                 // Ir a la canción anterior
                 audio_player_send_cmd(CMD_PREV);
-              //  publicar_estado_reproductor(client, estado_reproductor);
+                publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "volume_up", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'volume_up' command");
                 // Aumentar el volumen
                 audio_player_send_cmd(CMD_VOL_UP);
-              //  estado_reproductor.volumen += 10;
-              //    if (estado_reproductor.volumen > 100) {
-               //       estado_reproductor.volumen = 100;
-               //    }
-              //  publicar_estado_reproductor(client, estado_reproductor);
+                estado_reproductor.volumen += 10;
+                    if (estado_reproductor.volumen > 100) {
+                     estado_reproductor.volumen = 100;
+                  }
+              publicar_estado_reproductor(client, estado_reproductor);
             } else if (strncmp(event->data, "volume_down", event->data_len) == 0) {
                 ESP_LOGI(TAG, "Received 'volume_down' command");
                 // Disminuir el volumen
                 audio_player_send_cmd(CMD_VOL_DOWN);
-             //   estado_reproductor.volumen -= 10;
-             //      if (estado_reproductor.volumen < 0) {
-             //          estado_reproductor.volumen = 0;
-              //       }
-             //   publicar_estado_reproductor(client, estado_reproductor);
+                 estado_reproductor.volumen -= 10;
+                    if (estado_reproductor.volumen < 0) {
+                         estado_reproductor.volumen = 0;
+                   }
+                publicar_estado_reproductor(client, estado_reproductor);
             } else {
                 ESP_LOGW(TAG, "Unknown command received: %.*s", event->data_len, event->data);
             }
