@@ -29,13 +29,20 @@ void app_main(void)
     esp_log_level_set("*", ESP_LOG_INFO);
     esp_log_level_set("ws2812", ESP_LOG_WARN);
     esp_log_level_set("LED_RGB", ESP_LOG_NONE);
+
+    // Inicialización básica del sistema
+    ESP_ERROR_CHECK(nvs_flash_init());
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
     
+
+    //Recursos globales ("shared_lib.h")
     ESP_LOGI("MAIN", "Semáforos, colas y recursos compartidos...");
     inicializar_recursos_globales();
     ESP_LOGI("MAIN", "Recursos compartidos. Ready!");
     vTaskDelay(pdMS_TO_TICKS(1000));
-    // Creamos semaforos
 
+    // Creamos semaforos
     i2c_mutex = xSemaphoreCreateMutex();
     io_mutex = xSemaphoreCreateMutex();
 
@@ -44,8 +51,6 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     //Inicializamos AUDIO antes de WiFi para solucionar errores (audio no reproducía por conflicto con WiFi)
-    
-    ESP_LOGI("MAIN", "Inicializando audio...");
     ESP_LOGI("MAIN", "Inicializando audio...");
     if (audio_player_init() != ESP_OK) {
         ESP_LOGE("MAIN", "Fallo al inicializar audio");
@@ -53,10 +58,6 @@ void app_main(void)
     
     // Delay para asegurar estabilidad antes del WiFi
     vTaskDelay(pdMS_TO_TICKS(1000));
-
-    // Inicialización de red y eventos
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
     
     // LED RGB
     led_rgb_inicializar();
@@ -67,25 +68,12 @@ void app_main(void)
 
     // WiFi AP + STA
     wifi_apsta_inicializar();
+    vTaskDelay(pdMS_TO_TICKS(1000));
 
     // Servidor web
     ESP_LOGI("MAIN", "Inicializando servidor web HTTP...");
     web_service_inicializar();
     ESP_LOGI("MAIN", "Servidor HTTP. Ready!");
-
-    // Recursos compartidos
-    
-    
-    
-    // Intentamos conectar WiFi antes de iniciar MQTT
-    
-    ESP_LOGI("MAIN", "Inicializando MQTT y su tarea...");
-    int retries = 0;
-    while (!wifi_sta_conectado() && retries < 5) {
-        ESP_LOGI("MAIN", "Esperando conexión WiFi... (%d)", retries);
-        vTaskDelay(pdMS_TO_TICKS(500));
-        retries++;
-    }
     
     // Lanzamos tareas
     
@@ -100,6 +88,11 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(500));
 
     xTaskCreate(task_touch, "task_touch", 2048, NULL, 7, NULL);
+    vTaskDelay(pdMS_TO_TICKS(500));
+    // Intentamos conectar WiFi antes de iniciar MQTT. Ponemos al final para que no se interfiera cono init de MQTT
+    ESP_LOGI("MAIN", "Crea task WiFi STA e inicializador MQTT...");
+    vTaskDelay(pdMS_TO_TICKS(500));
+    xTaskCreate(wifi_sta_task, "wifi_sta_task", 2048, NULL, 4, NULL);
 
     while (true) {
         vTaskDelay(pdMS_TO_TICKS(10));
