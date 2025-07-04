@@ -193,6 +193,75 @@ void wait_for_wifi(void) {
     ESP_LOGI("WIFI", "Wi-Fi conectada, continuamos...");
 }
 
+static void wifi_sta_mqtt_task(void *param) {
+    char ssid[32];
+    char pass[64];
+
+    while (true) {
+        // ⚠️ Si ya estás conectado, no hagas nada
+        if (wifi_sta_conectado()) {
+            vTaskDelay(pdMS_TO_TICKS(10000));
+            continue;
+        }
+
+        // 1. Esperar credenciales válidas en NVS
+        if (!nvs_leer_credenciales(ssid, pass)) {
+            ESP_LOGW(TAG, "Esperando credenciales en NVS...");
+            vTaskDelay(pdMS_TO_TICKS(5000));
+            continue;
+        }
+
+        // 2. Cargar configuración Wi-Fi STA
+        wifi_config_t sta_config = {0};
+        strncpy((char *)sta_config.sta.ssid, ssid, sizeof(sta_config.sta.ssid));
+        strncpy((char *)sta_config.sta.password, pass, sizeof(sta_config.sta.password));
+        ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta_config));
+
+        // 3. Intentar conexión con reintentos
+        for (int intentos = 0; intentos < MAX_STA_RETRIES; ++intentos) {
+            ESP_LOGI(TAG, "Intento de conexión STA (%d/%d)...", intentos + 1, MAX_STA_RETRIES);
+            esp_wifi_connect();
+
+            int wait = 0;
+            while (!sta_connected && wait++ < 20) {  // Espera hasta 2 segundos
+                vTaskDelay(pdMS_TO_TICKS(100));
+            }
+
+            if (sta_connected) {
+                ESP_LOGI(TAG, "Conexión STA exitosa.");
+                break;
+            } else {
+                ESP_LOGW(TAG, "Fallo en la conexión STA.");
+            }
+        }
+
+        if (!sta_connected) {
+            ESP_LOGE(TAG, "No se pudo conectar. Reintentando cuando haya nuevas credenciales...");
+            vTaskDelay(pdMS_TO_TICKS(10000));
+            continue;
+        }
+
+        // 4. Espera activa hasta obtener IP válida
+        ESP_LOGI(TAG, "Esperando asignación de IP...");
+        while (!wifi_sta_conectado()) {
+            vTaskDelay(pdMS_TO_TICKS(500));
+        }
+
+        // 5. Delay de estabilidad antes de iniciar MQTT
+        vTaskDelay(pdMS_TO_TICKS(2000));
+
+        // 6. Inicializar cliente MQTT
+        ESP_LOGI(TAG, "Inicializando cliente MQTT...");
+        mqtt_iniciar();
+
+        // 7. Esperar mientras esté conectado
+        while (wifi_sta_conectado()) {
+            vTaskDelay(pdMS_TO_TICKS(10000));
+        }
+
+        ESP_LOGW(TAG, "Se perdió la conexión STA. Reintentando...");
+    }
+}
 //-------------------
 //Inicializar WiFi
 //-------------------
