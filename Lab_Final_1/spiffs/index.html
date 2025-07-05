@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ESP32 Audio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; background: #202020; color: #eee; text-align: center; padding: 1em; }
+
+    h1 { color: #1abc9c; font-size: 24px; }
+    h2.subtitulo { font-size: 18px; margin-top: 3em; }
+
+    .panel {
+      background: #2a2a2a;
+      padding: 1em;
+      margin: 1.5em auto;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .estado {
+      font-weight: bold;
+      margin: 1em;
+      padding: 0.5em;
+      border-radius: 8px;
+    }
+
+    .verde { background: #2ecc71; }
+    .rojo  { background: #e74c3c; }
+    .azul  { background: #3498db; }
+
+    .fila { margin: 1em 0; }
+
+    button {
+      margin: 0.5em;
+      padding: 0.5em 1em;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background: #444;
+      color: #fff;
+    }
+
+    button:hover { background: #666; }
+
+    form { margin-top: 1em; }
+
+    input[type=text], input[type=password] {
+      padding: 0.5em;
+      width: 80%;
+      margin: 0.5em 0;
+      background: #2a2a2a;
+      color: #aaa;
+      border: none;
+      border-radius: 6px;
+    }
+
+    input[type=text]:focus, input[type=password]:focus {
+      color: #fff;
+      outline: none;
+      background: #3a3a3a;
+    }
+
+    input[type=submit] {
+      background: #1abc9c;
+      border: none;
+      padding: 0.5em 1em;
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    input[type=submit]:hover {
+      background: #16a085;
+    }
+  </style>
+</head>
+<body>
+
+<h1>⚡🎸Audio_Player🎸⚡</h1>
+
+<div class="panel">
+  <div id="estado" class="estado rojo">STOPPED</div>
+
+  <!-- Fila 1 -->
+  <div class="fila">
+    <button onclick="sendCmd('prev')">⏮️</button>
+    <button onclick="togglePlayPause()">⏯️</button>
+    <button onclick="sendCmd('stop')">⏹️</button>
+    <button onclick="sendCmd('next')">⏭️</button>
+  </div>
+
+  <!-- Fila 2 -->
+  <div class="fila">
+    <button onclick="sendCmd('voldown')">🔽 Vol</button>
+    <button onclick="sendCmd('volup')">🔼 Vol</button>
+  </div>
+</div>
+
+<h2 class="subtitulo">🛜 Wi-Fi / 🌐 MQTT</h2>
+
+<div class="panel">
+  <form onsubmit="guardarWiFi(event)">
+    <input type="text" id="ssid" placeholder="SSID" required><br>
+    <input type="password" id="pass" placeholder="Contraseña" required><br>
+    <input type="text" id="mqtt_url" value="mqtt://broker.hivemq.com" placeholder="mqtt://broker.hivemq.com" required><br>
+    <input type="submit" value="Guardar y Conectar">
+  </form>
+</div>
+
+<script>
+  let estadoActual = "stopped";
+  let estadoAnterior = "stopped";
+  let esperandoCambioDeEstado = false;
+
+  function sendCmd(cmd) {
+    fetch("/cmd?cmd=" + cmd, { credentials: 'omit' })
+      .then(r => console.log("Comando enviado:", cmd));
+  }
+
+  function togglePlayPause() {
+    if (esperandoCambioDeEstado) {
+      console.log("Esperando cambio de estado... Ignorando click.");
+      return;
+    }
+
+    if (estadoActual === "playing") {
+      sendCmd("pause");
+    } else {
+      sendCmd("play");
+    }
+
+    esperandoCambioDeEstado = true;
+  }
+
+  function actualizarEstado() {
+    fetch("/status", { credentials: 'omit' })
+      .then(r => r.json())
+      .then(data => {
+        estadoAnterior = estadoActual;
+        estadoActual = data.estado || "unknown";
+
+        const div = document.getElementById("estado");
+        div.textContent = estadoActual.toUpperCase();
+        div.className = "estado " + (
+          estadoActual === "playing" ? "verde" :
+          estadoActual === "paused"  ? "azul" :
+          "rojo"
+        );
+
+        if (estadoActual !== estadoAnterior) {
+          esperandoCambioDeEstado = false;
+        }
+      });
+  }
+
+  function guardarWiFi(e) {
+    e.preventDefault();
+    const ssid = document.getElementById("ssid").value;
+    const pass = document.getElementById("pass").value;
+    const mqtt = document.getElementById("mqtt_url").value;
+
+    const body = `ssid=${encodeURIComponent(ssid)}&pass=${encodeURIComponent(pass)}&mqtt_url=${mqtt}`;
+    fetch("/guardar_wifi", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body,
+      credentials: "omit"
+    })
+    .then(r => r.text())
+    .then(html => document.body.innerHTML = html)
+    .catch(err => alert("Error al enviar: " + err));
+  }
+
+  setInterval(actualizarEstado, 2000);
+  window.onload = actualizarEstado;
+</script>
+
+</body>
+</html>

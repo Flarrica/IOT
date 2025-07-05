@@ -6,7 +6,16 @@
 #include "led_rgb.h"
 #include "audio_player.h"
 
-// Variables compartidas
+// --- Constantes
+#define WIFI_NAMESPACE "wifi_config"
+
+// --- Estructuras
+typedef struct {
+    char ssid[24];
+    char password[32];
+} wifi_credentials_t;
+
+// --- Variables compartidas
 extern SemaphoreHandle_t color_semaphore;
 extern SemaphoreHandle_t timer_done_semaphore;
 extern led_rgb_evento_t current_color;
@@ -19,5 +28,13 @@ extern QueueHandle_t audio_event_queue;
 
 // Función de inicialización
 void inicializar_recursos_globales(void);
+
+// --- Funciones de credenciales WiFi
+bool wifi_credentials_guardar(const wifi_credentials_t *cred);
+bool wifi_credentials_leer(wifi_credentials_t *cred);
+bool wifi_credentials_validas(const wifi_credentials_t *cred);
+
+// MONTAJE DE SPIFFS
+esp_err_t spiffs_init(void);
 
 #endif // SHARED_LIB_H_

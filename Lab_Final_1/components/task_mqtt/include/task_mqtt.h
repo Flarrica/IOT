@@ -1,32 +1,28 @@
 #ifndef TASK_MQTT_H
 #define TASK_MQTT_H
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stddef.h>
-#include <string.h>
-#include "esp_system.h"
-#include "esp_event.h"
-#include "esp_netif.h"
-#include "esp_log.h"
+#include "esp_err.h"
 #include "mqtt_client.h"
-#include "cJSON.h"
 
-//Definir los tópicos
+// Tópicos MQTT
 #define TOPIC_CONTROL "/control/reproduccion"
-#define TOPIC_ESTADO "/estado/reproductor"
-#define TOPIC_LOG   "/log/eventos"
+#define TOPIC_ESTADO  "/estado/reproductor"
+#define TOPIC_LOG     "/log/eventos"
 
-// Estructura para el estado del reproductor
+// Estructura del estado del reproductor
 typedef struct {
-    char estado[20];       // "reproduciendo", "pausado", "detenido"
-    int volumen;            // 0-100
-    char cancion[100];      // Nombre de la canción actual
+    char estado[32];
+    int volumen;
+    char cancion[64];
 } reproductor_estado_t;
 
-// Prototipos de las funciones
+// Estado global del reproductor
+extern reproductor_estado_t estado_reproductor;
+
+// Funciones públicas
 esp_err_t task_mqtt_start(void *handler_args);
-esp_err_t task_mqtt_publish_estado_reproductor(esp_mqtt_client_handle_t client, reproductor_estado_t estado);
+esp_err_t mqtt_guardar_url(const char *url);
+esp_err_t mqtt_leer_url(char *dest, size_t max_len);
 void publicar_estado_reproductor(esp_mqtt_client_handle_t client, reproductor_estado_t estado);
 
-#endif
+#endif // TASK_MQTT_H

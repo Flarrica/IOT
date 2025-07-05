@@ -118,30 +118,7 @@ int track_get(void) {
     return track;
 }
 
-// ------------------------
-// MONTAJE DE SPIFFS
-// ------------------------
 
-esp_err_t spiffs_init(void) {
-    esp_vfs_spiffs_conf_t conf = {
-        .base_path = "/spiffs",
-        .partition_label = "spiffs",
-        .max_files = 10,
-        .format_if_mount_failed = false
-    };
-
-    ESP_RETURN_ON_ERROR(esp_vfs_spiffs_register(&conf), TAG, "Fallo al montar SPIFFS");
-
-    size_t total = 0, used = 0;
-    esp_err_t info_ret = esp_spiffs_info("spiffs", &total, &used);
-    if (info_ret == ESP_OK) {
-        ESP_LOGI(TAG, "SPIFFS montado: %d KB totales, %d KB usados", total / 1024, used / 1024);
-    } else {
-        ESP_LOGW(TAG, "No se pudo obtener información de SPIFFS (err=0x%x)", info_ret);
-    }
-
-    return ESP_OK;
-}
 
 // ------------------------
 // MAPEO LOGARITMICO DE VOLUMEN
@@ -573,4 +550,13 @@ esp_err_t audio_player_init(void) {
     ESP_LOGI(TAG, "Amplificador de potencia habilitado (GPIO10 en HIGH)");
 
     return ESP_OK;
+}
+
+const char *audio_state_to_str(audio_state_t estado) {
+    switch (estado) {
+        case PLAYER_STOPPED: return "detenido";
+        case PLAYER_PLAYING: return "reproduciendo";
+        case PLAYER_PAUSED:  return "pausado";
+        default: return "desconocido";
+    }
 }
