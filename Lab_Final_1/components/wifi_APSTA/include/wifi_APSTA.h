@@ -4,8 +4,6 @@
 
 void wifi_apsta_inicializar(void);
 
-void wifi_apsta_bucle(void);
-
 void wifi_sta_task(void *param);
 
 #endif

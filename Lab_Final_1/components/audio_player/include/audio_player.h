@@ -99,5 +99,5 @@ extern QueueHandle_t audio_event_queue;
 /* Declaraciones públicas del reproductor de audio */
 esp_err_t audio_player_init(void);
 
-
+const char *audio_state_to_str(audio_state_t estado);
 #endif // AUDIO_PLAYER_H
