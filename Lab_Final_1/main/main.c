@@ -18,6 +18,8 @@
 #include "touch_buttons.h"
 #include "logger.h"
 #include "ntp.h"
+#include "esp_sntp.h"
+#include "esp_system.h"
 
 void app_main(void)
 {

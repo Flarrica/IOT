@@ -100,4 +100,8 @@ extern QueueHandle_t audio_event_queue;
 esp_err_t audio_player_init(void);
 
 const char *audio_state_to_str(audio_state_t estado);
+
+int audio_player_get_volume(void);
+const char* audio_player_get_song(void);
+
 #endif // AUDIO_PLAYER_H

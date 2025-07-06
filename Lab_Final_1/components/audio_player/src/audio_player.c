@@ -560,3 +560,22 @@ const char *audio_state_to_str(audio_state_t estado) {
         default: return "desconocido";
     }
 }
+
+int audio_player_get_volume(void) {
+    return volumen;
+}
+
+const char* audio_player_get_song(void) {
+    static char nombre_simple[64];
+    const char *ruta = playlist[track_get()];
+
+    // Extrae solo el nombre del archivo (sin el path "/spiffs/")
+    const char *nombre = strrchr(ruta, '/');
+    if (nombre) {
+        strncpy(nombre_simple, nombre + 1, sizeof(nombre_simple) - 1);
+        nombre_simple[sizeof(nombre_simple) - 1] = '\0';
+        return nombre_simple;
+    } else {
+        return "Desconocida";
+    }
+}

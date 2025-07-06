@@ -15,6 +15,7 @@
 #include "nvs.h"
 #include "inttypes.h"
 #include "audio_player.h"
+#include "esp_sntp.h"
 
 static const char *TAG = "task_mqtt";
 static esp_mqtt_client_handle_t client = NULL;
@@ -62,10 +63,13 @@ void publicar_estado_reproductor(esp_mqtt_client_handle_t client, reproductor_es
     audio_state_t estado_actual = audio_player_get_state();
     const char *estado_str = audio_state_to_str(estado_actual);
 
+    int volumen_actual = audio_player_get_volume();
+    const char *cancion_actual = audio_player_get_song();
+
     cJSON *root = cJSON_CreateObject();
     cJSON_AddStringToObject(root, "estado", estado_str);
-    cJSON_AddNumberToObject(root, "volumen", estado.volumen);
-    cJSON_AddStringToObject(root, "cancion", estado.cancion);
+    cJSON_AddNumberToObject(root, "volumen", volumen_actual);
+    cJSON_AddStringToObject(root, "cancion", cancion_actual ? cancion_actual : "Desconocida");
 
     char *json_string = cJSON_Print(root);
     esp_mqtt_client_publish(client, TOPIC_ESTADO, json_string, 0, 1, 0);
@@ -88,6 +92,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 esp_mqtt_client_subscribe(client, TOPIC_LOG, 1);
                 mqtt_suscripto = true;
             }
+
+            esp_mqtt_client_publish(client, TOPIC_ENERGIA, crear_evento_energia(), 0, 1, 0);
             publicar_estado_reproductor(client, estado_reproductor);
             break;
 
@@ -156,4 +162,25 @@ esp_err_t task_mqtt_start(void *handler_args) {
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, handler_args);
     esp_mqtt_client_start(client);
     return ESP_OK;
+}
+
+char* crear_evento_energia() {
+    static char mensaje[200];
+
+    time_t now = 0;
+    time(&now);
+    struct tm timeinfo = {0};
+    localtime_r(&now, &timeinfo);
+
+    char timestamp[64];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%dT%H:%M:%S", &timeinfo);
+
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "evento", "reabastecimiento");
+    cJSON_AddStringToObject(root, "ts", timestamp);
+
+    snprintf(mensaje, sizeof(mensaje), "%s", cJSON_PrintUnformatted(root));
+    cJSON_Delete(root);
+
+    return mensaje;
 }
