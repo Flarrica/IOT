@@ -44,9 +44,8 @@ static esp_err_t audio_status_handler(httpd_req_t *req) {
 
 // Handler de reinicio desde la web
 static esp_err_t reset_handler(httpd_req_t *req) {
-    ESP_LOGW("WEB", "Reiniciando desde web");
-    httpd_resp_sendstr(req, "Reiniciando...");
-    vTaskDelay(pdMS_TO_TICKS(300));  // Esperar a que se envíe la respuesta
+    httpd_resp_sendstr(req, "Reiniciando dispositivo...");
+    vTaskDelay(pdMS_TO_TICKS(100));  // Deja que se envíe la respuesta
     esp_restart();
     return ESP_OK;
 }
@@ -207,7 +206,7 @@ void web_service_inicializar(void) {
         };
         const httpd_uri_t reset_uri = {
             .uri       = "/reset",
-            .method    = HTTP_POST,
+            .method    = HTTP_GET,
             .handler   = reset_handler,
             .user_ctx  = NULL
         };
