@@ -10,6 +10,7 @@
 #include "led_rgb.h"
 #include "audio_player.h"
 #include "shared_lib.h"
+#include "task_mqtt.h"
 
 
 #define TAG "TOUCH_BUTTONS"
@@ -151,7 +152,7 @@ void touch_polling_bucle(void)
             (comandos_touch[i] == CMD_VOL_DOWN) ? "CMD_VOL_DOWN" :
             "DESCONOCIDO"
 );
-            //esp_rom_delay_us(150000);
+
         }
         else if (!pressed && touch_held[i]) {
             touch_held[i] = false;

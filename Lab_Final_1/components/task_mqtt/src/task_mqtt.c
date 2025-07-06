@@ -184,3 +184,7 @@ char* crear_evento_energia() {
 
     return mensaje;
 }
+
+esp_mqtt_client_handle_t mqtt_get_client(void) {
+    return client;
+}

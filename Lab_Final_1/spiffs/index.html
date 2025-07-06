@@ -109,9 +109,10 @@
 </div>
 
 <h2 class="subtitulo">🔁 Reinicio</h2>
+
 <div class="panel">
-  <form action="/reset" method="GET">
-    <input type="submit" value="🔄 Reiniciar ESP32">
+  <form onsubmit="reiniciar(event)">
+    <input type="submit" value="Reiniciar Kaluga">
   </form>
 </div>
 
@@ -179,6 +180,19 @@
     .catch(err => alert("Error al enviar: " + err));
   }
 
+  function reiniciar(e) {
+  e.preventDefault();
+
+  fetch("/reset", {
+    method: "GET",
+    credentials: "omit"
+  })
+  .then(r => r.text())
+  .then(html => document.body.innerHTML = html)
+  .catch(err => alert("Error al reiniciar: " + err));
+}
+
+    
   setInterval(actualizarEstado, 2000);
   window.onload = actualizarEstado;
 </script>

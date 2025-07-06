@@ -29,6 +29,7 @@
 #include "logger.h"
 
 #include "esp_spiffs.h"
+#include "task_mqtt.h"
 
 // ------------------------
 // DEFINES Y GLOBALES
@@ -318,6 +319,7 @@ static void task_audio_commands(void *args){
                             xQueueSend(color_queue, &event_pause, portMAX_DELAY); 
                             ESP_LOGI("Audio_CMD_task: ","Pausar reproducción.");
                         }
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
                 case CMD_PAUSE:
                     if (player_state == PLAYER_PLAYING) {
@@ -325,11 +327,13 @@ static void task_audio_commands(void *args){
                         xQueueSend(color_queue, &event_pause, portMAX_DELAY); 
                         ESP_LOGI("Audio_CMD_task: ","Pausar reproducción.");
                     }
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
 
                 case CMD_STOP:
                     player_state = PLAYER_STOPPED;
                     xQueueSend(color_queue, &event_stop, portMAX_DELAY); 
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
 
                 case CMD_NEXT:
@@ -340,6 +344,7 @@ static void task_audio_commands(void *args){
                         xQueueSend(color_queue, &event_play_1, portMAX_DELAY);
                         ESP_LOGI("Audio_CMD_task:", "CMD_NEXT → nuevo track: %d", next_track_index);
                     }
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
                 case CMD_PREV:
                     if (playlist_size > 0) {
@@ -349,6 +354,7 @@ static void task_audio_commands(void *args){
                         xQueueSend(color_queue, &event_play_1, portMAX_DELAY);
                         ESP_LOGI("Audio_CMD_task:", "CMD_PREV → nuevo track: %d", next_track_index);
                     }
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
                 case CMD_VOL_UP:
                     perceptual_vol += PASO_PERCEPTUAL;
@@ -361,6 +367,7 @@ static void task_audio_commands(void *args){
                     } else {
                         ESP_LOGE(TAG, "Error al setear volumen en CMD_VOL_UP");
                     }
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
 
                 case CMD_VOL_DOWN:
@@ -375,6 +382,7 @@ static void task_audio_commands(void *args){
                     } else {
                         ESP_LOGE(TAG, "Error al setear volumen en CMD_VOL_UP");
                     }
+                    publicar_estado_reproductor(mqtt_get_client(), estado_reproductor);
                     break;
                 default:
                     ESP_LOGW("CMD_TASK", "Comando desconocido: %d", cmd);

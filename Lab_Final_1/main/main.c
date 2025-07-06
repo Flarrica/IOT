@@ -32,6 +32,7 @@ void app_main(void)
     esp_log_level_set("*", ESP_LOG_INFO);
     esp_log_level_set("ws2812", ESP_LOG_WARN);
     esp_log_level_set("LED_RGB", ESP_LOG_NONE);
+    esp_log_level_set("httpd_txrx", ESP_LOG_ERROR);
 
     // Inicialización básica del sistema
     ESP_ERROR_CHECK(nvs_flash_init());
