@@ -10,6 +10,7 @@
 
 #include "task_mqtt.h"
 #include "shared_lib.h"
+#include "ntp.h"
 
 static const char *TAG = "WIFI_APSTA";
 static TaskHandle_t wifi_task_handle = NULL;
@@ -50,18 +51,28 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                 break;
         }
 
-    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
-        sta_connected = true;
-        ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
-        ESP_LOGI(TAG, "STA obtuvo IP. Conectado a red: " IPSTR, IP2STR(&event->ip_info.ip));
+        } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+            sta_connected = true;
+            ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
+            ESP_LOGI(TAG, "STA obtuvo IP. Conectado a red: " IPSTR, IP2STR(&event->ip_info.ip));
 
-        if (!mqtt_started) {
-            ESP_LOGI(TAG, "Iniciando cliente MQTT...");
-            if (task_mqtt_start(NULL) == ESP_OK) {
-                mqtt_started = true;
-                ESP_LOGI(TAG, "Cliente MQTT iniciado correctamente.");
-            } else {
-                ESP_LOGE(TAG, "Error al iniciar cliente MQTT.");
+            // 🔽 NUEVO: sincronizar hora con SNTP
+            ntp_sync_inicializar();
+
+            if (!mqtt_started) {
+                ESP_LOGI(TAG, "Iniciando cliente MQTT...");
+                if (task_mqtt_start(NULL) == ESP_OK) {
+                    mqtt_started = true;
+                    ESP_LOGI(TAG, "Cliente MQTT iniciado correctamente.");
+                } else {
+                    ESP_LOGE(TAG, "Error al iniciar cliente MQTT.");
+                }
+            }
+
+            if (wifi_task_handle != NULL) {
+                vTaskDelete(wifi_task_handle);
+                wifi_task_handle = NULL;
+                ESP_LOGI(TAG, "Tarea wifi_sta_task eliminada tras conexión exitosa STA.");
             }
         }
 
@@ -70,8 +81,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
             wifi_task_handle = NULL;
             ESP_LOGI(TAG, "Tarea wifi_sta_task eliminada tras conexión exitosa STA.");
         }
-    }
 }
+
 
 //-------------------
 // Tarea de conexión STA

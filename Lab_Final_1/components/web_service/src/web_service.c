@@ -42,6 +42,15 @@ static esp_err_t audio_status_handler(httpd_req_t *req) {
     return httpd_resp_sendstr(req, buffer);
 }
 
+// Handler de reinicio desde la web
+static esp_err_t reset_handler(httpd_req_t *req) {
+    ESP_LOGW("WEB", "Reiniciando desde web");
+    httpd_resp_sendstr(req, "Reiniciando...");
+    vTaskDelay(pdMS_TO_TICKS(300));  // Esperar a que se envíe la respuesta
+    esp_restart();
+    return ESP_OK;
+}
+
 // Handler de comandos de audio via GET
 static esp_err_t audio_cmd_handler(httpd_req_t *req) {
     char buf[64];
@@ -196,11 +205,19 @@ void web_service_inicializar(void) {
             .handler   = favicon_handler,
             .user_ctx  = NULL
         };
+        const httpd_uri_t reset_uri = {
+            .uri       = "/reset",
+            .method    = HTTP_POST,
+            .handler   = reset_handler,
+            .user_ctx  = NULL
+        };
+
 
         httpd_register_uri_handler(server, &root_uri);
         httpd_register_uri_handler(server, &guardar_wifi_uri);
         httpd_register_uri_handler(server, &status_uri);
         httpd_register_uri_handler(server, &cmd_uri);
         httpd_register_uri_handler(server, &favicon_uri);
+        httpd_register_uri_handler(server, &reset_uri);
     }
 }

@@ -19,6 +19,8 @@ idf_component_register(
         wifi_APSTA 
         web_service
         touch_buttons
+        ntp
+        logger
 )
 
 spiffs_create_partition_image(spiffs ${CMAKE_CURRENT_SOURCE_DIR}/../spiffs FLASH_IN_PROJECT)

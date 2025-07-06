@@ -17,6 +17,7 @@
 #include "audio_player.h"
 #include "touch_buttons.h"
 #include "logger.h"
+#include "ntp.h"
 
 void app_main(void)
 {
@@ -93,6 +94,26 @@ void app_main(void)
     ESP_LOGI("MAIN", "Crea task WiFi STA e inicializador MQTT...");
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(wifi_sta_task, "wifi_sta_task", 2048, NULL, 4, NULL);
+
+    //pruebas logger
+        logger_event_t eventos[LOGGER_EVENT_MAX];
+        size_t count = 0;
+
+        esp_err_t err = logger_get_all_events(eventos, LOGGER_EVENT_MAX, &count);
+        if (err != ESP_OK) {
+            ESP_LOGE("TEST_LOGGER", "Error al obtener eventos: %s", esp_err_to_name(err));
+        } else {
+            ESP_LOGI("TEST_LOGGER", "Se encontraron %d eventos", (int)count);
+            for (size_t i = 0; i < count; i++) {
+                char timestamp_str[32];
+                struct tm tm;
+                localtime_r(&eventos[i].timestamp, &tm);
+                strftime(timestamp_str, sizeof(timestamp_str), "%Y-%m-%d %H:%M:%S", &tm);
+
+                ESP_LOGI("TEST_LOGGER", "[%d] %s - Tipo de evento: %d",
+                        (int)i, timestamp_str, eventos[i].event_type);
+            }
+        }
 
     while (true) {
         vTaskDelay(pdMS_TO_TICKS(10));

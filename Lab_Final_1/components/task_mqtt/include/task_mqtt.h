@@ -5,9 +5,9 @@
 #include "mqtt_client.h"
 
 // Tópicos MQTT
-#define TOPIC_CONTROL "/control/reproduccion"
-#define TOPIC_ESTADO  "/estado/reproductor"
-#define TOPIC_LOG     "/log/eventos"
+#define TOPIC_CONTROL "/placaKaluga/mejorGrupo/nintendo/control"
+#define TOPIC_ESTADO  "/placaKaluga/mejorGrupo/nintendo/estado"
+#define TOPIC_LOG     "/placaKaluga/mejorGrupo/nintendo/log/eventos"
 
 // Estructura del estado del reproductor
 typedef struct {

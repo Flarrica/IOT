@@ -29,3 +29,22 @@ CONFIG_ESP_WIFI_ENABLE_WPA3_OWE_STA=n
 
 # MQTT configuraciones
 CONFIG_MQTT_PROTOCOL_5=y
+
+# --- Configuración de SNTP ---
+CONFIG_LWIP_SNTP_MAX_SERVERS=3
+CONFIG_LWIP_DHCP_GET_NTP_SRV=n  
+# o "y" si querés permitir NTP vía DHCP
+CONFIG_LWIP_SNTP_UPDATE_DELAY=3600000  
+# 1 hora (en milisegundos)
+
+# --- Timer para gettimeofday ---
+CONFIG_NEWLIB_TIME_SYSCALL_USE_RTC_HRT=y
+
+# --- Para IPv6 si llegás a usarlo con pool.ntp.org ---
+CONFIG_LWIP_IPV6=y
+CONFIG_LWIP_IPV6_NUM_ADDRESSES=3
+
+
+
+CONFIG_ESP_GDBSTUB_ENABLED=n
+CONFIG_LWIP_SNTP=y

@@ -1,22 +1,3 @@
-/*
-
-logger_add_event(), 
-
-Qué hace: Guarda un nuevo evento (play/pausa, siguiente, etc.) con la hora actual en la memoria no volátil.
-Uso típico: Se llama cada vez que ocurre una acción de reproducción.
-
-logger_get_all(), 
-
-Qué hace: Carga todos los eventos guardados (hasta max) en el array events.
-Uso típico: Para enviar los eventos por MQTT una vez que hay conexión.
-
-logger_mark_sent().
-
-Qué hace: Borra los eventos que ya fueron enviados exitosamente.
-Uso típico: Se llama después de recibir el ACK del broker MQTT.
-
-*/
-
 #include "logger.h"
 #include "nvs.h"
 #include "nvs_flash.h"
@@ -24,7 +5,7 @@ Uso típico: Se llama después de recibir el ACK del broker MQTT.
 #include <stdio.h>
 
 #define LOGGER_NAMESPACE "logger"
-#define LOGGER_EVENT_MAX 20
+
 
 static const char *TAG = "LOGGER";
 

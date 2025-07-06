@@ -17,6 +17,9 @@ typedef enum {
     LOGGER_EVENT_STOP
 } logger_event_type_t;
 
+#define LOGGER_EVENT_MAX 20
+
+
 typedef struct {
     time_t timestamp;
     logger_event_type_t event_type;
