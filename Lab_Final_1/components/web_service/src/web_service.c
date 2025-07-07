@@ -18,6 +18,47 @@
 extern QueueHandle_t audio_cmd_queue;
 static httpd_handle_t server = NULL;
 
+static esp_err_t wav_upload_handler(httpd_req_t *req) {
+    // Buscar el próximo número libre
+    int i = 1;
+    char path[64];
+    FILE *f = NULL;
+
+    while (i < 1000) { // límite arbitrario para evitar bucle infinito
+        snprintf(path, sizeof(path), "/spiffs/audio_%d.wav", i);
+        f = fopen(path, "r");
+        if (f == NULL) break;  // no existe, lo podemos usar
+        fclose(f);
+        i++;
+    }
+
+    // Abre para escribir
+    f = fopen(path, "wb");
+    if (!f) {
+        ESP_LOGE("UPLOAD", "No se pudo abrir %s para escritura", path);
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Fallo al abrir archivo");
+    }
+
+    char buf[1024];
+    int total = req->content_len;
+    int recibidos = 0;
+
+    while (recibidos < total) {
+        int len = httpd_req_recv(req, buf, sizeof(buf));
+        if (len <= 0) {
+            fclose(f);
+            return ESP_FAIL;
+        }
+        fwrite(buf, 1, len, f);
+        recibidos += len;
+    }
+
+    fclose(f);
+    ESP_LOGI("UPLOAD", "Guardado: %s (%d bytes)", path, recibidos);
+    httpd_resp_sendstr(req, "Archivo subido OK");
+    return ESP_OK;
+}
+
 // Handler de favicon
 static esp_err_t favicon_handler(httpd_req_t *req) {
     httpd_resp_send(req, NULL, 0);
@@ -47,6 +88,30 @@ static esp_err_t reset_handler(httpd_req_t *req) {
     httpd_resp_sendstr(req, "Reiniciando dispositivo...");
     vTaskDelay(pdMS_TO_TICKS(100));  // Deja que se envíe la respuesta
     esp_restart();
+    return ESP_OK;
+}
+
+// Handler para subir archivo WAV
+static esp_err_t upload_post_handler(httpd_req_t *req) {
+    const char *path = "/spiffs/audio.wav";
+    FILE *f = fopen(path, "w");
+    if (!f) {
+        ESP_LOGE(TAG, "No se pudo abrir %s para escritura", path);
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo guardar");
+        return ESP_FAIL;
+    }
+
+    char buf[1024];
+    int total = 0, len;
+
+    while ((len = httpd_req_recv(req, buf, sizeof(buf))) > 0) {
+        fwrite(buf, 1, len, f);
+        total += len;
+    }
+
+    fclose(f);
+    ESP_LOGI(TAG, "Archivo guardado en %s (%d bytes)", path, total);
+    httpd_resp_sendstr(req, "Archivo WAV subido con éxito.");
     return ESP_OK;
 }
 
@@ -163,10 +228,10 @@ static esp_err_t root_get_handler(httpd_req_t *req) {
 // Inicializar WebServer
 void web_service_inicializar(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.max_uri_handlers = 8;
-    config.recv_wait_timeout = 10;
-    config.lru_purge_enable = true;
-    config.stack_size = 8192;
+    //config.max_uri_handlers = 8;
+    //config.recv_wait_timeout = 10;
+    //config.lru_purge_enable = true;
+    //config.stack_size = 8192;
 
     ESP_LOGI(TAG, "Iniciando WebServer");
     if (httpd_start(&server, &config) == ESP_OK) {
@@ -210,6 +275,13 @@ void web_service_inicializar(void) {
             .handler   = reset_handler,
             .user_ctx  = NULL
         };
+        const httpd_uri_t upload_uri = {
+            .uri = "/upload",
+            .method = HTTP_POST,
+            .handler = wav_upload_handler,
+            .user_ctx = NULL
+        };
+
 
 
         httpd_register_uri_handler(server, &root_uri);
@@ -218,5 +290,6 @@ void web_service_inicializar(void) {
         httpd_register_uri_handler(server, &cmd_uri);
         httpd_register_uri_handler(server, &favicon_uri);
         httpd_register_uri_handler(server, &reset_uri);
+        httpd_register_uri_handler(server, &upload_uri);
     }
 }
