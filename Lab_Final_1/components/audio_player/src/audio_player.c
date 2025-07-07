@@ -275,19 +275,19 @@ void audio_player_send_cmd(audio_cmd_t cmd) {
         xQueueSend(audio_event_queue, &cmd, 0);
         switch (cmd) {
         case CMD_PLAY:
-            logger_add_event(LOGGER_EVENT_PLAY);
+            logger_add_event(PLAY);
             break;
         case CMD_PAUSE:
-            logger_add_event(LOGGER_EVENT_PAUSE);
+            logger_add_event(PAUSE);
             break;
         case CMD_STOP:
-            logger_add_event(LOGGER_EVENT_STOP);
+            logger_add_event(STOP);
             break;
         case CMD_NEXT:
-            logger_add_event(LOGGER_EVENT_NEXT);
+            logger_add_event(NEXT);
             break;
         case CMD_PREV:
-            logger_add_event(LOGGER_EVENT_PREVIOUS);
+            logger_add_event(PREVIOUS);
             break;
         default:
             break;

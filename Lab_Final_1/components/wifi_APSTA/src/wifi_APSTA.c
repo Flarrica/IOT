@@ -11,8 +11,10 @@
 #include "task_mqtt.h"
 #include "shared_lib.h"
 #include "ntp.h"
+#include "logger.h"
 
 static const char *TAG = "WIFI_APSTA";
+
 static TaskHandle_t wifi_task_handle = NULL;
 
 #define MAX_STA_RETRIES 3
@@ -64,11 +66,13 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                 if (task_mqtt_start(NULL) == ESP_OK) {
                     mqtt_started = true;
                     ESP_LOGI(TAG, "Cliente MQTT iniciado correctamente.");
+
+                    // 🔽 Publicar logger al conectarse
+                    logger_publicar_al_arrancar();
                 } else {
                     ESP_LOGE(TAG, "Error al iniciar cliente MQTT.");
                 }
             }
-
             if (wifi_task_handle != NULL) {
                 vTaskDelete(wifi_task_handle);
                 wifi_task_handle = NULL;
@@ -76,11 +80,6 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
             }
         }
 
-        if (wifi_task_handle != NULL) {
-            vTaskDelete(wifi_task_handle);
-            wifi_task_handle = NULL;
-            ESP_LOGI(TAG, "Tarea wifi_sta_task eliminada tras conexión exitosa STA.");
-        }
 }
 
 
@@ -143,6 +142,7 @@ void wifi_sta_task(void *param) {
 // Inicializar WiFi
 //-------------------
 void wifi_apsta_inicializar(void) {
+    ESP_LOGI(TAG, "Inicializando logger...");
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());

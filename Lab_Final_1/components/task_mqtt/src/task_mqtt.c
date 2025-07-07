@@ -16,6 +16,7 @@
 #include "inttypes.h"
 #include "audio_player.h"
 #include "esp_sntp.h"
+#include "logger.h"
 
 static const char *TAG = "task_mqtt";
 static esp_mqtt_client_handle_t client = NULL;
@@ -90,6 +91,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 esp_mqtt_client_subscribe(client, TOPIC_CONTROL, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_ESTADO, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_LOG, 1);
+                esp_mqtt_client_subscribe(client, TOPIC_GET, 1);
+
                 mqtt_suscripto = true;
             }
 
@@ -124,6 +127,10 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 else ESP_LOGW(TAG, "Comando desconocido: %s", payload);
 
                 publicar_estado_reproductor(client, estado_reproductor);
+            }
+            else if (strcmp(topic, TOPIC_GET) == 0) {
+                ESP_LOGI(TAG, "Solicitud de logger recibida por TOPIC_GET");
+                logger_publicar_todo();
             }
             break;
         }

@@ -9,6 +9,7 @@
 #define TOPIC_ESTADO  "/placaKaluga/mejorGrupo/nintendo/estado"
 #define TOPIC_LOG     "/placaKaluga/mejorGrupo/nintendo/log"
 #define TOPIC_ENERGIA "/placaKaluga/mejorGrupo/nintendo/energia"
+#define TOPIC_GET     "/placaKaluga/mejorGrupo/nintendo/get"
 
 // Estructura del estado del reproductor
 typedef struct {
