@@ -50,6 +50,9 @@ void led_rgb_set_event(led_rgb_evento_t evento)
         case LED_EVENT_CIAN:
             strip->set_pixel(strip, 0, 0, 255, 255);
             break;
+        case LED_EVENT_VIOLETA:
+            strip->set_pixel(strip, 0, 80, 0, 150);
+            break;
         case LED_EVENT_APAGAR:
         default:
             strip->set_pixel(strip, 0, 0, 0, 0);
@@ -72,6 +75,8 @@ led_rgb_evento_t led_rgb_string_to_color(const char *color_str) {
         return LED_EVENT_CIAN;
     } else if (strcasecmp(color_str, "blanco") == 0) {
         return LED_EVENT_BLANCO;
+    } else if (strcasecmp(color_str, "violeta") == 0) {
+        return LED_EVENT_VIOLETA;
     } else if (strcasecmp(color_str, "apagar") == 0) {
         return LED_EVENT_APAGAR;
     }

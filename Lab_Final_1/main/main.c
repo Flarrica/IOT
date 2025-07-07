@@ -72,6 +72,7 @@ void app_main(void)
     
     // LED RGB
     led_rgb_inicializar();
+    
 
 
     // Delay para asegurar estabilidad antes del WiFi
