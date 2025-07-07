@@ -144,7 +144,7 @@ void wifi_sta_task(void *param) {
             esp_wifi_start();  // Asegura que AP siga activo
         }
 
-        vTaskDelay(pdMS_TO_TICKS(60000)); // Espera un minuto para intentar reconexiones
+        vTaskDelay(pdMS_TO_TICKS(10000));
     }
 }
 
