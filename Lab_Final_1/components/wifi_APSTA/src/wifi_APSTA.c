@@ -138,6 +138,12 @@ void wifi_sta_task(void *param) {
             ESP_LOGE(TAG, "No se pudo conectar. Reintentando...");
         }
 
+        if (!sta_connected) {
+            ESP_LOGW(TAG, "Fallo en la conexión STA. Reintentando...");
+            esp_wifi_set_mode(WIFI_MODE_APSTA);  // Reafirmar el modo
+            esp_wifi_start();  // Asegura que AP siga activo
+        }
+
         vTaskDelay(pdMS_TO_TICKS(10000));
     }
 }
