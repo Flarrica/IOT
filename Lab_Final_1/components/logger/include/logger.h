@@ -30,6 +30,7 @@ esp_err_t logger_add_event(logger_event_type_t type);
 esp_err_t logger_get_all_events(logger_event_t *events, size_t max_events, size_t *actual_count);
 void logger_publicar_todo(void);
 void logger_publicar_al_arrancar(void);
+void logger_mostrar_espacio(void);
 
 #ifdef __cplusplus
 }
