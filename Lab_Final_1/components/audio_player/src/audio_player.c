@@ -44,6 +44,7 @@ color_event_t event_pause = { .color = LED_EVENT_AZUL,     .delay_seconds = 0 };
 color_event_t event_stop  = { .color = LED_EVENT_ROJO,     .delay_seconds = 0 };
 color_event_t event_PREV  = { .color = LED_EVENT_BLANCO,     .delay_seconds = 0 };
 color_event_t event_NEXT  = { .color = LED_EVENT_AMARILLO,     .delay_seconds = 0 };
+color_event_t event_INICIO  = { .color = LED_EVENT_VIOLETA,     .delay_seconds = 0 };
 
 
 static i2s_chan_handle_t tx_handle = NULL;
@@ -145,60 +146,61 @@ static int map_volume_user_from_perceptual(int perceptual) {
 // ------------------------
 
 static esp_err_t es8311_codec_init(void) {
-#if !defined(CONFIG_EXAMPLE_BSP)
-    const i2c_config_t es_i2c_cfg = {
-        .sda_io_num = I2C_SDA_IO,
-        .scl_io_num = I2C_SCL_IO,
-        .mode = I2C_MODE_MASTER,
-        .sda_pullup_en = GPIO_PULLUP_ENABLE,
-        .scl_pullup_en = GPIO_PULLUP_ENABLE,
-        .master.clk_speed = 100000,
-    };
-    ESP_RETURN_ON_ERROR(i2c_param_config(I2C_NUM, &es_i2c_cfg), TAG, "config i2c failed");
-    ESP_RETURN_ON_ERROR(i2c_driver_install(I2C_NUM, I2C_MODE_MASTER, 0, 0, 0), TAG, "install i2c driver failed");
-#else
-    ESP_ERROR_CHECK(bsp_i2c_init());
-#endif
-
-    // Toma el mutex antes de acceder al codec
-    if (xSemaphoreTake(i2c_mutex, pdMS_TO_TICKS(100))) {
-
-        es_handle = es8311_create(I2C_NUM, ES8311_ADDRRES_0);
-        ESP_RETURN_ON_FALSE(es_handle, ESP_FAIL, TAG, "es8311 create failed");
-
-        const es8311_clock_config_t es_clk = {
-            .mclk_inverted = false,
-            .sclk_inverted = false,
-            .mclk_from_mclk_pin = true,
-            .mclk_frequency = EXAMPLE_MCLK_FREQ_HZ,
-            .sample_frequency = EXAMPLE_SAMPLE_RATE
+    xQueueSend(color_queue, &event_INICIO, portMAX_DELAY);
+    #if !defined(CONFIG_EXAMPLE_BSP)
+        const i2c_config_t es_i2c_cfg = {
+            .sda_io_num = I2C_SDA_IO,
+            .scl_io_num = I2C_SCL_IO,
+            .mode = I2C_MODE_MASTER,
+            .sda_pullup_en = GPIO_PULLUP_ENABLE,
+            .scl_pullup_en = GPIO_PULLUP_ENABLE,
+            .master.clk_speed = 100000,
         };
+        ESP_RETURN_ON_ERROR(i2c_param_config(I2C_NUM, &es_i2c_cfg), TAG, "config i2c failed");
+        ESP_RETURN_ON_ERROR(i2c_driver_install(I2C_NUM, I2C_MODE_MASTER, 0, 0, 0), TAG, "install i2c driver failed");
+    #else
+        ESP_ERROR_CHECK(bsp_i2c_init());
+    #endif
 
-        ESP_ERROR_CHECK(es8311_init(es_handle, &es_clk, ES8311_RESOLUTION_16, ES8311_RESOLUTION_16));
-        ESP_RETURN_ON_ERROR(es8311_sample_frequency_config(es_handle, EXAMPLE_SAMPLE_RATE * EXAMPLE_MCLK_MULTIPLE, EXAMPLE_SAMPLE_RATE), TAG, "set es8311 sample frequency failed");
-        volumen = (EXAMPLE_VOICE_VOLUME > VOLUMEN_MAXIMO_USUARIO) ? VOLUMEN_MAXIMO_USUARIO : EXAMPLE_VOICE_VOLUME;
-        perceptual_vol = map_volume_perceptual(volumen);
-        ESP_RETURN_ON_ERROR(es8311_voice_volume_set(es_handle, perceptual_vol, NULL), TAG, "set es8311 volume failed");
+        // Toma el mutex antes de acceder al codec
+        if (xSemaphoreTake(i2c_mutex, pdMS_TO_TICKS(100))) {
 
-        ESP_LOGI(TAG, "Volumen inicial seteado: %d", EXAMPLE_VOICE_VOLUME);
-        int vol;
-        if (es8311_voice_volume_get(es_handle, &vol) == ESP_OK) {
-            ESP_LOGI(TAG, "Volumen actual en códec: %d", vol);
+            es_handle = es8311_create(I2C_NUM, ES8311_ADDRRES_0);
+            ESP_RETURN_ON_FALSE(es_handle, ESP_FAIL, TAG, "es8311 create failed");
+
+            const es8311_clock_config_t es_clk = {
+                .mclk_inverted = false,
+                .sclk_inverted = false,
+                .mclk_from_mclk_pin = true,
+                .mclk_frequency = EXAMPLE_MCLK_FREQ_HZ,
+                .sample_frequency = EXAMPLE_SAMPLE_RATE
+            };
+
+            ESP_ERROR_CHECK(es8311_init(es_handle, &es_clk, ES8311_RESOLUTION_16, ES8311_RESOLUTION_16));
+            ESP_RETURN_ON_ERROR(es8311_sample_frequency_config(es_handle, EXAMPLE_SAMPLE_RATE * EXAMPLE_MCLK_MULTIPLE, EXAMPLE_SAMPLE_RATE), TAG, "set es8311 sample frequency failed");
+            volumen = (EXAMPLE_VOICE_VOLUME > VOLUMEN_MAXIMO_USUARIO) ? VOLUMEN_MAXIMO_USUARIO : EXAMPLE_VOICE_VOLUME;
+            perceptual_vol = map_volume_perceptual(volumen);
+            ESP_RETURN_ON_ERROR(es8311_voice_volume_set(es_handle, perceptual_vol, NULL), TAG, "set es8311 volume failed");
+
+            ESP_LOGI(TAG, "Volumen inicial seteado: %d", EXAMPLE_VOICE_VOLUME);
+            int vol;
+            if (es8311_voice_volume_get(es_handle, &vol) == ESP_OK) {
+                ESP_LOGI(TAG, "Volumen actual en códec: %d", vol);
+            } else {
+                ESP_LOGW(TAG, "No se pudo obtener el volumen desde el códec");
+            }
+
+            ESP_RETURN_ON_ERROR(es8311_microphone_config(es_handle, false), TAG, "set es8311 microphone failed");
+
+            // Libera el mutex al terminar
+            xSemaphoreGive(i2c_mutex);
+
         } else {
-            ESP_LOGW(TAG, "No se pudo obtener el volumen desde el códec");
+            ESP_LOGE(TAG, "No se pudo tomar el mutex para inicializar el códec");
+            return ESP_ERR_TIMEOUT;
         }
 
-        ESP_RETURN_ON_ERROR(es8311_microphone_config(es_handle, false), TAG, "set es8311 microphone failed");
-
-        // Libera el mutex al terminar
-        xSemaphoreGive(i2c_mutex);
-
-    } else {
-        ESP_LOGE(TAG, "No se pudo tomar el mutex para inicializar el códec");
-        return ESP_ERR_TIMEOUT;
-    }
-
-    return ESP_OK;
+        return ESP_OK;
 }
 // ------------------------
 // INICIALIZACIÓN DE DRIVER I2S

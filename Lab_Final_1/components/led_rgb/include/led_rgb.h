@@ -9,6 +9,7 @@ typedef enum {
     LED_EVENT_BLANCO,
     LED_EVENT_AMARILLO,
     LED_EVENT_CIAN,
+    LED_EVENT_VIOLETA,
     LED_EVENT_INVALIDO
 } led_rgb_evento_t;
 
