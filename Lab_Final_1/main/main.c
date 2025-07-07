@@ -22,6 +22,9 @@
 #include "esp_system.h"
 #include "task_mqtt.h"
 
+#include "nvs.h"
+
+
 void app_main(void)
 {
     // Info inicial del sistema
@@ -103,7 +106,25 @@ void app_main(void)
     vTaskDelay(pdMS_TO_TICKS(500));
     xTaskCreate(wifi_sta_task, "wifi_sta_task", 2048, NULL, 4, NULL);
 
+    //Prueba
+    //void logger_mostrar_espacio(void);
+
     while (true) {
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
+
+/*
+void logger_mostrar_espacio(void) {
+    nvs_stats_t stats;
+    esp_err_t err = nvs_get_stats("logger", &stats);
+    if (err == ESP_OK) {
+        ESP_LOGI("LOGGER", "Entradas usadas: %d", stats.used_entries);
+        ESP_LOGI("LOGGER", "Entradas libres: %d", stats.free_entries);
+        ESP_LOGI("LOGGER", "Entradas totales: %d", stats.total_entries);
+    } else {
+        ESP_LOGE("LOGGER", "Error al obtener estadísticas NVS: %s", esp_err_to_name(err));
+    }
+}
+
+*/

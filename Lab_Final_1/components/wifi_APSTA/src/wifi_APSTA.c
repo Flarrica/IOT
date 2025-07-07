@@ -111,7 +111,11 @@ void wifi_sta_task(void *param) {
         strncpy((char *)sta_config.sta.ssid, cred.ssid, sizeof(sta_config.sta.ssid));
         strncpy((char *)sta_config.sta.password, cred.password, sizeof(sta_config.sta.password));
 
-        ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta_config));
+        esp_err_t err = esp_wifi_set_config(WIFI_IF_STA, &sta_config);
+        if (err != ESP_OK) {
+            ESP_LOGE(TAG, "Error al guardar config STA: %s", esp_err_to_name(err));
+
+        }
 
         for (int intento = 0; intento < MAX_STA_RETRIES; ++intento) {
             ESP_LOGI(TAG, "Intento de conexión STA (%d/%d)...", intento + 1, MAX_STA_RETRIES);
