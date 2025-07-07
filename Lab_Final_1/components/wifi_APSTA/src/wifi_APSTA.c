@@ -123,7 +123,7 @@ void wifi_sta_task(void *param) {
 
             int espera = 0;
             while (!sta_connected && espera++ < 20) {
-                vTaskDelay(pdMS_TO_TICKS(100));
+                vTaskDelay(pdMS_TO_TICKS(1000));
             }
 
             if (sta_connected) {
@@ -135,7 +135,7 @@ void wifi_sta_task(void *param) {
         }
 
         if (!sta_connected) {
-            ESP_LOGE(TAG, "No se pudo conectar. Reintentando...");
+            ESP_LOGW(TAG, "No se pudo conectar. Reintentando...");
         }
 
         if (!sta_connected) {
