@@ -8,7 +8,8 @@
 
 // --- Constantes
 #define WIFI_NAMESPACE "wifi_config"
-
+// --- Alias
+#define wifi_credentials_cargar wifi_credentials_leer //Para que tenga un poco mas de sentido en el codigo de wifiAPSTA
 // --- Estructuras
 typedef struct {
     char ssid[24];

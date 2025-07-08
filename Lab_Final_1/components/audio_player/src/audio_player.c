@@ -410,7 +410,7 @@ static void task_audio_player(void *args) {
         switch (player_state) {
                 case PLAYER_PLAYING:
                     if (next_track_index >= 0) {
-                        // Cambiar de pista
+                        // Cambiar de pista si se dió un NEXT o PREVIOUS
                         if (f) {
                             fclose(f);
                             f = NULL;
@@ -419,7 +419,7 @@ static void task_audio_player(void *args) {
                         next_track_index = -1;
                         ESP_LOGI(TAG, "Cambio inmediato a track %d", current_track);
                     }
-                    if (!f) {
+                    if (!f) { // Si no hay un archivo abierto, se abre y se reproduce
                         f = fopen(playlist[track_get()], "r");
                         if (!f) {
                             ESP_LOGE("Audio PLAYER", "No se pudo abrir el archivo: %s", playlist[track_get()]);

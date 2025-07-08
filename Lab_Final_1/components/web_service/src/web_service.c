@@ -12,8 +12,13 @@
 #include "audio_player.h"
 #include "shared_lib.h"
 #include "task_mqtt.h"
+#include "freertos/event_groups.h"
+#include "wifi_APSTA.h"
 
+#define WIFI_EVENT_FLAG_NEW_CREDENTIALS BIT0
 #define TAG "WEB_SERVER"
+
+extern EventGroupHandle_t wifi_event_group;
 
 extern QueueHandle_t audio_cmd_queue;
 static httpd_handle_t server = NULL;
@@ -185,6 +190,9 @@ esp_err_t guardar_wifi_handler(httpd_req_t *req) {
     ESP_LOGI(TAG, "mqtt_guardar_url: %s", esp_err_to_name(err_mqtt));
 
     if (ok_ssid && ok_wifi && err_mqtt == ESP_OK) {
+        // ✅ Notificar a la FSM que hay nuevas credenciales
+        wifi_fsm_notificar_nuevas_credenciales();
+
         httpd_resp_set_type(req, "text/html");
         httpd_resp_sendstr(req,
             "<html><head><meta http-equiv=\"refresh\" content=\"3;url=/\"></head>"
@@ -228,10 +236,10 @@ static esp_err_t root_get_handler(httpd_req_t *req) {
 // Inicializar WebServer
 void web_service_inicializar(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    //config.max_uri_handlers = 8;
-    //config.recv_wait_timeout = 10;
-    //config.lru_purge_enable = true;
-    //config.stack_size = 8192;
+    config.max_uri_handlers = 8;
+    config.recv_wait_timeout = 10;
+    config.lru_purge_enable = true;
+    config.stack_size = 8192;
 
     ESP_LOGI(TAG, "Iniciando WebServer");
     if (httpd_start(&server, &config) == ESP_OK) {
