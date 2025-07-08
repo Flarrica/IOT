@@ -165,9 +165,20 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 logger_publicar_todo();
             }
             else if (event->topic && strcmp(event->topic, "/placaKaluga/mejorGrupo/nintendo/musica") == 0) {
-            if (strncmp(event->data, "listar", event->data_len) == 0) {
-                publicar_lista_de_pistas_mqtt();
-            }
+                if (strncmp(event->data, "listar", event->data_len) == 0) {
+                    publicar_lista_de_pistas_mqtt();
+                }
+                else if (strncmp(payload, "borrar,", 7) == 0) {
+                    const char *filename = payload + 7;
+                    char path[64];
+                    snprintf(path, sizeof(path), "/spiffs/%s", filename);
+
+                    if (unlink(path) == 0) {
+                        ESP_LOGI("MQTT_MUSICA", "Archivo borrado por MQTT: %s", filename);
+                    } else {
+                        ESP_LOGE("MQTT_MUSICA", "Error al borrar archivo: %s", filename);
+                    }
+                }
             }
             break;
         }

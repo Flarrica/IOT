@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
 #include "esp_system.h"
 #include "esp_http_server.h"
 #include "esp_log.h"
@@ -12,6 +14,7 @@
 #include "audio_player.h"
 #include "shared_lib.h"
 #include "task_mqtt.h"
+
 
 #define TAG "WEB_SERVER"
 
@@ -229,6 +232,29 @@ static esp_err_t root_get_handler(httpd_req_t *req) {
     return httpd_resp_send_chunk(req, NULL, 0);
 }
 
+static esp_err_t borrar_handler(httpd_req_t *req) {
+    char archivo[64];
+    if (httpd_req_get_url_query_len(req) < 1)
+        return httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Sin parámetro");
+
+    char query[128];
+    httpd_req_get_url_query_str(req, query, sizeof(query));
+    if (httpd_query_key_value(query, "archivo", archivo, sizeof(archivo)) != ESP_OK)
+        return httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Falta parámetro archivo");
+
+    char path[80];
+    snprintf(path, sizeof(path), "/spiffs/%s", archivo);
+
+    if (unlink(path) == 0) {
+        ESP_LOGI(TAG, "Archivo borrado por web: %s", archivo);
+        httpd_resp_sendstr(req, "Archivo eliminado correctamente.");
+    } else {
+        ESP_LOGE(TAG, "Error al borrar: %s", archivo);
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Error al eliminar archivo.");
+    }
+    return ESP_OK;
+}
+
 // Inicializar WebServer
 void web_service_inicializar(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
@@ -285,6 +311,13 @@ void web_service_inicializar(void) {
             .handler = wav_upload_handler,
             .user_ctx = NULL
         };
+        const httpd_uri_t borrar_uri = {
+            .uri = "/borrar",
+            .method = HTTP_GET,
+            .handler = borrar_handler,
+            .user_ctx = NULL
+        };
+
 
 
         httpd_register_uri_handler(server, &root_uri);
@@ -294,5 +327,6 @@ void web_service_inicializar(void) {
         httpd_register_uri_handler(server, &favicon_uri);
         httpd_register_uri_handler(server, &reset_uri);
         httpd_register_uri_handler(server, &upload_uri);
+        httpd_register_uri_handler(server, &borrar_uri);
     }
 }
