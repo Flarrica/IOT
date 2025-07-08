@@ -119,6 +119,7 @@ static esp_err_t upload_post_handler(httpd_req_t *req) {
     fclose(f);
     ESP_LOGI(TAG, "Archivo guardado en %s (%d bytes)", path, total);
     httpd_resp_sendstr(req, "Archivo WAV subido con éxito.");
+    load_playlist_from_spiffs();// Cargamos nuevamente playlist
     return ESP_OK;
 }
 
@@ -252,6 +253,7 @@ static esp_err_t borrar_handler(httpd_req_t *req) {
         ESP_LOGE(TAG, "Error al borrar: %s", archivo);
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Error al eliminar archivo.");
     }
+    load_playlist_from_spiffs();// Cargamos nuevamente playlist
     return ESP_OK;
 }
 

@@ -8,7 +8,8 @@
 
 // --- Constantes
 #define WIFI_NAMESPACE "wifi_config"
-
+// --- Alias
+#define wifi_credentials_cargar wifi_credentials_leer //Para que tenga un poco mas de sentido en el codigo de wifiAPSTA
 // --- Estructuras
 typedef struct {
     char ssid[24];
@@ -36,5 +37,4 @@ bool wifi_credentials_validas(const wifi_credentials_t *cred);
 
 // MONTAJE DE SPIFFS
 esp_err_t spiffs_init(void);
-
 #endif // SHARED_LIB_H_

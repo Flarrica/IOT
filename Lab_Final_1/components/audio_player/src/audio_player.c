@@ -494,9 +494,11 @@ static void task_audio_player(void *args) {
 // ------------------------
 // CARGAR PLAYLIST DESDE MEMORIA
 // ------------------------
-static void load_playlist_from_spiffs(void) {
+void load_playlist_from_spiffs(void) {
     DIR *dir = opendir("/spiffs");
     struct dirent *entry;
+
+    playlist_size = 0;  // Reiniciar para evitar acumulación
 
     if (!dir) {
         ESP_LOGE(TAG, "No se pudo abrir /spiffs");
@@ -511,13 +513,13 @@ static void load_playlist_from_spiffs(void) {
         }
     }
 
+    closedir(dir);
+
     ESP_LOGI(TAG, "Archivos cargados en la playlist (tamaño: %d):", playlist_size);
     for (int i = 0; i < playlist_size; i++) {
         ESP_LOGI(TAG, "  [%d] %s", i, playlist[i]);
     }
-    closedir(dir);
 }
-
 // ------------------------
 // INICIALIZACIÓN DE AUIDO PLAYER
 // ------------------------
