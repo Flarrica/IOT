@@ -17,6 +17,9 @@
 #include "audio_player.h"
 #include "esp_sntp.h"
 #include "logger.h"
+#include "esp_vfs.h"
+#include "dirent.h" 
+
 
 static const char *TAG = "task_mqtt";
 static esp_mqtt_client_handle_t client = NULL;
@@ -31,6 +34,34 @@ static void log_error_if_nonzero(const char *message, int error_code) {
     if (error_code != 0) {
         ESP_LOGE(TAG, "Last error %s: 0x%x", message, error_code);
     }
+}
+
+
+void publicar_lista_de_pistas_mqtt(void) {
+    DIR *dir = opendir("/spiffs");
+    if (!dir) {
+        ESP_LOGE("MQTT_MUSICA", "No se pudo abrir /spiffs");
+        return;
+    }
+
+    struct dirent *entry;
+    char json[512] = "[";
+    bool first = true;
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (strstr(entry->d_name, ".wav")) {
+            if (!first) strcat(json, ",");
+            first = false;
+            strcat(json, "\"");
+            strcat(json, entry->d_name);
+            strcat(json, "\"");
+        }
+    }
+    strcat(json, "]");
+    closedir(dir);
+
+    esp_mqtt_client_publish(mqtt_get_client(), TOPIC_MUSICA, json, 0, 1, 0);
+    ESP_LOGI("MQTT_MUSICA", "Pistas publicadas: %s", json);
 }
 
 esp_err_t mqtt_guardar_url(const char *url) {
@@ -92,6 +123,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 esp_mqtt_client_subscribe(client, TOPIC_ESTADO, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_LOG, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_GET, 1);
+                esp_mqtt_client_subscribe(client, TOPIC_MUSICA, 1);
 
                 mqtt_suscripto = true;
             }
@@ -131,6 +163,11 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
             else if (strcmp(topic, TOPIC_GET) == 0) {
                 ESP_LOGI(TAG, "Solicitud de logger recibida por TOPIC_GET");
                 logger_publicar_todo();
+            }
+            else if (event->topic && strcmp(event->topic, "/placaKaluga/mejorGrupo/nintendo/musica") == 0) {
+            if (strncmp(event->data, "listar", event->data_len) == 0) {
+                publicar_lista_de_pistas_mqtt();
+            }
             }
             break;
         }
