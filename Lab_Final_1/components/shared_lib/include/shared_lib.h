@@ -23,6 +23,8 @@ extern led_rgb_evento_t current_color;
 extern SemaphoreHandle_t i2c_mutex;
 extern SemaphoreHandle_t io_mutex;
 extern QueueHandle_t command_queue;
+/// Mutex global para proteger acceso a SPIFFS
+extern SemaphoreHandle_t spiffs_mutex;
 
 extern QueueHandle_t audio_event_queue;
 

@@ -51,6 +51,7 @@ void app_main(void)
     // Creamos semaforos
     i2c_mutex = xSemaphoreCreateMutex();
     io_mutex = xSemaphoreCreateMutex();
+    spiffs_mutex = xSemaphoreCreateMutex();
 
     // Inicializar Logger
     ESP_LOGI("MAIN", "Inicializando logger...");

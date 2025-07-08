@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 #include "esp_system.h"
 #include "esp_http_server.h"
@@ -19,6 +20,7 @@
 #define TAG "WEB_SERVER"
 
 extern QueueHandle_t audio_cmd_queue;
+extern SemaphoreHandle_t spiffs_mutex;
 static httpd_handle_t server = NULL;
 
 // Handler de favicon
@@ -27,7 +29,59 @@ static esp_err_t favicon_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
-//pruebas subir audio
+static esp_err_t wav_upload_handler(httpd_req_t *req) {
+    // Buscar el próximo número libre
+    int i = 1;
+    char path[64];
+    FILE *f = NULL;
+
+    if (xSemaphoreTake(spiffs_mutex, pdMS_TO_TICKS(5000)) != pdTRUE) {
+        ESP_LOGE(TAG, "No se pudo obtener el mutex de SPIFFS");
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "SPIFFS ocupado");
+    }
+
+    while (i < 1000) { // límite arbitrario para evitar bucle infinito
+        snprintf(path, sizeof(path), "/spiffs/audio_%d.wav", i);
+        f = fopen(path, "r");
+        if (f == NULL) break;  // no existe, lo podemos usar
+        fclose(f);
+        i++;
+    }
+
+    f = fopen(path, "wb");
+    if (!f) {
+        ESP_LOGE(TAG, "No se pudo abrir %s para escritura", path);
+        xSemaphoreGive(spiffs_mutex);
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Fallo al abrir archivo");
+    }
+
+    char buf[1024];
+    int total = 0, len;
+
+    while ((len = httpd_req_recv(req, buf, sizeof(buf))) > 0) {
+        fwrite(buf, 1, len, f);
+        total += len;
+    }
+
+    fclose(f);
+    ESP_LOGI(TAG, "Guardado: %s (%d bytes)", path, total);
+
+    struct stat st;
+    if (stat(path, &st) == 0) {
+        ESP_LOGI(TAG, "Tamaño final en SPIFFS: %ld bytes", st.st_size);
+    } else {
+        ESP_LOGW(TAG, "No se pudo obtener tamaño de archivo");
+    }
+
+    xSemaphoreGive(spiffs_mutex);
+
+    httpd_resp_sendstr(req, "Archivo subido OK");
+
+    load_playlist_from_spiffs();  // Recordá que también debe estar protegida
+    return ESP_OK;
+}
+
+/*pruebas subir audio
 
 static esp_err_t wav_upload_handler(httpd_req_t *req) {
     // Buscar el próximo número libre
@@ -70,7 +124,7 @@ static esp_err_t wav_upload_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
-//fin de prueba
+fin de prueba*/
 
 // Handler de estado del reproductor
 static esp_err_t audio_status_handler(httpd_req_t *req) {
@@ -99,13 +153,20 @@ static esp_err_t reset_handler(httpd_req_t *req) {
 }
 
 // Handler para subir archivo WAV
+/*
 static esp_err_t upload_post_handler(httpd_req_t *req) {
     const char *path = "/spiffs/audio.wav";
-    FILE *f = fopen(path, "w");
+
+    if (xSemaphoreTake(spiffs_mutex, pdMS_TO_TICKS(5000)) != pdTRUE) {
+        ESP_LOGE(TAG, "No se pudo obtener el mutex de SPIFFS");
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "SPIFFS ocupado");
+    }
+
+    FILE *f = fopen(path, "wb");
     if (!f) {
         ESP_LOGE(TAG, "No se pudo abrir %s para escritura", path);
-        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo guardar");
-        return ESP_FAIL;
+        xSemaphoreGive(spiffs_mutex);
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo guardar");
     }
 
     char buf[1024];
@@ -118,11 +179,21 @@ static esp_err_t upload_post_handler(httpd_req_t *req) {
 
     fclose(f);
     ESP_LOGI(TAG, "Archivo guardado en %s (%d bytes)", path, total);
+
+    struct stat st;
+    if (stat(path, &st) == 0) {
+        ESP_LOGI(TAG, "Tamaño final en SPIFFS: %ld bytes", st.st_size);
+    } else {
+        ESP_LOGW(TAG, "No se pudo obtener tamaño de archivo");
+    }
+
+    xSemaphoreGive(spiffs_mutex);
+
     httpd_resp_sendstr(req, "Archivo WAV subido con éxito.");
-    load_playlist_from_spiffs();// Cargamos nuevamente playlist
+    load_playlist_from_spiffs();  // Esta también debería estar protegida si accede a SPIFFS
     return ESP_OK;
 }
-
+*/
 // Handler de comandos de audio via GET
 static esp_err_t audio_cmd_handler(httpd_req_t *req) {
     char buf[64];
