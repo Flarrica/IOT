@@ -171,14 +171,18 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 publicar_estado_reproductor(client, estado_reproductor);
             }
             else if (strcmp(topic, TOPIC_GET) == 0) {
-                ESP_LOGI(TAG, "Solicitud de logger recibida por TOPIC_GET");
-                logger_publicar_todo();
+                if (strcmp(payload, "get_logger") == 0) {  
+                    ESP_LOGI(TAG, "Solicitud de logger recibida por TOPIC_GET");
+                    logger_publicar_todo();
+                } else {
+                    ESP_LOGW(TAG, "Comando desconocido en TOPIC_GET: %s", payload);
+                }
             }
-            else if (event->topic && strcmp(event->topic, "/placaKaluga/mejorGrupo/nintendo/musica") == 0) {
-                if (strncmp(event->data, "listar", event->data_len) == 0) {
+            else if (strcmp(topic, TOPIC_MUSICA) == 0) {
+                if (strcmp(payload, "listar") == 0) {
                     publicar_lista_de_pistas_mqtt();
                 }
-                else if (strncmp(payload, "borrar,", 7) == 0) {
+                else if (strncmp(payload, "borrar,", 7) == 0 && strlen(payload) > 7) {
                     const char *filename = payload + 7;
                     char path[64];
                     snprintf(path, sizeof(path), "/spiffs/%s", filename);
@@ -188,6 +192,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                     } else {
                         ESP_LOGE("MQTT_MUSICA", "Error al borrar archivo: %s", filename);
                     }
+                } else {
+                    ESP_LOGW(TAG, "Comando inválido en TOPIC_MUSICA: %s", payload);
                 }
             }
             break;
