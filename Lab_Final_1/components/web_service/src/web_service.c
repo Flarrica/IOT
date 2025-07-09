@@ -12,10 +12,15 @@
 #include "audio_player.h"
 #include "shared_lib.h"
 #include "task_mqtt.h"
+<<<<<<< Updated upstream
 #include "freertos/event_groups.h"
 #include "wifi_APSTA.h"
 
 #define WIFI_EVENT_FLAG_NEW_CREDENTIALS BIT0
+=======
+#include "wifi_APSTA.h"
+
+>>>>>>> Stashed changes
 #define TAG "WEB_SERVER"
 
 extern EventGroupHandle_t wifi_event_group;
@@ -23,6 +28,70 @@ extern EventGroupHandle_t wifi_event_group;
 extern QueueHandle_t audio_cmd_queue;
 static httpd_handle_t server = NULL;
 
+<<<<<<< Updated upstream
+=======
+// Handler de favicon
+static esp_err_t favicon_handler(httpd_req_t *req) {
+    httpd_resp_send(req, NULL, 0);
+    return ESP_OK;
+}
+
+static esp_err_t wav_upload_handler(httpd_req_t *req) {
+    // Buscar el próximo número libre
+    int i = 1;
+    char path[64];
+    FILE *f = NULL;
+
+    if (xSemaphoreTake(spiffs_mutex, pdMS_TO_TICKS(5000)) != pdTRUE) {
+        ESP_LOGE(TAG, "No se pudo obtener el mutex de SPIFFS");
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "SPIFFS ocupado");
+    }
+
+    while (i < 1000) { // límite arbitrario para evitar bucle infinito
+        snprintf(path, sizeof(path), "/spiffs/audio_%d.wav", i);
+        f = fopen(path, "r");
+        if (f == NULL) break;  // no existe, lo podemos usar
+        fclose(f);
+        i++;
+    }
+
+    f = fopen(path, "wb");
+    if (!f) {
+        ESP_LOGE(TAG, "No se pudo abrir %s para escritura", path);
+        xSemaphoreGive(spiffs_mutex);
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Fallo al abrir archivo");
+    }
+
+    char buf[1024];
+    int total = 0, len;
+
+    while ((len = httpd_req_recv(req, buf, sizeof(buf))) > 0) {
+        fwrite(buf, 1, len, f);
+        total += len;
+    }
+
+    fclose(f);
+    ESP_LOGI(TAG, "Guardado: %s (%d bytes)", path, total);
+
+    struct stat st;
+    if (stat(path, &st) == 0) {
+        ESP_LOGI(TAG, "Tamaño final en SPIFFS: %ld bytes", st.st_size);
+    } else {
+        ESP_LOGW(TAG, "No se pudo obtener tamaño de archivo");
+    }
+
+    xSemaphoreGive(spiffs_mutex);
+
+    httpd_resp_sendstr(req, "Archivo subido OK");
+
+    load_playlist_from_spiffs();  // Recordá que también debe estar protegida
+    vTaskDelay(pdMS_TO_TICKS(100)); 
+    return ESP_OK;
+}
+
+/*pruebas subir audio
+
+>>>>>>> Stashed changes
 static esp_err_t wav_upload_handler(httpd_req_t *req) {
     // Buscar el próximo número libre
     int i = 1;
@@ -190,7 +259,11 @@ esp_err_t guardar_wifi_handler(httpd_req_t *req) {
     ESP_LOGI(TAG, "mqtt_guardar_url: %s", esp_err_to_name(err_mqtt));
 
     if (ok_ssid && ok_wifi && err_mqtt == ESP_OK) {
+<<<<<<< Updated upstream
         // ✅ Notificar a la FSM que hay nuevas credenciales
+=======
+        // Notificar a la FSM que hay nuevas credenciales
+>>>>>>> Stashed changes
         wifi_fsm_notificar_nuevas_credenciales();
 
         httpd_resp_set_type(req, "text/html");
@@ -233,6 +306,34 @@ static esp_err_t root_get_handler(httpd_req_t *req) {
     return httpd_resp_send_chunk(req, NULL, 0);
 }
 
+<<<<<<< Updated upstream
+=======
+static esp_err_t borrar_handler(httpd_req_t *req) {
+    char archivo[64];
+    if (httpd_req_get_url_query_len(req) < 1)
+        return httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Sin parámetro");
+
+    char query[128];
+    httpd_req_get_url_query_str(req, query, sizeof(query));
+    if (httpd_query_key_value(query, "archivo", archivo, sizeof(archivo)) != ESP_OK)
+        return httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Falta parámetro archivo");
+
+    char path[80];
+    snprintf(path, sizeof(path), "/spiffs/%s", archivo);
+
+    if (unlink(path) == 0) {
+        ESP_LOGI(TAG, "Archivo borrado por web: %s", archivo);
+        httpd_resp_sendstr(req, "Archivo eliminado correctamente.");
+    } else {
+        ESP_LOGE(TAG, "Error al borrar: %s", archivo);
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Error al eliminar archivo.");
+    }
+    load_playlist_from_spiffs();// Cargamos nuevamente playlist
+    vTaskDelay(pdMS_TO_TICKS(100));
+    return ESP_OK;
+}
+
+>>>>>>> Stashed changes
 // Inicializar WebServer
 void web_service_inicializar(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();

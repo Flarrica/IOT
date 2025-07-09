@@ -17,7 +17,7 @@ typedef enum {
     WIFI_STATE_WAIT_CREDENTIALS, // Esperando credenciales en NVS
     WIFI_STATE_CONNECTING,       // Intentando conectar como STA
     WIFI_STATE_CONNECTED,        // Conexión exitosa como STA
-    WIFI_STATE_WAITING_USER      // Esperando nuevas credenciales vía Web
+    WIFI_STATE_WAITING_USER,      // Esperando nuevas credenciales vía Web
 } wifi_state_t;
 
 //------------------------------

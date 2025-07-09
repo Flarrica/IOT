@@ -36,6 +36,16 @@ static void log_error_if_nonzero(const char *message, int error_code) {
     }
 }
 
+esp_err_t task_mqtt_stop(void) {
+    ESP_LOGI(TAG, "Deteniendo cliente MQTT...");
+    if (client) {
+        esp_mqtt_client_stop(client);
+        esp_mqtt_client_destroy(client);
+        client = NULL;
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
 
 void publicar_lista_de_pistas_mqtt(void) {
     DIR *dir = opendir("/spiffs");
@@ -187,6 +197,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 }
 
 esp_err_t task_mqtt_start(void *handler_args) {
+    mqtt_suscripto = false;
     char mqtt_url[128] = "mqtt://broker.hivemq.com";
     mqtt_leer_url(mqtt_url, sizeof(mqtt_url));
 

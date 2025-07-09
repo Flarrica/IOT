@@ -10,6 +10,11 @@ void ntp_sync_inicializar(void)
 {
     ESP_LOGI(TAG, "Inicializando SNTP");
 
+    if (esp_sntp_enabled()) {
+        ESP_LOGW("NTP_SYNC", "SNTP ya estaba iniciado. Reiniciando...");
+        esp_sntp_stop();
+    }
+    
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
     sntp_setservername(0, "pool.ntp.org");
     sntp_init();
