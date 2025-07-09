@@ -57,6 +57,7 @@ static int playlist_size = 0;
 
 static SemaphoreHandle_t current_track_mutex;
 SemaphoreHandle_t volume_mutex; //Porque dos task comparten el recurso
+extern SemaphoreHandle_t spiffs_mutex;
 extern SemaphoreHandle_t i2c_mutex;
 extern QueueHandle_t color_queue;
 // ------------------------
@@ -494,12 +495,20 @@ static void task_audio_player(void *args) {
 // ------------------------
 // CARGAR PLAYLIST DESDE MEMORIA
 // ------------------------
-static void load_playlist_from_spiffs(void) {
+void load_playlist_from_spiffs(void) {
+    if (xSemaphoreTake(spiffs_mutex, pdMS_TO_TICKS(5000)) != pdTRUE) {
+        ESP_LOGE(TAG, "No se pudo obtener mutex para leer SPIFFS");
+        return;
+    }
+
     DIR *dir = opendir("/spiffs");
     struct dirent *entry;
 
+    playlist_size = 0;  // Reiniciar para evitar acumulación
+
     if (!dir) {
         ESP_LOGE(TAG, "No se pudo abrir /spiffs");
+        xSemaphoreGive(spiffs_mutex);
         return;
     }
 
@@ -511,13 +520,15 @@ static void load_playlist_from_spiffs(void) {
         }
     }
 
+    closedir(dir);
+
+    xSemaphoreGive(spiffs_mutex);
+
     ESP_LOGI(TAG, "Archivos cargados en la playlist (tamaño: %d):", playlist_size);
     for (int i = 0; i < playlist_size; i++) {
         ESP_LOGI(TAG, "  [%d] %s", i, playlist[i]);
     }
-    closedir(dir);
 }
-
 // ------------------------
 // INICIALIZACIÓN DE AUIDO PLAYER
 // ------------------------

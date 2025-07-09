@@ -8,7 +8,8 @@
 
 // --- Constantes
 #define WIFI_NAMESPACE "wifi_config"
-
+// --- Alias
+#define wifi_credentials_cargar wifi_credentials_leer //Para que tenga un poco mas de sentido en el codigo de wifiAPSTA
 // --- Estructuras
 typedef struct {
     char ssid[24];
@@ -22,6 +23,8 @@ extern led_rgb_evento_t current_color;
 extern SemaphoreHandle_t i2c_mutex;
 extern SemaphoreHandle_t io_mutex;
 extern QueueHandle_t command_queue;
+/// Mutex global para proteger acceso a SPIFFS
+extern SemaphoreHandle_t spiffs_mutex;
 
 extern QueueHandle_t audio_event_queue;
 
@@ -36,5 +39,4 @@ bool wifi_credentials_validas(const wifi_credentials_t *cred);
 
 // MONTAJE DE SPIFFS
 esp_err_t spiffs_init(void);
-
 #endif // SHARED_LIB_H_

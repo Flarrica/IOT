@@ -14,6 +14,6 @@ void web_service_inicializar(void);
 esp_err_t guardar_wifi_handler(httpd_req_t *req);
 
 // Guardado en NVS de las credenciales WiFi
-bool nvs_guardar_credenciales(const char *ssid, const char *pass);
+//bool nvs_guardar_credenciales(const char *ssid, const char *pass);
 
 #endif // WEB_SERVICE_H

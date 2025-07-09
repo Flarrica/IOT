@@ -97,12 +97,6 @@
   </div>
 </div>
 
-<h2>Subir archivo WAV</h2>
-
-<form id="formWav" onsubmit="cargarWav(event)" enctype="multipart/form-data">
-  <input type="file" name="audio[]" accept=".wav" multiple required>
-  <input type="submit" value="Subir archivos">
-</form>
 
 <h2 class="subtitulo">🛜 Wi-Fi / 🌐 MQTT</h2>
 
@@ -112,6 +106,15 @@
     <input type="password" id="pass" placeholder="Contraseña" required><br>
     <input type="text" id="mqtt_url" value="mqtt://broker.hivemq.com" placeholder="mqtt://broker.hivemq.com" required><br>
     <input type="submit" value="Guardar y Conectar">
+  </form>
+</div>
+
+<h2>Subir archivo WAV</h2>
+
+<div class="panel">
+  <form id="formWav" onsubmit="cargarWav(event)" enctype="multipart/form-data">
+    <input type="file" name="audio[]" accept=".wav" multiple required>
+    <input type="submit" value="Subir archivos">
   </form>
 </div>
 
@@ -188,17 +191,17 @@
   }
 
   function reiniciar(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    fetch("/reset", {
-      method: "GET",
-      credentials: "omit"
-    })
-    .then(r => r.text())
-    .then(html => document.body.innerHTML = html)
-    .catch(err => alert("Error al reiniciar: " + err));
+  fetch("/reset", {
+    method: "GET",
+    credentials: "omit"
+  })
+  .then(r => r.text())
+  .then(html => document.body.innerHTML = html)
+  .catch(err => alert("Error al reiniciar: " + err));
   }
-
+  
   function cargarWav(e) {
     e.preventDefault();
     const files = document.querySelector('input[type="file"]').files;
@@ -218,6 +221,9 @@
     }
   }
   
+    
+  setInterval(actualizarEstado, 2000);
+  window.onload = actualizarEstado;
 </script>
 
 </body>

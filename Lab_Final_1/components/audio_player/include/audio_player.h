@@ -99,6 +99,9 @@ extern QueueHandle_t audio_event_queue;
 /* Declaraciones públicas del reproductor de audio */
 esp_err_t audio_player_init(void);
 
+// Cargar playlist
+void load_playlist_from_spiffs();
+
 const char *audio_state_to_str(audio_state_t estado);
 
 int audio_player_get_volume(void);

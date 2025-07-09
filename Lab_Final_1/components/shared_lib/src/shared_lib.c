@@ -17,6 +17,8 @@ led_rgb_evento_t current_color = LED_EVENT_APAGAR;
 SemaphoreHandle_t i2c_mutex = NULL;
 QueueHandle_t io_mutex = NULL;
 QueueHandle_t color_queue = NULL;
+SemaphoreHandle_t spiffs_mutex = NULL;
+
 
 bool wifi_credentials_guardar(const wifi_credentials_t *cred) {
     nvs_handle_t handle;

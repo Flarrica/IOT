@@ -22,7 +22,9 @@ typedef struct {
 // Estado global del reproductor
 extern reproductor_estado_t estado_reproductor;
 
+
 // Funciones públicas
+esp_err_t task_mqtt_stop(void); // Mata todo
 esp_err_t task_mqtt_start(void *handler_args);
 esp_err_t mqtt_guardar_url(const char *url);
 esp_err_t mqtt_leer_url(char *dest, size_t max_len);

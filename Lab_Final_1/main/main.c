@@ -51,6 +51,7 @@ void app_main(void)
     // Creamos semaforos
     i2c_mutex = xSemaphoreCreateMutex();
     io_mutex = xSemaphoreCreateMutex();
+    spiffs_mutex = xSemaphoreCreateMutex();
 
     // Inicializar Logger
     ESP_LOGI("MAIN", "Inicializando logger...");
@@ -101,10 +102,10 @@ void app_main(void)
 
     xTaskCreate(task_touch, "task_touch", 2048, NULL, 7, NULL);
     vTaskDelay(pdMS_TO_TICKS(500));
-    // Intentamos conectar WiFi antes de iniciar MQTT. Ponemos al final para que no se interfiera cono init de MQTT
-    ESP_LOGI("MAIN", "Crea task WiFi STA e inicializador MQTT...");
+
+   // Intentamos conectar WiFi antes de iniciar MQTT. Ponemos al final para que no se interfiera con init de MQTT
+    ESP_LOGI("MAIN", "WiFi AP+STA ya inicializado. FSM en ejecución...");
     vTaskDelay(pdMS_TO_TICKS(500));
-    xTaskCreate(wifi_sta_task, "wifi_sta_task", 2048, NULL, 4, NULL);
 
     while (true) {
         vTaskDelay(pdMS_TO_TICKS(10));

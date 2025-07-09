@@ -36,6 +36,16 @@ static void log_error_if_nonzero(const char *message, int error_code) {
     }
 }
 
+esp_err_t task_mqtt_stop(void) {
+    ESP_LOGI(TAG, "Deteniendo cliente MQTT...");
+    if (client) {
+        esp_mqtt_client_stop(client);
+        esp_mqtt_client_destroy(client);
+        client = NULL;
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
 
 void publicar_lista_de_pistas_mqtt(void) {
     DIR *dir = opendir("/spiffs");
@@ -165,9 +175,20 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
                 logger_publicar_todo();
             }
             else if (event->topic && strcmp(event->topic, "/placaKaluga/mejorGrupo/nintendo/musica") == 0) {
-            if (strncmp(event->data, "listar", event->data_len) == 0) {
-                publicar_lista_de_pistas_mqtt();
-            }
+                if (strncmp(event->data, "listar", event->data_len) == 0) {
+                    publicar_lista_de_pistas_mqtt();
+                }
+                else if (strncmp(payload, "borrar,", 7) == 0) {
+                    const char *filename = payload + 7;
+                    char path[64];
+                    snprintf(path, sizeof(path), "/spiffs/%s", filename);
+
+                    if (unlink(path) == 0) {
+                        ESP_LOGI("MQTT_MUSICA", "Archivo borrado por MQTT: %s", filename);
+                    } else {
+                        ESP_LOGE("MQTT_MUSICA", "Error al borrar archivo: %s", filename);
+                    }
+                }
             }
             break;
         }
@@ -187,6 +208,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 }
 
 esp_err_t task_mqtt_start(void *handler_args) {
+    mqtt_suscripto = false;
     char mqtt_url[128] = "mqtt://broker.hivemq.com";
     mqtt_leer_url(mqtt_url, sizeof(mqtt_url));
 
