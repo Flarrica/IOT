@@ -14,7 +14,7 @@
 #define EXAMPLE_SAMPLE_RATE      (8000)
 #define EXAMPLE_MCLK_MULTIPLE    (256) // 256 es suficiente si no se usa 24 bits por muestra
 #define EXAMPLE_MCLK_FREQ_HZ     (EXAMPLE_SAMPLE_RATE * EXAMPLE_MCLK_MULTIPLE)
-#define EXAMPLE_VOICE_VOLUME     75
+#define EXAMPLE_VOICE_VOLUME     85
 #define MAX_PLAYLIST 10
 #define MAX_FILENAME_LEN 255
 #define MAX_PATH_LEN (8 + MAX_FILENAME_LEN + 1)

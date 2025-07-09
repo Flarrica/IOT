@@ -18,7 +18,6 @@ static EventGroupHandle_t wifi_event_group;
 #define MAX_STA_RETRIES 3
 
 static wifi_state_t current_state = WIFI_STATE_INIT;
-static int retry_count = 0;
 static bool mqtt_started = false;
 static TaskHandle_t wifi_fsm_task_handle = NULL;
 static bool sta_connected = false;
@@ -79,12 +78,41 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
 
         sta_connected = true;
 
+        wifi_state_t estado_actual;
         portENTER_CRITICAL(&state_mux);
-        current_state = WIFI_STATE_CONNECTED;
+        estado_actual = current_state;
         portEXIT_CRITICAL(&state_mux);
 
-        ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
-        ESP_LOGI(TAG, "EVENT: STA obtuvo IP: " IPSTR, IP2STR(&event->ip_info.ip));
+        // Leer credenciales desde NVS
+        wifi_credentials_t cred;
+        bool tengo_cred = wifi_credentials_leer(&cred);
+
+        // Consultar red a la que nos conectamos
+        wifi_ap_record_t ap_info;
+        esp_err_t r = esp_wifi_sta_get_ap_info(&ap_info);
+
+        if (r == ESP_OK) {
+            ESP_LOGI(TAG, "EVENT: STA obtuvo IP: " IPSTR, IP2STR(&((ip_event_got_ip_t *)event_data)->ip_info.ip));
+            ESP_LOGI(TAG, "EVENT: Conectado al SSID: %s", ap_info.ssid);
+
+            if (estado_actual == WIFI_STATE_WAITING_USER &&
+                tengo_cred &&
+                strcmp((char *)ap_info.ssid, cred.ssid) == 0) {
+
+                ESP_LOGW(TAG, "EVENT: Red guardada detectada desde WAITING_USER. Volviendo a INIT.");
+                portENTER_CRITICAL(&state_mux);
+                current_state = WIFI_STATE_INIT;
+                portEXIT_CRITICAL(&state_mux);
+
+            }else if (estado_actual == WIFI_STATE_WAITING_USER) {
+                ESP_LOGI(TAG, "EVENT: Conexión automática a red distinta: %s", ap_info.ssid);
+
+            } else {
+                portENTER_CRITICAL(&state_mux);
+                current_state = WIFI_STATE_CONNECTED;
+                portEXIT_CRITICAL(&state_mux);
+            }
+        }
 
         ntp_sync_inicializar();
 
@@ -94,14 +122,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                 logger_publicar_al_arrancar();
             }
         }
-        /*
-        if (wifi_fsm_task_handle != NULL) {
-            vTaskDelete(wifi_fsm_task_handle);
-            wifi_fsm_task_handle = NULL;
-        }
-                */
     }
-    current_state = WIFI_STATE_CONNECTING;
+
     ESP_LOGI(TAG, "EVENT: <- Saliendo de wifi_event_handler");
 }
 
@@ -128,7 +150,7 @@ void wifi_fsm_task(void *param) {
         switch (estado) {
             case WIFI_STATE_INIT:
                 ESP_LOGI(TAG, "FSM: -> Estado INIT");
-                if (!wifi_credentials_leer(&cred)) {
+                if (!wifi_credentials_leer(&cred) || strlen((char *)cred.ssid) == 0) {
                     portENTER_CRITICAL(&state_mux);
                     current_state = WIFI_STATE_WAIT_CREDENTIALS;
                     portEXIT_CRITICAL(&state_mux);
@@ -145,7 +167,7 @@ void wifi_fsm_task(void *param) {
                 vTaskDelay(pdMS_TO_TICKS(10000));
                 if (wifi_credentials_leer(&cred)) {
                     portENTER_CRITICAL(&state_mux);
-                    current_state = WIFI_STATE_CONNECTING;
+                    current_state = WIFI_STATE_INIT;
                     portEXIT_CRITICAL(&state_mux);
                 }
                 ESP_LOGI(TAG, "FSM: <- Salida de WAIT_CREDENTIALS");
@@ -153,9 +175,12 @@ void wifi_fsm_task(void *param) {
 
             case WIFI_STATE_CONNECTING:
                 ESP_LOGI(TAG, "FSM: -> Estado CONNECTING");
-                if (!wifi_credentials_validas(&cred)) {
-                    ESP_LOGW(TAG, "FSM: Credenciales inválidas");
-                    vTaskDelay(pdMS_TO_TICKS(10000));
+                
+                if (sta_connected) {
+                    ESP_LOGW(TAG, "FSM: Ya estamos conectados. Saltando intento de conexión.");
+                    portENTER_CRITICAL(&state_mux);
+                    current_state = WIFI_STATE_CONNECTED;
+                    portEXIT_CRITICAL(&state_mux);
                     break;
                 }
 
@@ -165,6 +190,13 @@ void wifi_fsm_task(void *param) {
                 strncpy((char *)sta_config.sta.ssid, cred.ssid, sizeof(sta_config.sta.ssid) - 1);
                 strncpy((char *)sta_config.sta.password, cred.password, sizeof(sta_config.sta.password) - 1);
                 sta_config.sta.threshold.authmode = WIFI_AUTH_WPA_WPA2_PSK;
+                wifi_mode_t modo_actual;
+
+                ESP_ERROR_CHECK(esp_wifi_get_mode(&modo_actual));
+                if (modo_actual != WIFI_MODE_APSTA) {
+                    ESP_LOGW(TAG, "FSM: Cambiando a modo APSTA");
+                    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_APSTA));
+                }
 
                 ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta_config));
                 esp_wifi_connect();
@@ -181,7 +213,7 @@ void wifi_fsm_task(void *param) {
                 } else {
                     reintentos++;
                     ESP_LOGW(TAG, "FSM: Fallo de conexión #%d", reintentos);
-                    if (reintentos >= MAX_REINTENTOS) {
+                    if (reintentos > MAX_REINTENTOS) {
                         ESP_LOGE(TAG, "FSM: Demasiados reintentos. Pasando a modo AP puro.");
                         wifi_modo_ap_puro();
                         portENTER_CRITICAL(&state_mux);
@@ -195,38 +227,50 @@ void wifi_fsm_task(void *param) {
 
             case WIFI_STATE_CONNECTED:
                 ESP_LOGI(TAG, "FSM: -> Estado CONNECTED");
+
+                EventBits_t bits = xEventGroupGetBits(wifi_event_group);
+                if (bits & WIFI_EVENT_FLAG_NEW_CREDENTIALS) {
+                    ESP_LOGI(TAG, "FSM: Nuevas credenciales detectadas en estado CONNECTED. Reiniciando conexión.");
+                    xEventGroupClearBits(wifi_event_group, WIFI_EVENT_FLAG_NEW_CREDENTIALS);
+                    esp_wifi_disconnect();  // ← corta la conexión actual
+                    portENTER_CRITICAL(&state_mux);
+                    current_state = WIFI_STATE_INIT;
+                    portEXIT_CRITICAL(&state_mux);
+                    ESP_LOGI(TAG, "FSM: <- Salida de CONNECTED, NUEVAS Credenciales");
+                    break;
+                }
+                
                 vTaskDelay(pdMS_TO_TICKS(1000));
+
                 if (!sta_connected) {
-                    ESP_LOGW(TAG, "FSM: Perdida de conexión detectada. Reintentando...");
+                    ESP_LOGW(TAG, "FSM: Perdimos conexión inesperadamente. Reintentando.");
                     portENTER_CRITICAL(&state_mux);
                     current_state = WIFI_STATE_CONNECTING;
                     portEXIT_CRITICAL(&state_mux);
                 }
+
+                
                 ESP_LOGI(TAG, "FSM: <- Salida de CONNECTED");
                 break;
 
             case WIFI_STATE_WAITING_USER:
                 ESP_LOGI(TAG, "FSM: -> Estado WAITING_USER");
 
-                EventBits_t bits = xEventGroupWaitBits(wifi_event_group,
-                                                       WIFI_EVENT_FLAG_NEW_CREDENTIALS,
-                                                       pdTRUE, pdFALSE,
-                                                       pdMS_TO_TICKS(5000));
+                EventBits_t wait_bits = xEventGroupWaitBits(wifi_event_group,
+                                                    WIFI_EVENT_FLAG_NEW_CREDENTIALS,
+                                                    pdTRUE, pdFALSE,
+                                                    pdMS_TO_TICKS(5000));
 
-                if (bits & WIFI_EVENT_FLAG_NEW_CREDENTIALS) {
+                if (wait_bits & WIFI_EVENT_FLAG_NEW_CREDENTIALS) {
                     ESP_LOGI(TAG, "FSM: Evento de nuevas credenciales recibido");
-
-                    wifi_credentials_t nuevas_credenciales = {0};
-                    if (wifi_credentials_cargar(&nuevas_credenciales)) {
-                        ESP_LOGI(TAG, "FSM: Intentando conectar a SSID: '%s'", nuevas_credenciales.ssid);
-                        cred = nuevas_credenciales;
-                        portENTER_CRITICAL(&state_mux);
-                        current_state = WIFI_STATE_CONNECTING;
-                        portEXIT_CRITICAL(&state_mux);
-                    } else {
-                        ESP_LOGE(TAG, "FSM: Error al cargar nuevas credenciales. Pasando a AP puro.");
-                        wifi_modo_ap_puro();
-                    }
+                    portENTER_CRITICAL(&state_mux);
+                    current_state = WIFI_STATE_INIT; 
+                    portEXIT_CRITICAL(&state_mux);
+                } else if (wifi_credentials_leer(&cred)) {
+                    ESP_LOGI(TAG, "FSM: Credenciales válidas detectadas automáticamente. Volviendo a INIT.");
+                    portENTER_CRITICAL(&state_mux);
+                    current_state = WIFI_STATE_INIT;
+                    portEXIT_CRITICAL(&state_mux);
                 }
 
                 ESP_LOGI(TAG, "FSM: <- Salida de WAITING_USER");

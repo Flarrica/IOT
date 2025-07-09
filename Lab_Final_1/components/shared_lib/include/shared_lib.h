@@ -36,7 +36,8 @@ void inicializar_recursos_globales(void);
 bool wifi_credentials_guardar(const wifi_credentials_t *cred);
 bool wifi_credentials_leer(wifi_credentials_t *cred);
 bool wifi_credentials_validas(const wifi_credentials_t *cred);
-
+bool wifi_credentials_borrar(void);
+esp_err_t mqtt_borrar_url(void);
 // MONTAJE DE SPIFFS
 esp_err_t spiffs_init(void);
 #endif // SHARED_LIB_H_

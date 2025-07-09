@@ -84,3 +84,24 @@ void inicializar_recursos_globales(void) {
         abort();
     }
 }
+
+bool wifi_credentials_borrar(void) {
+    nvs_handle_t handle;
+    if (nvs_open(WIFI_NAMESPACE, NVS_READWRITE, &handle) != ESP_OK) return false;
+
+    nvs_erase_key(handle, "ssid");
+    nvs_erase_key(handle, "pass");
+
+    esp_err_t err = nvs_commit(handle);
+    nvs_close(handle);
+    return err == ESP_OK;
+}
+
+esp_err_t mqtt_borrar_url(void) {
+    nvs_handle_t handle;
+    if (nvs_open("mqtt_config", NVS_READWRITE, &handle) != ESP_OK) return ESP_FAIL;
+    nvs_erase_key(handle, "broker_url");
+    esp_err_t err = nvs_commit(handle);
+    nvs_close(handle);
+    return err;
+}

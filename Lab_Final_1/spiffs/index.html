@@ -121,9 +121,16 @@
 <h2 class="subtitulo">🔁 Reinicio</h2>
 
 <div class="panel">
-  <form onsubmit="reiniciar(event)">
-    <input type="submit" value="Reiniciar Kaluga">
-  </form>
+  <div class="fila">
+    <form onsubmit="reiniciar(event)">
+      <input type="submit" value="Reiniciar Kaluga">
+    </form>
+  </div>
+    <div class="fila">
+    <form onsubmit="borrarCredenciales(event)">
+      <input type="submit" value="Borrar Credenciales WiFi">
+    </form>
+  </div>
 </div>
 
 <script>
@@ -190,16 +197,29 @@
     .catch(err => alert("Error al enviar: " + err));
   }
 
-  function reiniciar(e) {
-  e.preventDefault();
+  function borrarCredenciales(e) {
+    e.preventDefault();
+    if (!confirm("¿Estás seguro de borrar las credenciales WiFi y MQTT?")) return;
 
-  fetch("/reset", {
-    method: "GET",
-    credentials: "omit"
-  })
-  .then(r => r.text())
-  .then(html => document.body.innerHTML = html)
-  .catch(err => alert("Error al reiniciar: " + err));
+    fetch("/borrar_credenciales", {
+      method: "GET",
+      credentials: "omit"
+    })
+    .then(r => r.text())
+    .then(html => document.body.innerHTML = html)
+    .catch(err => alert("Error al borrar credenciales: " + err));
+  }
+
+  function reiniciar(e) {
+    e.preventDefault();
+
+    fetch("/reset", {
+      method: "GET",
+      credentials: "omit"
+    })
+    .then(r => r.text())
+    .then(html => document.body.innerHTML = html)
+    .catch(err => alert("Error al reiniciar: " + err));
   }
   
   function cargarWav(e) {

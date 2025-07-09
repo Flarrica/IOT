@@ -308,6 +308,30 @@ static esp_err_t root_get_handler(httpd_req_t *req) {
     return httpd_resp_send_chunk(req, NULL, 0);
 }
 
+static esp_err_t borrar_credenciales_handler(httpd_req_t *req) {
+    ESP_LOGW(TAG, "Petición para borrar credenciales recibida");
+
+    bool ok_wifi = wifi_credentials_borrar();  // Asumimos que esta función ya existe
+    esp_err_t err_mqtt = mqtt_borrar_url();    // Debés implementar esto si no existe
+
+    if (ok_wifi && err_mqtt == ESP_OK) {
+        ESP_LOGI(TAG, "Credenciales borradas correctamente");
+
+        httpd_resp_set_type(req, "text/html");
+        httpd_resp_sendstr(req,
+            "<html><head><meta http-equiv=\"refresh\" content=\"3;url=/\"></head>"
+            "<body><h1>🗑️ Credenciales eliminadas</h1>"
+            "<p>El dispositivo se reiniciará automáticamente...</p></body></html>");
+
+        vTaskDelay(pdMS_TO_TICKS(500));
+        esp_restart();
+        return ESP_OK;
+    }
+
+    ESP_LOGE(TAG, "Fallo al borrar credenciales");
+    return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo borrar");
+}
+
 static esp_err_t borrar_handler(httpd_req_t *req) {
     char archivo[64];
     if (httpd_req_get_url_query_len(req) < 1)
@@ -336,7 +360,7 @@ static esp_err_t borrar_handler(httpd_req_t *req) {
 // Inicializar WebServer
 void web_service_inicializar(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.max_uri_handlers = 8;
+    config.max_uri_handlers = 10;
     config.recv_wait_timeout = 10;
     config.lru_purge_enable = true;
     config.stack_size = 8192;
@@ -395,6 +419,12 @@ void web_service_inicializar(void) {
             .handler = borrar_handler,
             .user_ctx = NULL
         };
+        const httpd_uri_t borrar_cred_uri = {
+        .uri = "/borrar_credenciales",
+        .method = HTTP_GET,
+        .handler = borrar_credenciales_handler,
+        .user_ctx = NULL
+        };
 
 
 
@@ -406,5 +436,6 @@ void web_service_inicializar(void) {
         httpd_register_uri_handler(server, &reset_uri);
         httpd_register_uri_handler(server, &upload_uri);
         httpd_register_uri_handler(server, &borrar_uri);
+        httpd_register_uri_handler(server, &borrar_cred_uri);
     }
 }
