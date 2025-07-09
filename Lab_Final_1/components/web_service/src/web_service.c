@@ -14,11 +14,14 @@
 #include "task_mqtt.h"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 #include "freertos/event_groups.h"
 #include "wifi_APSTA.h"
 
 #define WIFI_EVENT_FLAG_NEW_CREDENTIALS BIT0
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 #include "wifi_APSTA.h"
@@ -264,7 +267,11 @@ esp_err_t guardar_wifi_handler(httpd_req_t *req) {
     if (ok_ssid && ok_wifi && err_mqtt == ESP_OK) {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // ✅ Notificar a la FSM que hay nuevas credenciales
+=======
+        // Notificar a la FSM que hay nuevas credenciales
+>>>>>>> Stashed changes
 =======
         // Notificar a la FSM que hay nuevas credenciales
 >>>>>>> Stashed changes

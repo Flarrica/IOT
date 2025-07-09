@@ -213,7 +213,11 @@ void wifi_fsm_task(void *param) {
                                                        pdTRUE, pdFALSE,
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                                                        pdMS_TO_TICKS(600000));  // 10 minutos
+=======
+                                                       pdMS_TO_TICKS(5000));
+>>>>>>> Stashed changes
 =======
                                                        pdMS_TO_TICKS(5000));
 >>>>>>> Stashed changes
