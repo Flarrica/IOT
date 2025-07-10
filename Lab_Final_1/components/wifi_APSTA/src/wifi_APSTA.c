@@ -207,7 +207,7 @@ void wifi_fsm_task(void *param) {
                 ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &sta_config));
                 esp_wifi_connect();
                 vTaskDelay(pdMS_TO_TICKS(10000));
-                ESP_LOGI(TAG, "FSM: Intentando conectar a larrica");
+                ESP_LOGI(TAG, "FSM: Llamada a esp_wifi_connect() realizada. Esperando conexión...");
                 wifi_ap_record_t ap_info;
                 if (esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK) {
                     ESP_LOGI(TAG, "FSM: Conexión exitosa al AP: %s", ap_info.ssid);
@@ -215,7 +215,6 @@ void wifi_fsm_task(void *param) {
                     current_state = WIFI_STATE_CONNECTED;
                     portEXIT_CRITICAL(&state_mux);
                     reintentos = 0;
-                    ESP_LOGI(TAG, "FSM: Intentando conectar a larrica2");
                 } else {
                     reintentos++;
                     ESP_LOGW(TAG, "FSM: Fallo de conexión #%d", reintentos);
