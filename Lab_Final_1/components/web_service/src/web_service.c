@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 #include "esp_system.h"
 #include "esp_http_server.h"
@@ -11,7 +12,6 @@
 #include "freertos/task.h"
 
 #include "web_service.h"
-#include "led_rgb.h"
 #include "audio_player.h"
 #include "shared_lib.h"
 #include "task_mqtt.h"
@@ -19,7 +19,6 @@
 
 #define TAG "WEB_SERVER"
 
-extern QueueHandle_t audio_cmd_queue;
 extern SemaphoreHandle_t spiffs_mutex;
 static httpd_handle_t server = NULL;
 
@@ -30,7 +29,6 @@ static esp_err_t favicon_handler(httpd_req_t *req) {
 }
 
 static esp_err_t wav_upload_handler(httpd_req_t *req) {
-    // Buscar el próximo número libre
     int i = 1;
     char path[64];
     FILE *f = NULL;
@@ -40,10 +38,10 @@ static esp_err_t wav_upload_handler(httpd_req_t *req) {
         return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "SPIFFS ocupado");
     }
 
-    while (i < 1000) { // límite arbitrario para evitar bucle infinito
+    while (i < 1000) {
         snprintf(path, sizeof(path), "/spiffs/audio_%d.wav", i);
         f = fopen(path, "r");
-        if (f == NULL) break;  // no existe, lo podemos usar
+        if (f == NULL) break;
         fclose(f);
         i++;
     }
@@ -57,10 +55,24 @@ static esp_err_t wav_upload_handler(httpd_req_t *req) {
 
     char buf[1024];
     int total = 0, len;
+    bool started = false;
 
     while ((len = httpd_req_recv(req, buf, sizeof(buf))) > 0) {
-        fwrite(buf, 1, len, f);
-        total += len;
+        int offset = 0;
+        if (!started) {
+            for (int j = 0; j < len - 4; ++j) {
+                if (memcmp(&buf[j], "RIFF", 4) == 0) {
+                    offset = j;
+                    started = true;
+                    break;
+                }
+            }
+            if (!started) continue;  // Aún no se detectó inicio válido
+        }
+
+        fwrite(&buf[offset], 1, len - offset, f);
+        total += (len - offset);
+        offset = 0;
     }
 
     fclose(f);
@@ -75,57 +87,9 @@ static esp_err_t wav_upload_handler(httpd_req_t *req) {
 
     xSemaphoreGive(spiffs_mutex);
 
-    httpd_resp_sendstr(req, "Archivo subido OK");
-
-    load_playlist_from_spiffs();  // Recordá que también debe estar protegida
-    vTaskDelay(pdMS_TO_TICKS(100)); 
+    httpd_resp_sendstr(req, "Archivo subido correctamente.");
     return ESP_OK;
 }
-
-/*pruebas subir audio
-
-static esp_err_t wav_upload_handler(httpd_req_t *req) {
-    // Buscar el próximo número libre
-    int i = 1;
-    char path[64];
-    FILE *f = NULL;
-
-    while (i < 1000) { // límite arbitrario para evitar bucle infinito
-        snprintf(path, sizeof(path), "/spiffs/audio_%d.wav", i);
-        f = fopen(path, "r");
-        if (f == NULL) break;  // no existe, lo podemos usar
-        fclose(f);
-        i++;
-    }
-
-    // Abre para escribir
-    f = fopen(path, "wb");
-    if (!f) {
-        ESP_LOGE("UPLOAD", "No se pudo abrir %s para escritura", path);
-        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Fallo al abrir archivo");
-    }
-
-    char buf[1024];
-    int total = req->content_len;
-    int recibidos = 0;
-
-    while (recibidos < total) {
-        int len = httpd_req_recv(req, buf, sizeof(buf));
-        if (len <= 0) {
-            fclose(f);
-            return ESP_FAIL;
-        }
-        fwrite(buf, 1, len, f);
-        recibidos += len;
-    }
-
-    fclose(f);
-    ESP_LOGI("UPLOAD", "Guardado: %s (%d bytes)", path, recibidos);
-    httpd_resp_sendstr(req, "Archivo subido OK");
-    return ESP_OK;
-}
-
-fin de prueba*/
 
 // Handler de estado del reproductor
 static esp_err_t audio_status_handler(httpd_req_t *req) {
@@ -148,53 +112,10 @@ static esp_err_t audio_status_handler(httpd_req_t *req) {
 // Handler de reinicio desde la web
 static esp_err_t reset_handler(httpd_req_t *req) {
     httpd_resp_sendstr(req, "Reiniciando dispositivo...");
-    vTaskDelay(pdMS_TO_TICKS(100));  // Deja que se envíe la respuesta
     esp_restart();
     return ESP_OK;
 }
 
-// Handler para subir archivo WAV
-/*
-static esp_err_t upload_post_handler(httpd_req_t *req) {
-    const char *path = "/spiffs/audio.wav";
-
-    if (xSemaphoreTake(spiffs_mutex, pdMS_TO_TICKS(5000)) != pdTRUE) {
-        ESP_LOGE(TAG, "No se pudo obtener el mutex de SPIFFS");
-        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "SPIFFS ocupado");
-    }
-
-    FILE *f = fopen(path, "wb");
-    if (!f) {
-        ESP_LOGE(TAG, "No se pudo abrir %s para escritura", path);
-        xSemaphoreGive(spiffs_mutex);
-        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo guardar");
-    }
-
-    char buf[1024];
-    int total = 0, len;
-
-    while ((len = httpd_req_recv(req, buf, sizeof(buf))) > 0) {
-        fwrite(buf, 1, len, f);
-        total += len;
-    }
-
-    fclose(f);
-    ESP_LOGI(TAG, "Archivo guardado en %s (%d bytes)", path, total);
-
-    struct stat st;
-    if (stat(path, &st) == 0) {
-        ESP_LOGI(TAG, "Tamaño final en SPIFFS: %ld bytes", st.st_size);
-    } else {
-        ESP_LOGW(TAG, "No se pudo obtener tamaño de archivo");
-    }
-
-    xSemaphoreGive(spiffs_mutex);
-
-    httpd_resp_sendstr(req, "Archivo WAV subido con éxito.");
-    load_playlist_from_spiffs();  // Esta también debería estar protegida si accede a SPIFFS
-    return ESP_OK;
-}
-*/
 // Handler de comandos de audio via GET
 static esp_err_t audio_cmd_handler(httpd_req_t *req) {
     char buf[64];
@@ -332,6 +253,12 @@ static esp_err_t borrar_credenciales_handler(httpd_req_t *req) {
     return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo borrar");
 }
 
+static esp_err_t reload_playlist_handler(httpd_req_t *req) {
+    load_playlist_from_spiffs();
+    httpd_resp_sendstr(req, "Playlist recargada.");
+    return ESP_OK;
+}
+
 static esp_err_t borrar_handler(httpd_req_t *req) {
     char archivo[64];
     if (httpd_req_get_url_query_len(req) < 1)
@@ -357,10 +284,98 @@ static esp_err_t borrar_handler(httpd_req_t *req) {
     return ESP_OK;
 }
 
+static esp_err_t descargar_handler(httpd_req_t *req) {
+    char archivo[64];
+    if (httpd_req_get_url_query_len(req) < 1) {
+        return httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Falta parámetro");
+    }
+
+    char query[128];
+    httpd_req_get_url_query_str(req, query, sizeof(query));
+    if (httpd_query_key_value(query, "archivo", archivo, sizeof(archivo)) != ESP_OK) {
+        return httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Falta nombre de archivo");
+    }
+
+    char path[96];
+    snprintf(path, sizeof(path), "/spiffs/%s", archivo);
+    FILE *f = fopen(path, "rb");
+    if (!f) return httpd_resp_send_err(req, HTTPD_404_NOT_FOUND, "Archivo no encontrado");
+
+    httpd_resp_set_type(req, "audio/wav");
+    char hdr[128];
+    snprintf(hdr, sizeof(hdr), "attachment; filename=\"%s\"", archivo);
+    httpd_resp_set_hdr(req, "Content-Disposition", hdr);
+
+    char buffer[1024];
+    size_t len;
+    while ((len = fread(buffer, 1, sizeof(buffer), f)) > 0) {
+        httpd_resp_send_chunk(req, buffer, len);
+    }
+    fclose(f);
+    httpd_resp_send_chunk(req, NULL, 0);
+    return ESP_OK;
+}
+
+static esp_err_t reproducir_audio_handler(httpd_req_t *req) {
+    char archivo[64] = {0};
+
+    // Extrae el parámetro de la URL
+    char *query = strchr(req->uri, '?');
+    if (query && strstr(query, "archivo=")) {
+        char *nombre = strstr(query, "archivo=") + strlen("archivo=");
+        strncpy(archivo, nombre, sizeof(archivo) - 1);
+    } else {
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Falta parámetro 'archivo'");
+        return ESP_FAIL;
+    }
+
+    // Decodifica caracteres especiales si vinieron por URL (por ejemplo, %20)
+    httpd_query_key_value(query + 1, "archivo", archivo, sizeof(archivo));
+
+    // Detener cualquier reproducción anterior antes de cambiar el track
+    audio_player_send_cmd(CMD_STOP);
+    vTaskDelay(pdMS_TO_TICKS(150));  // Breve espera para asegurarse que se detuvo
+
+    if (audio_player_reproducir_archivo(archivo)) {
+        httpd_resp_sendstr(req, "OK");
+        return ESP_OK;
+    } else {
+        httpd_resp_send_err(req, HTTPD_404_NOT_FOUND, "Archivo no encontrado en playlist");
+        return ESP_FAIL;
+    }
+}
+
+static esp_err_t listar_audios_json_handler(httpd_req_t *req) {
+    DIR *dir = opendir("/spiffs");
+    if (!dir) {
+        return httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "No se pudo abrir SPIFFS");
+    }
+
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_sendstr_chunk(req, "[");
+
+    struct dirent *entry;
+    bool primero = true;
+    while ((entry = readdir(dir)) != NULL) {
+        if (strstr(entry->d_name, ".wav")) {
+            if (!primero) httpd_resp_sendstr_chunk(req, ",");
+            httpd_resp_sendstr_chunk(req, "\"");
+            httpd_resp_sendstr_chunk(req, entry->d_name);
+            httpd_resp_sendstr_chunk(req, "\"");
+            primero = false;
+        }
+    }
+
+    closedir(dir);
+    httpd_resp_sendstr_chunk(req, "]");
+    httpd_resp_sendstr_chunk(req, NULL);
+    return ESP_OK;
+}
+
 // Inicializar WebServer
 void web_service_inicializar(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.max_uri_handlers = 10;
+    config.max_uri_handlers = 15;
     config.recv_wait_timeout = 10;
     config.lru_purge_enable = true;
     config.stack_size = 8192;
@@ -425,7 +440,30 @@ void web_service_inicializar(void) {
         .handler = borrar_credenciales_handler,
         .user_ctx = NULL
         };
-
+        const httpd_uri_t reload_playlist_uri = {
+            .uri = "/reload_playlist",
+            .method = HTTP_GET,
+            .handler = reload_playlist_handler,
+            .user_ctx = NULL
+        };
+        const httpd_uri_t descargar_uri = {
+            .uri = "/descargar",
+            .method = HTTP_GET,
+            .handler = descargar_handler,
+            .user_ctx = NULL
+        };
+        const httpd_uri_t listar_audios_uri = {
+            .uri = "/listar_audios",
+            .method = HTTP_GET,
+            .handler = listar_audios_json_handler,
+            .user_ctx = NULL
+        };
+        httpd_uri_t uri_reproducir = {
+            .uri      = "/reproducir",
+            .method   = HTTP_GET,
+            .handler  = reproducir_audio_handler,
+            .user_ctx = NULL
+        };
 
 
         httpd_register_uri_handler(server, &root_uri);
@@ -437,5 +475,9 @@ void web_service_inicializar(void) {
         httpd_register_uri_handler(server, &upload_uri);
         httpd_register_uri_handler(server, &borrar_uri);
         httpd_register_uri_handler(server, &borrar_cred_uri);
+        httpd_register_uri_handler(server, &reload_playlist_uri);
+        httpd_register_uri_handler(server, &descargar_uri);
+        httpd_register_uri_handler(server, &listar_audios_uri);
+        httpd_register_uri_handler(server, &uri_reproducir);
     }
 }

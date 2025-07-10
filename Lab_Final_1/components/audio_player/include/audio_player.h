@@ -106,5 +106,6 @@ const char *audio_state_to_str(audio_state_t estado);
 
 int audio_player_get_volume(void);
 const char* audio_player_get_song(void);
+bool audio_player_reproducir_archivo(const char *nombre_archivo);
 
 #endif // AUDIO_PLAYER_H

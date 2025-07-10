@@ -131,7 +131,6 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
             if (!mqtt_suscripto) {
                 esp_mqtt_client_subscribe(client, TOPIC_CONTROL, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_ESTADO, 1);
-                esp_mqtt_client_subscribe(client, TOPIC_LOG, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_GET, 1);
                 esp_mqtt_client_subscribe(client, TOPIC_MUSICA, 1);
 
@@ -189,6 +188,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
                     if (unlink(path) == 0) {
                         ESP_LOGI("MQTT_MUSICA", "Archivo borrado por MQTT: %s", filename);
+                        load_playlist_from_spiffs();
+                        vTaskDelay(pdMS_TO_TICKS(100));  // (opcional) para evitar conflictos inmediatos
                     } else {
                         ESP_LOGE("MQTT_MUSICA", "Error al borrar archivo: %s", filename);
                     }

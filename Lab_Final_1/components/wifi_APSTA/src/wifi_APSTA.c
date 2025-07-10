@@ -36,6 +36,18 @@ void wifi_modo_ap_puro(void) {
     esp_wifi_start();
 }
 
+static void verificar_y_levantar_mqtt(void) {
+    if (!mqtt_started) {
+        if (task_mqtt_start(NULL) == ESP_OK) {
+            mqtt_started = true;
+            logger_publicar_al_arrancar();
+            ESP_LOGI(TAG, "MQTT iniciado exitosamente.");
+        } else {
+            ESP_LOGW(TAG, "Fallo al iniciar MQTT.");
+        }
+    }
+}
+
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                                int32_t event_id, void *event_data) {
     ESP_LOGI(TAG, "EVENT: -> Entrando a wifi_event_handler. event_base: %s, event_id: %ld", event_base, event_id);
@@ -115,13 +127,7 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
         }
 
         ntp_sync_inicializar();
-
-        if (!mqtt_started) {
-            if (task_mqtt_start(NULL) == ESP_OK) {
-                mqtt_started = true;
-                logger_publicar_al_arrancar();
-            }
-        }
+        verificar_y_levantar_mqtt();
     }
 
     ESP_LOGI(TAG, "EVENT: <- Saliendo de wifi_event_handler");
@@ -249,7 +255,7 @@ void wifi_fsm_task(void *param) {
                     portEXIT_CRITICAL(&state_mux);
                 }
 
-                
+                verificar_y_levantar_mqtt();
                 ESP_LOGI(TAG, "FSM: <- Salida de CONNECTED");
                 break;
 

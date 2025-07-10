@@ -118,6 +118,19 @@
   </form>
 </div>
 
+<h2 class="subtitulo">🎶 Actualizar Playlist</h2>
+
+<div class="panel">
+  <button onclick="recargarPlaylist()">🔄 Recargar </button>
+  <p id="playlist-status" style="color: lime; margin-top: 1em;"></p>
+</div>
+
+<h2 class="subtitulo">📁 Archivos en memoria</h2>
+
+<div class="panel" id="lista-audios">
+  <p>Cargando lista de archivos...</p>
+</div>
+
 <h2 class="subtitulo">🔁 Reinicio</h2>
 
 <div class="panel">
@@ -240,10 +253,83 @@
       .catch(err => alert("Error al subir " + files[i].name + ": " + err));
     }
   }
+  function recargarPlaylist() {
+    fetch("/reload_playlist")
+      .then(r => r.text())
+      .then(msg => {
+        document.getElementById("playlist-status").innerText = "✅ Playlist recargada.";
+        console.log("Playlist recargada:", msg);
+      })
+      .catch(err => {
+        document.getElementById("playlist-status").innerText = "❌ Error al recargar playlist.";
+        console.error(err);
+      });
+  } 
+  function cargarListaAudios() {
+  fetch("/listar_audios")
+    .then(res => res.json())
+    .then(data => {
+      const div = document.getElementById("lista-audios");
+      if (!Array.isArray(data) || data.length === 0) {
+        div.innerHTML = "<p>No hay archivos de audio.</p>";
+        return;
+      }
+
+      let html = "<ul style='list-style:none; padding:0;'>";
+      data.forEach(nombre => {
+        const nombreURL = encodeURIComponent(nombre);
+        html += `<li style="margin:0.5em 0;">
+          🎵 <b>${nombre}</b><br>
+          <button onclick="reproducirArchivo('${nombre}')">▶️</button>
+          <button onclick="descargarArchivo('${nombreURL}')">⬇️</button>
+          <button onclick="borrarArchivo('${nombreURL}')">🗑️</button>
+        </li>`;
+      });
+      html += "</ul>";
+      div.innerHTML = html;
+    })
+    .catch(err => {
+      console.error("Error al cargar lista de audios:", err);
+      document.getElementById("lista-audios").innerHTML = "<p>Error al cargar audios</p>";
+    });
+}
+
+function reproducirArchivo(nombre) {
+  fetch("/cmd?cmd=stop").then(() =>
+    fetch("/cmd?cmd=play") // Simula que cambió la playlist y quiere reproducir el primero
+  );
+  alert("Función reproducir está simulada. Para activar track individual hacelo desde backend.");
+}
+
+function descargarArchivo(nombre) {
+  window.open("/descargar?archivo=" + nombre, "_blank");
+}
+
+function borrarArchivo(nombre) {
+  if (confirm("¿Seguro que deseas borrar '" + decodeURIComponent(nombre) + "'?")) {
+    fetch("/borrar?archivo=" + nombre)
+      .then(() => {
+        cargarListaAudios();
+        recargarPlaylist();
+      });
+  }
+}
+function reproducirArchivo(nombre) {
+  fetch("/reproducir?archivo=" + encodeURIComponent(nombre))
+    .then(r => {
+      if (!r.ok) throw new Error("No se pudo reproducir el archivo.");
+      sendCmd("play");  // En caso de que esté pausado
+    })
+    .catch(err => alert(err));
+}
+
   
     
   setInterval(actualizarEstado, 2000);
-  window.onload = actualizarEstado;
+  window.onload = function () {
+  actualizarEstado();
+  cargarListaAudios(); 
+};
 </script>
 
 </body>

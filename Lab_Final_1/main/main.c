@@ -107,6 +107,8 @@ void app_main(void)
     ESP_LOGI("MAIN", "WiFi AP+STA ya inicializado. FSM en ejecución...");
     vTaskDelay(pdMS_TO_TICKS(500));
 
+    
+
     while (true) {
         vTaskDelay(pdMS_TO_TICKS(10));
     }

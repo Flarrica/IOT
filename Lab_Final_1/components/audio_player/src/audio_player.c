@@ -487,8 +487,10 @@ static void task_audio_player(void *args) {
                     vTaskDelay(pdMS_TO_TICKS(100));
                     break;
         }
+        vTaskDelay(1);
 
     }
+    
 
 }
 
@@ -599,4 +601,21 @@ const char* audio_player_get_song(void) {
     } else {
         return "Desconocida";
     }
+}
+
+bool audio_player_reproducir_archivo(const char *nombre_archivo) {
+    if (!nombre_archivo || strlen(nombre_archivo) == 0) return false;
+
+    for (int i = 0; i < playlist_size; i++) {
+        const char *nombre = strrchr(playlist[i], '/');
+        if (nombre && strcmp(nombre + 1, nombre_archivo) == 0) {
+            next_track_index = i;
+            player_state = PLAYER_PLAYING;
+            xQueueSend(color_queue, &event_play, portMAX_DELAY);
+            return true;
+        }
+    }
+
+    ESP_LOGW("audio_player", "Archivo no encontrado en la playlist: %s", nombre_archivo);
+    return false;
 }
